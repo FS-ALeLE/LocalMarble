@@ -53,7 +53,7 @@ No text, no letters, no signs with writing, no watermark.
 
 | # | 파일 이름 | 내용 | 크기 · 형식 | 배경 |
 |---|---|---|---|---|
-| 0 | `style-anchor.png` | **기준 이미지**: 홍주성 역사관 건물 1채 | 정사각형(1024×1024) PNG | 투명 |
+| 0 | `style-anchor.png` | **기준 이미지**: 홍주성 역사관 건물 1채 (확정 후 `bld-museum.png`로도 저장) | 정사각형(1024×1024) PNG | 투명 |
 | 1 | `map-base.png` | 지도 바탕 (건물 없이 땅·바다·산·논만) | **가로형 최대 크기** (예: 1536×1024) PNG | 불투명 |
 | 2~11 | `bld-*.png` | 장소 건물 10채 | 1024×1024 PNG | 투명 |
 | 12~13 | `bld-start.png`, `bld-rest.png` | 출발(조양문), 쉼터(정자) | 1024×1024 PNG | 투명 |
@@ -148,19 +148,19 @@ Transparent background.
 
 ```
 Using the attached image as the style reference, create a board-game player
-piece: a cute [big prawn / small shrimp / Korean brown cow (hanwoo) / white duck]
+piece: a cute [big prawn / Korean brown cow (hanwoo) / white duck / seagull]
 toy figure standing on a small round vermilion (#E8553D) pedestal.
 Centered, whole object visible, transparent background.
 [STYLE]
 ```
-파일 이름: `piece-prawn.png`, `piece-shrimp.png`, `piece-cow.png`, `piece-duck.png`
+파일 이름: `piece-prawn.png`, `piece-cow.png`, `piece-duck.png`, `piece-seagull.png`
 
 ### 4.5 미니게임 그림
 
 | 파일 | 프롬프트 (기준 이미지 첨부 + `[STYLE]`) |
 |---|---|
 | `mg-prawn.png` | A single cute big prawn jumping, side view, transparent background. |
-| `mg-sea.png` | A calm cute sea surface with small waves seen from the front, wide format, no objects. |
+| `mg-sea.png` | A calm cute sea and sky background seen from the front, wide format, no objects. |
 | `mg-card-back.png` | A playing card back design with a vermilion and gold traditional Korean pattern, no text, front view, flat. |
 | `mg-card-1~4.png` | Four separate cute icons for memory cards: (1) brown salted-shrimp clay jar, (2) golden silver grass, (3) traditional fortress gate, (4) a seaweed (gim) sheet with rice — one per image, centered, transparent background. |
 

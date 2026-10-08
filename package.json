@@ -1,0 +1,17 @@
+{
+  "name": "localmarble",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "questions": "node tools/build-questions.mjs",
+    "dev": "npm run questions && vite",
+    "build": "npm run questions && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vite": "6.4.3"
+  }
+}

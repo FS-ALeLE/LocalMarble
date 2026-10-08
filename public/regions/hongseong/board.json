@@ -1,0 +1,355 @@
+{
+  "width": 1600,
+  "height": 1000,
+  "start": 0,
+  "places": {
+    "museum": {
+      "name": "홍주성 역사관",
+      "short": "역사관",
+      "emoji": "🏯",
+      "art": "art/bld-museum.png",
+      "categories": [
+        "history"
+      ],
+      "mode": "quiz"
+    },
+    "library": {
+      "name": "만해 도서관",
+      "short": "도서관",
+      "emoji": "📚",
+      "art": "art/bld-library.png",
+      "categories": [
+        "people"
+      ],
+      "mode": "quiz"
+    },
+    "police": {
+      "name": "백야 안전지킴이 경찰서",
+      "short": "경찰서",
+      "emoji": "🚓",
+      "art": "art/bld-police.png",
+      "categories": [
+        "safety",
+        "people"
+      ],
+      "mode": "quiz"
+    },
+    "alley": {
+      "name": "광천 토굴 새우젓 골목",
+      "short": "새우젓",
+      "emoji": "🏺",
+      "art": "art/bld-alley.png",
+      "categories": [
+        "specialty"
+      ],
+      "mode": "quiz"
+    },
+    "stadium": {
+      "name": "홍주 종합경기장",
+      "short": "경기장",
+      "emoji": "🏟️",
+      "art": "art/bld-stadium.png",
+      "categories": [
+        "specialty"
+      ],
+      "mode": "minigame",
+      "minigame": "prawn"
+    },
+    "port": {
+      "name": "남당항 바다 시장",
+      "short": "남당항",
+      "emoji": "⛵",
+      "art": "art/bld-port.png",
+      "categories": [
+        "specialty",
+        "nature"
+      ],
+      "mode": "quiz_or_minigame",
+      "minigame": "prawn"
+    },
+    "mountain": {
+      "name": "용봉산 바위길",
+      "short": "용봉산",
+      "emoji": "⛰️",
+      "art": "art/bld-mountain.png",
+      "categories": [
+        "nature"
+      ],
+      "mode": "quiz"
+    },
+    "office": {
+      "name": "내포 도청 광장",
+      "short": "도청",
+      "emoji": "🏛️",
+      "art": "art/bld-office.png",
+      "categories": [
+        "society"
+      ],
+      "mode": "quiz"
+    },
+    "gallery": {
+      "name": "고암 이응노의 집",
+      "short": "이응노",
+      "emoji": "🎨",
+      "art": "art/bld-gallery.png",
+      "categories": [
+        "people"
+      ],
+      "mode": "quiz_or_minigame",
+      "minigame": "memory"
+    },
+    "village": {
+      "name": "홍동 유기농 마을",
+      "short": "홍동",
+      "emoji": "🦆",
+      "art": "art/bld-village.png",
+      "categories": [
+        "environment"
+      ],
+      "mode": "quiz"
+    }
+  },
+  "tiles": [
+    {
+      "id": 0,
+      "type": "start",
+      "x": 830,
+      "y": 600,
+      "next": [
+        1
+      ]
+    },
+    {
+      "id": 1,
+      "type": "place",
+      "x": 690,
+      "y": 700,
+      "next": [
+        2
+      ],
+      "place": "museum"
+    },
+    {
+      "id": 2,
+      "type": "chance",
+      "x": 585,
+      "y": 800,
+      "next": [
+        3
+      ]
+    },
+    {
+      "id": 3,
+      "type": "place",
+      "x": 445,
+      "y": 850,
+      "next": [
+        4
+      ],
+      "place": "alley"
+    },
+    {
+      "id": 4,
+      "type": "place",
+      "x": 305,
+      "y": 775,
+      "next": [
+        5
+      ],
+      "place": "library"
+    },
+    {
+      "id": 5,
+      "type": "rest",
+      "x": 225,
+      "y": 650,
+      "next": [
+        6
+      ]
+    },
+    {
+      "id": 6,
+      "type": "place",
+      "x": 205,
+      "y": 520,
+      "next": [
+        7
+      ],
+      "place": "port"
+    },
+    {
+      "id": 7,
+      "type": "place",
+      "x": 255,
+      "y": 390,
+      "next": [
+        8
+      ],
+      "place": "port"
+    },
+    {
+      "id": 8,
+      "type": "chance",
+      "x": 365,
+      "y": 290,
+      "next": [
+        9
+      ]
+    },
+    {
+      "id": 9,
+      "type": "place",
+      "x": 500,
+      "y": 230,
+      "next": [
+        10
+      ],
+      "place": "police"
+    },
+    {
+      "id": 10,
+      "type": "place",
+      "x": 655,
+      "y": 205,
+      "next": [
+        11,
+        18
+      ],
+      "place": "mountain"
+    },
+    {
+      "id": 11,
+      "type": "place",
+      "x": 815,
+      "y": 200,
+      "next": [
+        12
+      ],
+      "place": "office"
+    },
+    {
+      "id": 12,
+      "type": "chance",
+      "x": 960,
+      "y": 245,
+      "next": [
+        13
+      ]
+    },
+    {
+      "id": 13,
+      "type": "place",
+      "x": 1085,
+      "y": 330,
+      "next": [
+        14
+      ],
+      "place": "gallery"
+    },
+    {
+      "id": 14,
+      "type": "rest",
+      "x": 1160,
+      "y": 460,
+      "next": [
+        15
+      ]
+    },
+    {
+      "id": 15,
+      "type": "place",
+      "x": 1150,
+      "y": 600,
+      "next": [
+        16
+      ],
+      "place": "village"
+    },
+    {
+      "id": 16,
+      "type": "place",
+      "x": 1060,
+      "y": 725,
+      "next": [
+        17
+      ],
+      "place": "village"
+    },
+    {
+      "id": 17,
+      "type": "place",
+      "x": 960,
+      "y": 700,
+      "next": [
+        0
+      ],
+      "place": "stadium"
+    },
+    {
+      "id": 18,
+      "type": "place",
+      "x": 600,
+      "y": 360,
+      "next": [
+        19
+      ],
+      "place": "stadium"
+    },
+    {
+      "id": 19,
+      "type": "place",
+      "x": 715,
+      "y": 480,
+      "next": [
+        0
+      ],
+      "place": "museum"
+    }
+  ],
+  "forks": {
+    "10": [
+      "내포·홍동 쪽 (먼 길)",
+      "홍성읍 쪽 (지름길)"
+    ]
+  },
+  "startArt": "art/bld-start.png",
+  "restArt": "art/bld-rest.png",
+  "chanceArt": "art/bld-chance.png",
+  "mapArt": "art/map-base.png",
+  "pieces": [
+    {
+      "id": "prawn",
+      "name": "대하",
+      "emoji": "🦐",
+      "art": "art/piece-prawn.png"
+    },
+    {
+      "id": "cow",
+      "name": "한우",
+      "emoji": "🐮",
+      "art": "art/piece-cow.png"
+    },
+    {
+      "id": "duck",
+      "name": "오리",
+      "emoji": "🦆",
+      "art": "art/piece-duck.png"
+    },
+    {
+      "id": "seagull",
+      "name": "갈매기",
+      "emoji": "🐦",
+      "art": "art/piece-seagull.png"
+    }
+  ],
+  "guide": {
+    "name": "홍이",
+    "emoji": "🧒",
+    "art": {
+      "normal": "art/char-hongi-normal.png",
+      "happy": "art/char-hongi-happy.png",
+      "sad": "art/char-hongi-sad.png",
+      "think": "art/char-hongi-think.png"
+    }
+  }
+}
