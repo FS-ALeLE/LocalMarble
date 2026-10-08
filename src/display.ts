@@ -14,7 +14,7 @@ const body = h('div', { class: 'display-body' }, h('p', { class: 'lb-empty' }, '
 const clock = h('div', { class: 'display-clock' });
 stage.replaceChildren(h('div', { class: 'screen display-screen', ondblclick: () => toggleFullscreen() },
   h('header', { class: 'display-head' },
-    h('h1', { class: 'logo display-logo' }, '홍성 탐험 ', h('span', { class: 'logo-go' }, '고고!')),
+    h('h1', { class: 'logo display-logo' }, h('span', { class: 'logo-line1' }, '다 같이 돌자,'), h('span', { class: 'logo-line2' }, '홍성 ', h('span', { class: 'logo-go' }, '한 바퀴'))),
     title, clock),
   body));
 

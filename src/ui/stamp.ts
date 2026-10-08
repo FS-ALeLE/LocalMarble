@@ -7,7 +7,7 @@ export function stampSvg(label: string, size = 64, color = '#E8553D'): string {
       <circle cx="50" cy="50" r="35" stroke-width="2.5"/>
     </g>
     <text x="50" y="44" text-anchor="middle" font-family="Jua, sans-serif" font-size="${fontSize}" fill="${color}" filter="url(#ink)">${label}</text>
-    <text x="50" y="68" text-anchor="middle" font-family="Jua, sans-serif" font-size="13" fill="${color}" filter="url(#ink)">홍성 탐험</text>
+    <text x="50" y="68" text-anchor="middle" font-family="Jua, sans-serif" font-size="11" fill="${color}" filter="url(#ink)">홍성 한 바퀴</text>
   </svg>`;
 }
 

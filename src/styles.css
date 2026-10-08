@@ -137,9 +137,10 @@ body.portrait #rotate-notice { display: flex; }
   text-shadow: 0 14px 0 var(--navy-dark);
   animation: logo-in 0.8s cubic-bezier(0.2, 1.6, 0.4, 1) both;
 }
-.logo span { display: inline-block; animation: bob 2.4s ease-in-out infinite; }
-.logo span:nth-child(2) { animation-delay: -0.3s; }
-.logo-go { color: var(--gold); animation-delay: -0.6s !important; }
+.logo-line1 { display: block; font-size: 0.55em; line-height: 1.1; }
+.logo-line2 { display: block; }
+.logo-line2 > span { display: inline-block; animation: bob 2.4s ease-in-out infinite; }
+.logo-go { color: var(--gold); animation-delay: -0.5s !important; }
 .title-event {
   z-index: 1;
   background: rgba(255, 255, 255, 0.92);
@@ -604,7 +605,8 @@ body.portrait #rotate-notice { display: flex; }
 /* ---------- 전광판 ---------- */
 .display-screen { display: flex; flex-direction: column; padding: 28px 40px 36px; gap: 20px; background: radial-gradient(circle at 50% 20%, #8fd0ea, #4a8fc0); }
 .display-head { display: flex; align-items: center; gap: 30px; }
-.display-logo { font-size: 84px; margin: 0; -webkit-text-stroke-width: 7px; text-shadow: 0 8px 0 var(--navy-dark); animation: none; }
+.display-logo { font-size: 72px; margin: 0; -webkit-text-stroke-width: 7px; text-shadow: 0 7px 0 var(--navy-dark); animation: none; text-align: left; }
+.display-logo .logo-line2 > span { animation: none; }
 .display-event { flex: 1; font-family: var(--display); font-size: 40px; color: #fff; text-shadow: 0 3px 0 var(--navy-dark); }
 .display-clock { font-family: var(--display); font-size: 40px; color: #fff; background: rgba(31, 66, 102, 0.6); padding: 6px 20px; border-radius: 18px; }
 .display-body { flex: 1; min-height: 0; }
