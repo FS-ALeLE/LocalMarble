@@ -28,8 +28,8 @@ export const CONFIG = {
     prawn: { seconds: 20, goal: { low: 8, high: 11 } as Record<Level, number> },
     memory: { seconds: { low: 50, high: 40 } as Record<Level, number>, pairs: 4 },
   },
-  /** 초안 단계: 검수 전 문항도 출제한다. 행사 전에 false로 바꾼다. */
-  allowUnverified: true,
+  /** true면 검수 전(verified가 아닌) 문항도 출제한다. */
+  allowUnverified: false,
   idle: { warnMs: 30_000, resetMs: 60_000 },
   region: 'hongseong',
 };
