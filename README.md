@@ -50,3 +50,25 @@ public/regions/hongseong/   보드·문항·상식·별명 데이터, 그림, �
 content/hongseong/          문항 원본(CSV)
 tools/                      CSV → JSON 변환
 ```
+
+## 배포 (Vercel + Neon)
+
+1. Vercel 프로젝트에 이 저장소를 연결하고, Storage에서 Neon을 추가합니다 → `DATABASE_URL` 자동 등록.
+2. Vercel → Settings → Environment Variables 에 두 개를 추가합니다.
+   - `ADMIN_PASSWORD`: 진행자 화면 비밀번호
+   - `CRON_SECRET`: 아무 긴 임의 문자열 (자동 삭제 호출 확인용)
+3. 다시 배포한 뒤 `https://<주소>/admin` 에서 행사를 만듭니다 (시작·끝은 한국 시간).
+4. 주소
+   - 게임: `/` — 행사 시간에만 순위표에 기록, 그 외에는 연습 모드
+   - 전광판: `/board` — 5초마다 갱신, 두 번 누르면 전체 화면
+   - 진행자: `/admin` — 행사 만들기, 별명 숨기기, 순위 CSV, 기록 바로 지우기
+5. 기록 삭제: 매일 새벽 3시(KST) Vercel Cron이 "끝나는 날 다음 날 0시"가 지난 행사의 기록을 지웁니다. 문항별 정답률만 남습니다.
+
+DB 테이블은 첫 요청 때 자동으로 만들어집니다. 서버 함수는 Neon과 같은 싱가포르(`sin1`)에서 실행됩니다.
+
+### 로컬 시험
+
+```bash
+npm run test:api                              # API를 PGlite(로컬 PostgreSQL)로 시험
+npm run build && npx tsx tests/local-server.ts  # dist + API를 http://localhost:4300 에서 실행 (진행자 비밀번호: admin)
+```

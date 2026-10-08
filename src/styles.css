@@ -568,3 +568,40 @@ body.portrait #rotate-notice { display: flex; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* ---------- 리더보드 ---------- */
+.reg-nav.gap { gap: 20px; }
+.rank-big { font-size: 40px; color: var(--red); font-weight: normal; }
+.lb-panel { width: 1440px; height: 900px; padding: 36px 44px; display: flex; flex-direction: column; gap: 20px; }
+.lb-box { flex: 1; min-height: 0; }
+.lb { display: grid; grid-template-columns: 1.5fr 1fr; gap: 28px; height: 100%; }
+.lb-col { background: #fff; border: 4px solid var(--line); border-radius: 30px; padding: 20px 24px; overflow: hidden; }
+.lb-col h3 { margin: 0 0 12px; font-family: var(--display); font-weight: normal; font-size: 36px; color: var(--navy-dark); display: flex; align-items: baseline; gap: 12px; }
+.lb-col h3 small { font-family: var(--body); font-size: 18px; color: var(--muted); }
+.lb ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.lb li { display: flex; align-items: center; gap: 14px; padding: 8px 14px; border-radius: 18px; background: #fbf6ec; font-size: 26px; }
+.lb li:nth-child(-n + 3) { background: #fff3d6; }
+.lb li.me { background: var(--red); color: #fff; animation: pop 0.6s 2; }
+.lb li.me small { color: #ffe5de; }
+.lb li.fresh { animation: fresh 2.4s; }
+.lb-rank { width: 48px; text-align: center; font-family: var(--display); font-size: 30px; }
+.lb-name { flex: 1; font-family: var(--display); font-size: 30px; display: flex; align-items: baseline; gap: 10px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lb-name small { font-family: var(--body); font-size: 18px; color: var(--muted); }
+.lb-stamps { font-size: 18px; color: var(--muted); white-space: nowrap; }
+.lb li.me .lb-stamps { color: #ffe5de; }
+.lb-score { font-family: var(--display); font-size: 32px; color: var(--red); min-width: 100px; text-align: right; }
+.lb li.me .lb-score { color: #fff; }
+.lb-empty { text-align: center; font-size: 26px; color: var(--muted); margin-top: 40px; }
+@keyframes fresh { 0%, 40% { background: var(--gold); transform: scale(1.03); } }
+
+/* ---------- 전광판 ---------- */
+.display-screen { display: flex; flex-direction: column; padding: 28px 40px 36px; gap: 20px; background: radial-gradient(circle at 50% 20%, #8fd0ea, #4a8fc0); }
+.display-head { display: flex; align-items: center; gap: 30px; }
+.display-logo { font-size: 84px; margin: 0; -webkit-text-stroke-width: 7px; text-shadow: 0 8px 0 var(--navy-dark); animation: none; }
+.display-event { flex: 1; font-family: var(--display); font-size: 40px; color: #fff; text-shadow: 0 3px 0 var(--navy-dark); }
+.display-clock { font-family: var(--display); font-size: 40px; color: #fff; background: rgba(31, 66, 102, 0.6); padding: 6px 20px; border-radius: 18px; }
+.display-body { flex: 1; min-height: 0; }
+.display-body .lb li { padding: 6px 14px; font-size: 24px; }
+.display-body .lb-name { font-size: 28px; }
+.display-body .lb-score { font-size: 30px; }
+.display-wait { text-align: center; font-family: var(--display); font-size: 80px; color: #fff; margin-top: 200px; }

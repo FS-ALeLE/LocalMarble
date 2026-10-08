@@ -1,7 +1,7 @@
 import { sfx } from '../audio/sfx';
 import { CONFIG } from '../config';
 import type { PlayResult, Profile, RegionData } from '../core/types';
-import type { EventInfo } from '../services/api';
+import type { EventInfo, Rank } from '../services/api';
 import { h } from '../ui/dom';
 import { emptyStampSvg, stampSvg } from '../ui/stamp';
 
@@ -9,7 +9,8 @@ export function gradeOf(score: number) {
   return CONFIG.grades.find((g) => score >= g.min) ?? CONFIG.grades[CONFIG.grades.length - 1];
 }
 
-export function resultScreen(stage: HTMLElement, data: RegionData, profile: Profile, result: PlayResult, event: EventInfo): Promise<void> {
+/** 결과 화면. 'leaderboard'를 고르면 순위 화면으로 간다. */
+export function resultScreen(stage: HTMLElement, data: RegionData, profile: Profile, result: PlayResult, event: EventInfo, rank: Promise<Rank | null>): Promise<'leaderboard' | 'next'> {
   return new Promise((resolve) => {
     const grade = gradeOf(result.score);
     const title = { finish: '🎉 완주 성공!', gameover: '하트를 다 썼어요', timeout: '탐험 시간이 끝났어요' }[result.outcome];
@@ -17,7 +18,19 @@ export function resultScreen(stage: HTMLElement, data: RegionData, profile: Prof
     const learned = result.learned.slice(-3);
 
     const scoreEl = h('div', { class: 'result-score' }, '0');
-    const next = h('button', { class: 'btn btn-primary big', onclick: () => { sfx.go(); resolve(); } }, '다음 친구 차례! 👋');
+    let auto = 0;
+    const done = (to: 'leaderboard' | 'next') => { clearTimeout(auto); sfx.go(); resolve(to); };
+    const next = h('button', { class: 'btn btn-primary big', onclick: () => done('next') }, '다음 친구 차례! 👋');
+    const rankBtn = h('button', { class: 'btn btn-gold big', onclick: () => done('leaderboard') }, '🏆 순위 보기');
+    const note = h('div', { class: 'result-note' }, event.active ? '기록을 저장하는 중…' : '연습 모드라 순위표에 기록되지 않았어요.');
+    if (event.active) {
+      void rank.then((r) => {
+        note.replaceChildren(r
+          ? h('span', {}, '🏆 ', h('b', { class: 'rank-big' }, `${r.total}명 중 ${r.rank}등!`))
+          : h('span', {}, '📡 인터넷이 연결되면 기록이 자동으로 저장돼요.'));
+        if (r && r.rank <= 3) sfx.fanfare();
+      });
+    }
 
     stage.replaceChildren(h('div', { class: 'screen result-screen' },
       h('div', { class: 'panel result-panel pop-in' },
@@ -36,8 +49,8 @@ export function resultScreen(stage: HTMLElement, data: RegionData, profile: Prof
           learned.length
             ? h('ul', { class: 'learned' }, ...learned.map((l) => h('li', {}, h('b', {}, l.question), h('p', {}, l.explanation))))
             : h('p', { class: 'muted' }, '다음엔 퀴즈를 풀며 홍성 이야기를 모아 봐요!'),
-          h('div', { class: 'result-note' }, event.active ? '🏆 순위표에 기록되었어요!' : '연습 모드라 순위표에 기록되지 않았어요.'),
-          h('div', { class: 'reg-nav center' }, next)))));
+          note,
+          h('div', { class: 'reg-nav center gap' }, event.active ? rankBtn : null, next)))));
 
     if (result.outcome === 'finish' || grade === CONFIG.grades[0]) sfx.fanfare();
     const start = performance.now();
@@ -47,7 +60,6 @@ export function resultScreen(stage: HTMLElement, data: RegionData, profile: Prof
       if (t < 1) requestAnimationFrame(count);
     };
     count();
-    const auto = window.setTimeout(() => next.click(), 90_000);
-    next.addEventListener('click', () => clearTimeout(auto));
+    auto = window.setTimeout(() => done('next'), 90_000);
   });
 }

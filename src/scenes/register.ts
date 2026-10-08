@@ -1,8 +1,8 @@
 import { sfx } from '../audio/sfx';
 import { pick } from '../core/random';
 import type { Profile, RegionData } from '../core/types';
-import { suggestAffiliations, type EventInfo } from '../services/api';
-import { affiliationKey, affiliationProblem, nicknameProblem } from '../services/filter';
+import { registerPlayer, suggestAffiliations, type EventInfo } from '../services/api';
+import { affiliationKey, affiliationProblem, nicknameProblem } from '../../api/_lib/filter';
 import { h } from '../ui/dom';
 
 const SOLO = '개인';
@@ -116,6 +116,31 @@ export function registerScreen(stage: HTMLElement, data: RegionData, event: Even
     const stepConfirm = () => {
       setStep(3);
       const key = profile.affiliation === SOLO ? SOLO : affiliationKey(profile.affiliation);
+      const msg = h('div', { class: 'reg-msg err' });
+      const ok = h('button', { class: 'btn btn-primary' }, '맞아요!');
+      ok.addEventListener('click', async () => {
+        sfx.click();
+        const result: Profile = { affiliation: profile.affiliation, affiliationKey: key, nickname: profile.nickname, grade: profile.grade };
+        if (event.active) {
+          ok.disabled = true;
+          ok.textContent = '등록하는 중…';
+          const reg = await registerPlayer(result);
+          if (reg.ok) {
+            result.token = reg.data.token;
+            result.nickname = reg.data.nickname;
+          } else if (reg.status >= 400 && reg.status < 500 && reg.status !== 409) {
+            // 서버가 별명·소속을 받아 주지 않음 → 다시 쓰게 한다.
+            msg.textContent = reg.error;
+            ok.disabled = false;
+            ok.textContent = '맞아요!';
+            sfx.wrong();
+            return;
+          }
+          // 연결이 안 되면 그냥 진행하고, 결과를 낼 때 다시 등록한다.
+        }
+        sfx.go();
+        resolve(result);
+      });
       body.replaceChildren(
         h('h2', {}, '이렇게 맞나요?'),
         h('div', { class: 'name-card' },
@@ -124,9 +149,10 @@ export function registerScreen(stage: HTMLElement, data: RegionData, event: Even
         h('p', { class: 'reg-help small' }, event.active
           ? '별명과 소속이 오늘의 순위표에 보여요. 기록은 내일 지워져요.'
           : '지금은 연습 모드라 순위표에 기록되지 않아요.'),
+        msg,
         h('div', { class: 'reg-nav' },
           h('button', { class: 'btn btn-ghost', onclick: () => { sfx.click(); stepAffiliation(); } }, '다시 쓸래요'),
-          h('button', { class: 'btn btn-primary', onclick: () => { sfx.go(); resolve({ affiliation: profile.affiliation, affiliationKey: key, nickname: profile.nickname, grade: profile.grade }); } }, '맞아요!')),
+          ok),
       );
     };
 

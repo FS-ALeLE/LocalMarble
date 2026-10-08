@@ -70,6 +70,8 @@ export interface Profile {
   affiliationKey: string;
   nickname: string;
   grade?: number;
+  /** 서버 등록 후 받은 플레이 토큰 (연습 모드나 오프라인이면 없음) */
+  token?: string;
 }
 
 export interface Setup {
