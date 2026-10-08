@@ -270,6 +270,13 @@ body.portrait #rotate-notice { display: flex; }
 .bld img { width: 130px; height: 130px; margin: -40px -20px 0; }
 .bld-start { left: -55px; top: -118px; width: 110px; height: 110px; font-size: 86px; }
 .bld-small { left: -32px; top: -70px; width: 64px; height: 64px; font-size: 48px; }
+/* AI 그림이 있으면: 그림 속 둥근 받침이 칸 역할을 한다 */
+.tile:has(.bld.loaded) .tile-base { display: none; }
+.bld.loaded { top: auto; bottom: -26px; left: -88px; width: 176px; height: auto; filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.25)); }
+.bld.loaded img { width: 100%; height: auto; margin: 0; }
+.bld-start.loaded { left: -105px; width: 210px; }
+.bld-small.loaded { left: -55px; width: 110px; bottom: -18px; }
+.tile:has(.bld.loaded) .tile-name { top: 32px; }
 .tile.bump .bld { animation: bump 0.6s ease-in-out infinite; }
 .tile-name {
   position: absolute; left: 50%; top: 26px; transform: translateX(-50%);

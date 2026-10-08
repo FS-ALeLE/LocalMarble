@@ -9,7 +9,7 @@ import { hudBar, intro, outro } from './common';
 export async function playPrawn(layer: HTMLElement, level: Level): Promise<boolean> {
   const { seconds, goal } = CONFIG.minigames.prawn;
   const need = goal[level];
-  const field = h('div', { class: 'mg-field prawn-field' }, art('art/mg-sea.png', '', 'mg-bg'));
+  const field = h('div', { class: 'mg-field prawn-field' }, art('art/mg-sea.webp', '', 'mg-bg'));
   const hud = hudBar();
   const root = h('div', { class: 'overlay dim' }, h('div', { class: 'mg-frame pop-in' }, hud.el, field));
   layer.append(root);
@@ -26,7 +26,7 @@ export async function playPrawn(layer: HTMLElement, level: Level): Promise<boole
       const endX = Math.min(W - 60, Math.max(60, startX + randInt(-260, 260)));
       const peak = randInt(170, 380);
       const dur = randInt(1500, 2100);
-      const prawn = h('button', { class: 'prawn' }, art('art/mg-prawn.png', '🦐', 'prawn-art'));
+      const prawn = h('button', { class: 'prawn' }, art('art/mg-prawn.webp', '🦐', 'prawn-art'));
       prawn.style.left = `${startX}px`;
       field.append(prawn);
       const frames: Keyframe[] = [];

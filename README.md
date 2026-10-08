@@ -40,7 +40,7 @@ npm run build    # 배포용 빌드 (dist/)
 
 ## 그림 · 사진 넣기
 
-- AI 생성 그림: `public/regions/hongseong/art/` — 파일 이름은 [그래픽 가이드](docs/ART_GUIDE.md) 3장 표를 따릅니다.
+- AI 생성 그림: `public/regions/hongseong/art/` — 파일 이름은 [그래픽 가이드](docs/ART_GUIDE.md) 3장 표를 따르되, 투명 배경을 잘라내고 가로 640px WebP(`.webp`)로 변환해 넣습니다.
 - 사진: `public/regions/hongseong/photos/` — 사진 문항(`P01`~`P10`)은 사진 파일이 있어야 출제됩니다.
 - 파일이 없으면 이모지 임시 그림이 대신 보입니다. 파일을 넣기만 하면 자동으로 바뀝니다.
 

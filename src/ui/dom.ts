@@ -28,7 +28,7 @@ export function art(src: string | undefined, emoji: string, className = ''): HTM
     const img = new Image();
     img.alt = '';
     img.draggable = false;
-    img.onload = () => box.replaceChildren(img);
+    img.onload = () => { box.replaceChildren(img); box.classList.add('loaded'); };
     img.src = REGION_BASE + src;
   }
   return box;

@@ -7,7 +7,7 @@
       "name": "홍주성 역사관",
       "short": "역사관",
       "emoji": "🏯",
-      "art": "art/bld-museum.png",
+      "art": "art/bld-museum.webp",
       "categories": [
         "history"
       ],
@@ -17,7 +17,7 @@
       "name": "만해 도서관",
       "short": "도서관",
       "emoji": "📚",
-      "art": "art/bld-library.png",
+      "art": "art/bld-library.webp",
       "categories": [
         "people"
       ],
@@ -27,7 +27,7 @@
       "name": "백야 안전지킴이 경찰서",
       "short": "경찰서",
       "emoji": "🚓",
-      "art": "art/bld-police.png",
+      "art": "art/bld-police.webp",
       "categories": [
         "safety",
         "people"
@@ -38,7 +38,7 @@
       "name": "광천 토굴 새우젓 골목",
       "short": "새우젓",
       "emoji": "🏺",
-      "art": "art/bld-alley.png",
+      "art": "art/bld-alley.webp",
       "categories": [
         "specialty"
       ],
@@ -48,7 +48,7 @@
       "name": "홍주 종합경기장",
       "short": "경기장",
       "emoji": "🏟️",
-      "art": "art/bld-stadium.png",
+      "art": "art/bld-stadium.webp",
       "categories": [
         "specialty"
       ],
@@ -59,7 +59,7 @@
       "name": "남당항 바다 시장",
       "short": "남당항",
       "emoji": "⛵",
-      "art": "art/bld-port.png",
+      "art": "art/bld-port.webp",
       "categories": [
         "specialty",
         "nature"
@@ -71,7 +71,7 @@
       "name": "용봉산 바위길",
       "short": "용봉산",
       "emoji": "⛰️",
-      "art": "art/bld-mountain.png",
+      "art": "art/bld-mountain.webp",
       "categories": [
         "nature"
       ],
@@ -81,7 +81,7 @@
       "name": "내포 도청 광장",
       "short": "도청",
       "emoji": "🏛️",
-      "art": "art/bld-office.png",
+      "art": "art/bld-office.webp",
       "categories": [
         "society"
       ],
@@ -91,7 +91,7 @@
       "name": "고암 이응노의 집",
       "short": "이응노",
       "emoji": "🎨",
-      "art": "art/bld-gallery.png",
+      "art": "art/bld-gallery.webp",
       "categories": [
         "people"
       ],
@@ -102,7 +102,7 @@
       "name": "홍동 유기농 마을",
       "short": "홍동",
       "emoji": "🦆",
-      "art": "art/bld-village.png",
+      "art": "art/bld-village.webp",
       "categories": [
         "environment"
       ],
@@ -312,44 +312,44 @@
       "홍성읍 쪽 (지름길)"
     ]
   },
-  "startArt": "art/bld-start.png",
-  "restArt": "art/bld-rest.png",
-  "chanceArt": "art/bld-chance.png",
-  "mapArt": "art/map-base.png",
+  "startArt": "art/bld-start.webp",
+  "restArt": "art/bld-rest.webp",
+  "chanceArt": "art/bld-chance.webp",
+  "mapArt": "art/map-base.webp",
   "pieces": [
     {
       "id": "prawn",
       "name": "대하",
       "emoji": "🦐",
-      "art": "art/piece-prawn.png"
+      "art": "art/piece-prawn.webp"
     },
     {
       "id": "cow",
       "name": "한우",
       "emoji": "🐮",
-      "art": "art/piece-cow.png"
+      "art": "art/piece-cow.webp"
     },
     {
       "id": "duck",
       "name": "오리",
       "emoji": "🦆",
-      "art": "art/piece-duck.png"
+      "art": "art/piece-duck.webp"
     },
     {
       "id": "seagull",
       "name": "갈매기",
       "emoji": "🐦",
-      "art": "art/piece-seagull.png"
+      "art": "art/piece-seagull.webp"
     }
   ],
   "guide": {
     "name": "홍이",
     "emoji": "🧒",
     "art": {
-      "normal": "art/char-hongi-normal.png",
-      "happy": "art/char-hongi-happy.png",
-      "sad": "art/char-hongi-sad.png",
-      "think": "art/char-hongi-think.png"
+      "normal": "art/char-hongi-normal.webp",
+      "happy": "art/char-hongi-happy.webp",
+      "sad": "art/char-hongi-sad.webp",
+      "think": "art/char-hongi-think.webp"
     }
   }
 }

@@ -6,10 +6,10 @@ import { art, h, wait } from '../ui/dom';
 import { hudBar, intro, outro } from './common';
 
 const FACES = [
-  { art: 'art/mg-card-1.png', emoji: '🏺', name: '새우젓 항아리' },
-  { art: 'art/mg-card-2.png', emoji: '🌾', name: '억새' },
-  { art: 'art/mg-card-3.png', emoji: '🏯', name: '조양문' },
-  { art: 'art/mg-card-4.png', emoji: '🍙', name: '광천 김' },
+  { art: 'art/mg-card-1.webp', emoji: '🏺', name: '새우젓 항아리' },
+  { art: 'art/mg-card-2.webp', emoji: '🌾', name: '억새' },
+  { art: 'art/mg-card-3.webp', emoji: '🏯', name: '조양문' },
+  { art: 'art/mg-card-4.webp', emoji: '🍙', name: '광천 김' },
 ];
 
 /** 같은 그림 찾기: 카드를 뒤집어 짝을 맞춘다. */
@@ -32,7 +32,7 @@ export async function playMemory(layer: HTMLElement, level: Level): Promise<bool
   const cards = deck.map((face) => {
     const card = h('button', { class: 'mem-card' },
       h('div', { class: 'mem-inner' },
-        h('div', { class: 'mem-back' }, art('art/mg-card-back.png', '❓', 'mem-art')),
+        h('div', { class: 'mem-back' }, art('art/mg-card-back.webp', '❓', 'mem-art')),
         h('div', { class: 'mem-front' }, art(face.art, face.emoji, 'mem-art'), h('div', { class: 'mem-name' }, face.name))));
     card.addEventListener('click', async () => {
       if (busy || card.classList.contains('flipped')) return;
