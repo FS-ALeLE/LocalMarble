@@ -7,6 +7,12 @@
 - 1인 플레이, 태블릿·노트북 웹 브라우저, 미니어처 디오라마 그래픽
 - 매 판 소속·별명 등록 → 행사 리더보드 (Vercel + Neon), 기록은 다음 날 삭제
 
+## 주소
+
+- 게임: https://cne-localmarble.vercel.app/
+- 전광판: https://cne-localmarble.vercel.app/board
+- 진행자: https://cne-localmarble.vercel.app/admin
+
 ## 문서
 - [기획서](docs/PLAN.md)
 - [그래픽 · 사진 준비 가이드](docs/ART_GUIDE.md)
