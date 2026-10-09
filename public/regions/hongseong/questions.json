@@ -73,7 +73,10 @@
   ],
   "answer": 0,
   "explanation": "만해 한용운은 홍성 결성면에서 태어난 시인이자 독립운동가예요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "library"
+  ]
  },
  {
   "id": "L06",
@@ -87,7 +90,10 @@
   ],
   "answer": 0,
   "explanation": "김좌진 장군은 홍성 갈산면에서 태어난 독립운동가예요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "police"
+  ]
  },
  {
   "id": "L07",
@@ -103,7 +109,10 @@
   ],
   "answer": 0,
   "explanation": "한용운은 '만해', 김좌진은 '백야', 이응노는 '고암'이라는 호로 불려요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "library"
+  ]
  },
  {
   "id": "L08",
@@ -117,7 +126,10 @@
   ],
   "answer": 0,
   "explanation": "고암 이응노는 홍성에서 태어난 화가로, 글자와 사람 모양을 멋진 그림으로 표현했어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "gallery"
+  ]
  },
  {
   "id": "L09",
@@ -133,7 +145,10 @@
   ],
   "answer": 0,
   "explanation": "김좌진 장군은 나라를 되찾기 위해 독립군을 이끌고 일본군과 싸웠어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "police"
+  ]
  },
  {
   "id": "L10",
@@ -221,7 +236,10 @@
   ],
   "answer": 0,
   "explanation": "토굴은 1년 내내 온도가 일정해서 새우젓이 맛있게 익어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "alley"
+  ]
  },
  {
   "id": "L16",
@@ -237,7 +255,10 @@
   ],
   "answer": 0,
   "explanation": "대하는 '큰 새우'라는 뜻이에요. 가을이면 남당항에서 대하 축제가 열려요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "L17",
@@ -251,7 +272,10 @@
   ],
   "answer": 0,
   "explanation": "광천 김은 바삭하고 고소해서 전국에서 사랑받아요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "market"
+  ]
  },
  {
   "id": "L18",
@@ -267,7 +291,10 @@
   ],
   "answer": 0,
   "explanation": "새조개는 속살 모양이 새의 부리를 닮았어요. 남당항의 대표 먹거리예요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "L19",
@@ -283,7 +310,10 @@
   ],
   "answer": 0,
   "explanation": "새우에 소금을 넣고 오래 두어 맛있게 익혀 만들어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "alley"
+  ]
  },
  {
   "id": "L20",
@@ -297,7 +327,10 @@
   ],
   "answer": 0,
   "explanation": "홍성의 서쪽은 서해 바다와 닿아 있어 남당항 같은 항구가 있어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "L21",
@@ -313,7 +346,10 @@
   ],
   "answer": 0,
   "explanation": "오서산은 홍성과 보령에 걸쳐 있는 산으로, 가을 억새가 아름다워요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "mountain"
+  ]
  },
  {
   "id": "L22",
@@ -327,7 +363,10 @@
   ],
   "answer": 0,
   "explanation": "갯벌에는 조개, 게, 낙지 같은 많은 생물이 살아요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "L23",
@@ -343,7 +382,10 @@
   ],
   "answer": 0,
   "explanation": "용봉산은 바위 모양이 멋져서 '충남의 금강산'이라고도 불려요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "mountain"
+  ]
  },
  {
   "id": "L24",
@@ -545,7 +587,10 @@
   ],
   "answer": 0,
   "explanation": "1920년 김좌진 장군은 청산리 일대에서 일본군을 크게 물리쳤어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "police"
+  ]
  },
  {
   "id": "H09",
@@ -561,7 +606,10 @@
   ],
   "answer": 0,
   "explanation": "한용운은 1919년 3·1 운동 때 독립 선언에 참여한 민족 대표 33인 중 한 명이에요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "library"
+  ]
  },
  {
   "id": "H10",
@@ -575,7 +623,10 @@
   ],
   "answer": 0,
   "explanation": "김좌진은 사람은 모두 평등하다고 생각해 노비 문서를 불태우고 자유를 주었어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "police"
+  ]
  },
  {
   "id": "H11",
@@ -591,7 +642,10 @@
   ],
   "answer": 0,
   "explanation": "이응노는 글자를 그림처럼 표현한 '문자추상'으로 세계에 이름을 알렸어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "gallery"
+  ]
  },
  {
   "id": "H12",
@@ -607,7 +661,10 @@
   ],
   "answer": 0,
   "explanation": "이응노는 프랑스 파리에서 활동하며 한국 미술을 세계에 알렸어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "gallery"
+  ]
  },
  {
   "id": "H13",
@@ -623,7 +680,10 @@
   ],
   "answer": 0,
   "explanation": "성삼문은 홍성에서 태어났어요. 홍북읍에 성삼문 선생 유허지가 있어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "library"
+  ]
  },
  {
   "id": "H14",
@@ -639,7 +699,10 @@
   ],
   "answer": 0,
   "explanation": "최영 장군은 아버지의 가르침인 이 말을 평생 지킨 청렴한 장군이에요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "library"
+  ]
  },
  {
   "id": "H15",
@@ -731,7 +794,10 @@
   ],
   "answer": 0,
   "explanation": "5월에 담그면 오젓, 6월은 육젓, 가을은 추젓이에요. 육젓은 살이 통통해 최고로 쳐요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "alley"
+  ]
  },
  {
   "id": "H21",
@@ -747,7 +813,10 @@
   ],
   "answer": 0,
   "explanation": "토굴 안은 여름에도 겨울에도 온도가 거의 변하지 않아 새우젓이 고르게 익어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "alley"
+  ]
  },
  {
   "id": "H22",
@@ -763,7 +832,10 @@
   ],
   "answer": 0,
   "explanation": "대하는 가을에 살이 올라 가장 맛있어서 가을에 축제가 열려요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "H23",
@@ -777,7 +849,10 @@
   ],
   "answer": 0,
   "explanation": "홍성은 우리나라에서 가축을 많이 기르는 고장 중 하나예요. 홍성 한우도 유명해요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "market"
+  ]
  },
  {
   "id": "H24",
@@ -793,7 +868,10 @@
   ],
   "answer": 0,
   "explanation": "大(대)는 '크다'는 뜻이에요. 대하는 '큰 새우'라는 뜻이에요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "H25",
@@ -809,7 +887,10 @@
   ],
   "answer": 0,
   "explanation": "천수만은 홍성, 서산, 보령 사이의 바다로 겨울 철새가 많이 찾아와요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "H26",
@@ -825,7 +906,10 @@
   ],
   "answer": 0,
   "explanation": "용봉산은 바위 봉우리가 금강산처럼 멋져서 '충남의 금강산'이라고 불려요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "mountain"
+  ]
  },
  {
   "id": "H27",
@@ -839,7 +923,10 @@
   ],
   "answer": 0,
   "explanation": "바닷물이 많이 들어오고 빠져서 서해안에는 넓은 갯벌이 펼쳐져 있어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "H28",
@@ -855,7 +942,10 @@
   ],
   "answer": 0,
   "explanation": "홍성은 충청남도 서쪽, 서해 바다와 닿아 있어요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "H29",
@@ -871,7 +961,10 @@
   ],
   "answer": 0,
   "explanation": "오서산 꼭대기 부근은 가을이면 억새가 은빛으로 물결쳐요.",
-  "verified": true
+  "verified": true,
+  "places": [
+   "mountain"
+  ]
  },
  {
   "id": "H30",
@@ -1047,7 +1140,10 @@
   "answer": 0,
   "explanation": "용봉산은 바위 봉우리가 멋진 홍성의 산이에요.",
   "verified": true,
-  "image": "photos/yongbongsan.jpg"
+  "image": "photos/yongbongsan.jpg",
+  "places": [
+   "mountain"
+  ]
  },
  {
   "id": "P03",
@@ -1064,7 +1160,10 @@
   "answer": 0,
   "explanation": "오서산은 가을이면 은빛 억새로 덮여요.",
   "verified": true,
-  "image": "photos/oseosan.jpg"
+  "image": "photos/oseosan.jpg",
+  "places": [
+   "mountain"
+  ]
  },
  {
   "id": "P04",
@@ -1081,7 +1180,10 @@
   "answer": 0,
   "explanation": "광천 토굴은 1년 내내 온도가 일정해 새우젓을 익히기 좋아요.",
   "verified": true,
-  "image": "photos/gwangcheon-togul.jpg"
+  "image": "photos/gwangcheon-togul.jpg",
+  "places": [
+   "alley"
+  ]
  },
  {
   "id": "P05",
@@ -1098,7 +1200,10 @@
   "answer": 0,
   "explanation": "광천은 토굴에서 익힌 새우젓으로 유명해요.",
   "verified": true,
-  "image": "photos/saeujeot.jpg"
+  "image": "photos/saeujeot.jpg",
+  "places": [
+   "alley"
+  ]
  },
  {
   "id": "P06",
@@ -1115,7 +1220,10 @@
   "answer": 0,
   "explanation": "대하는 '큰 새우'예요. 가을에 가장 맛있어요.",
   "verified": true,
-  "image": "photos/daeha.jpg"
+  "image": "photos/daeha.jpg",
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "P07",
@@ -1132,7 +1240,10 @@
   "answer": 0,
   "explanation": "새조개는 속살이 새 부리를 닮았어요.",
   "verified": true,
-  "image": "photos/saejogae.jpg"
+  "image": "photos/saejogae.jpg",
+  "places": [
+   "port"
+  ]
  },
  {
   "id": "P08",
@@ -1166,7 +1277,10 @@
   "answer": 0,
   "explanation": "만해 한용운은 홍성 결성면에서 태어났어요.",
   "verified": true,
-  "image": "photos/hanyongun.jpg"
+  "image": "photos/hanyongun.jpg",
+  "places": [
+   "library"
+  ]
  },
  {
   "id": "P10",
@@ -1183,6 +1297,140 @@
   "answer": 0,
   "explanation": "백야 김좌진은 홍성 갈산면에서 태어났어요.",
   "verified": true,
-  "image": "photos/kimjwajin.jpg"
+  "image": "photos/kimjwajin.jpg",
+  "places": [
+   "police"
+  ]
+ },
+ {
+  "id": "M01",
+  "category": "specialty",
+  "level": "low",
+  "type": "choice",
+  "question": "며칠마다 한 번씩 열리는 옛날식 시장을 무엇이라 할까?",
+  "choices": [
+   "오일장",
+   "편의점",
+   "백화점",
+   "대형 마트"
+  ],
+  "answer": 0,
+  "explanation": "닷새마다 열리는 시장을 오일장(5일장)이라고 해요. 홍성과 광천에도 오일장이 열려요.",
+  "verified": true,
+  "places": [
+   "market"
+  ]
+ },
+ {
+  "id": "M02",
+  "category": "specialty",
+  "level": "low",
+  "type": "ox",
+  "question": "시장에 갈 때 장바구니를 가져가면 비닐 쓰레기를 줄일 수 있다.",
+  "choices": [
+   "O",
+   "X"
+  ],
+  "answer": 0,
+  "explanation": "장바구니를 쓰면 비닐봉지를 덜 써서 환경을 지킬 수 있어요.",
+  "verified": true,
+  "places": [
+   "market"
+  ]
+ },
+ {
+  "id": "M03",
+  "category": "specialty",
+  "level": "low",
+  "type": "choice",
+  "question": "광천 김은 어디에서 자란 것으로 만들까?",
+  "choices": [
+   "바다",
+   "산",
+   "논",
+   "사막"
+  ],
+  "answer": 0,
+  "explanation": "김은 바다에서 자라는 해조류예요. 바닷가 고장인 광천은 김으로 유명해요.",
+  "verified": true,
+  "places": [
+   "market"
+  ]
+ },
+ {
+  "id": "M04",
+  "category": "specialty",
+  "level": "low",
+  "type": "choice",
+  "question": "'홍성 한우'로 유명한, 홍성에서 많이 기르는 동물은?",
+  "choices": [
+   "소",
+   "말",
+   "양",
+   "낙타"
+  ],
+  "answer": 0,
+  "explanation": "한우는 우리나라 소예요. 홍성은 소를 많이 기르는 고장이에요.",
+  "verified": true,
+  "places": [
+   "market"
+  ]
+ },
+ {
+  "id": "M05",
+  "category": "specialty",
+  "level": "high",
+  "type": "choice",
+  "question": "홍성 한우, 광천 김처럼 그 지역에서 특별히 많이 나거나 유명한 물건을 무엇이라 할까?",
+  "choices": [
+   "특산물",
+   "수입품",
+   "발명품",
+   "골동품"
+  ],
+  "answer": 0,
+  "explanation": "특산물은 그 지역의 자연과 사람들의 솜씨로 만들어진 자랑거리예요.",
+  "verified": true,
+  "places": [
+   "market"
+  ]
+ },
+ {
+  "id": "M06",
+  "category": "specialty",
+  "level": "high",
+  "type": "choice",
+  "question": "시장에서 새우젓 3000원어치와 김 2000원어치를 샀어요. 모두 얼마일까?",
+  "choices": [
+   "5000원",
+   "6000원",
+   "1000원",
+   "3000원"
+  ],
+  "answer": 0,
+  "explanation": "3000원 + 2000원 = 5000원이에요. 시장 구경하며 계산도 척척!",
+  "verified": true,
+  "places": [
+   "market"
+  ]
+ },
+ {
+  "id": "M07",
+  "category": "specialty",
+  "level": "high",
+  "type": "choice",
+  "question": "시장에서 4000원짜리 김을 사고 5000원을 냈어요. 거스름돈은?",
+  "choices": [
+   "1000원",
+   "2000원",
+   "4000원",
+   "9000원"
+  ],
+  "answer": 0,
+  "explanation": "5000원 - 4000원 = 1000원을 거슬러 받아요.",
+  "verified": true,
+  "places": [
+   "market"
+  ]
  }
 ]

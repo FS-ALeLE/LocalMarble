@@ -13,6 +13,8 @@ export interface Question {
   image?: string;
   source?: string;
   verified: boolean;
+  /** 이 장소들에서만 출제 (없으면 카테고리가 맞는 곳 어디서나) */
+  places?: string[];
 }
 
 export interface Place {
@@ -22,7 +24,7 @@ export interface Place {
   art?: string;
   categories: Category[];
   mode: 'quiz' | 'minigame' | 'quiz_or_minigame';
-  minigame?: MinigameId;
+  minigames?: MinigameId[];
 }
 
 export type MinigameId = 'prawn' | 'memory';
@@ -86,7 +88,7 @@ export interface PlayResult {
   livesLeft: number;
   turns: number;
   durationSec: number;
-  learned: { question: string; explanation: string }[];
+  learned: { question: string; explanation: string; correct: boolean; answer: string }[];
   answered: { id: string; correct: boolean }[];
 }
 

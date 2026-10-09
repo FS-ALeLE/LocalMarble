@@ -55,7 +55,7 @@ export function runQuiz(layer: HTMLElement, q: Question, opt: QuizOptions): Prom
           h('div', { class: 'bubble' }, q.question),
           q.image ? photoFrame(REGION_BASE + q.image) : null)),
       h('div', { class: `answers ${isOx ? 'answers-ox' : ''} ${q.image ? 'answers-compact' : ''}` }, ...choiceBtns),
-      h('div', { class: 'quiz-foot' }, hintBtn, h('span', { class: 'key-help' }, isOx ? '키보드 O / X' : '키보드 1 ~ 4')),
+      h('div', { class: 'quiz-foot' }, hintBtn),
     );
     const overlay = h('div', { class: 'overlay dim' }, card);
     layer.append(overlay);
@@ -70,17 +70,6 @@ export function runQuiz(layer: HTMLElement, q: Question, opt: QuizOptions): Prom
       if (remain <= 0) answer(-1);
     }, 1000);
 
-    const onKey = (e: KeyboardEvent) => {
-      if (done) return;
-      const k = e.key.toLowerCase();
-      if (isOx && (k === 'o' || k === 'x')) answer(k === 'o' ? 0 : 1);
-      const n = Number(k);
-      if (!isOx && n >= 1 && n <= order.length) {
-        const btn = choiceBtns[n - 1];
-        if (!btn.disabled) answer(order[n - 1]);
-      }
-    };
-    window.addEventListener('keydown', onKey);
 
     function useHint() {
       if (usedHint) return;
@@ -97,7 +86,6 @@ export function runQuiz(layer: HTMLElement, q: Question, opt: QuizOptions): Prom
       if (done) return;
       done = true;
       clearInterval(tick);
-      window.removeEventListener('keydown', onKey);
       timerFill.style.transform = getComputedStyle(timerFill).transform;
       timerFill.style.transition = 'none';
       const elapsed = (performance.now() - started) / 1000;

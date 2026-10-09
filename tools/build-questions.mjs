@@ -81,6 +81,9 @@ const questions = records.map((r, n) => {
   const image = get('image');
   if (image) q.image = image;
   if (type === 'photo' && !image) errors.push(`${line}행(${id}): 사진 문항에 image 없음`);
+  // 특정 장소에서만 낼 문항 (쉼표로 여러 곳). 비우면 카테고리가 맞는 장소 어디서나.
+  const places = get('place').split(',').map((v) => v.trim()).filter(Boolean);
+  if (places.length) q.places = places;
   const source = get('source');
   if (source) q.source = source;
   return q;

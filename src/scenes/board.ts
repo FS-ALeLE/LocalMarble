@@ -2,7 +2,7 @@ import { sfx } from '../audio/sfx';
 import { CONFIG, REGION_BASE } from '../config';
 import { QuestionDeck } from '../core/deck';
 import { pick, randInt } from '../core/random';
-import type { PlayResult, Profile, RegionData, Setup, Tile } from '../core/types';
+import { CATEGORY_LABEL, type Place, type PlayResult, type Profile, type RegionData, type Setup, type Tile } from '../core/types';
 import { playMemory } from '../minigames/memory';
 import { playPrawn } from '../minigames/prawn';
 import { animate, art, h, wait } from '../ui/dom';
@@ -168,19 +168,23 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     const place = board.places[placeId];
     await focus(tile, 1.6);
     tileEls.get(tile.id)?.classList.add('bump');
+    const games = place.minigames ?? [];
     const mode = place.mode === 'quiz_or_minigame' ? (Math.random() < CONFIG.quizRatio ? 'quiz' : 'minigame') : place.mode;
     let success: boolean;
-    if (mode === 'minigame' && place.minigame) {
-      success = place.minigame === 'prawn' ? await playPrawn(layer, setup.level) : await playMemory(layer, setup.level);
+    if (mode === 'minigame' && games.length) {
+      const game = pick(games);
+      await placeIntro(place, '🎮 미니게임');
+      success = game === 'prawn' ? await playPrawn(layer, setup.level) : await playMemory(layer, setup.level);
       if (success) addScore(S.minigame, tile);
       else { loseLife(); await notice('📜', '홍성 상식 한 줄', pick(data.facts)); }
     } else {
-      const q = deck.draw(place.categories);
+      const q = deck.draw(placeId, place.categories);
+      await placeIntro(place, CATEGORY_LABEL[q.category]);
       const seconds = CONFIG.quizSeconds[setup.level];
       const r = await runQuiz(layer, q, { place, guide: board.guide, seconds, hintAvailable: !state.hintUsed, draft: CONFIG.allowUnverified });
       if (r.usedHint) state.hintUsed = true;
       state.answered.push({ id: q.id, correct: r.correct });
-      state.learned.push({ question: q.question, explanation: q.explanation });
+      state.learned.push({ question: q.question, explanation: q.explanation, correct: r.correct, answer: q.choices[q.answer] });
       success = r.correct;
       if (r.correct) addScore((r.usedHint ? S.correctWithHint : S.correct) + (r.fast ? S.fastBonus : 0), tile);
       else loseLife();
@@ -188,6 +192,26 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     if (success && !state.stamps.has(placeId)) await giveStamp(placeId, tile);
     tileEls.get(tile.id)?.classList.remove('bump');
     await unfocus();
+  }
+
+  /** 장소에 도착하면 장소 그림과 이름, 문제 분야를 크게 보여 준다. */
+  function placeIntro(place: Place, label: string): Promise<void> {
+    return new Promise((resolve) => {
+      sfx.chance();
+      const card = h('div', { class: 'place-intro' },
+        art(place.art, place.emoji, 'place-intro-art'),
+        h('div', { class: 'place-intro-name' }, place.name),
+        h('div', { class: 'place-intro-label' }, label));
+      const overlay = h('div', { class: 'overlay dim place-intro-overlay' }, card);
+      layer.append(overlay);
+      const close = () => {
+        clearTimeout(timer);
+        overlay.classList.add('fade-out');
+        setTimeout(() => { overlay.remove(); resolve(); }, 250);
+      };
+      const timer = window.setTimeout(close, 1800);
+      overlay.addEventListener('click', close, { once: true });
+    });
   }
 
   async function chance(tile: Tile) {
@@ -272,9 +296,9 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
         diceBtn.disabled = true;
         diceBtn.classList.remove('ready');
         diceBtn.classList.add('rolling');
-        const result = randInt(1, 3);
+        const result = randInt(CONFIG.dice.min, CONFIG.dice.max);
         for (let i = 0; i < 10; i++) {
-          setDie(randInt(1, 3));
+          setDie(randInt(CONFIG.dice.min, CONFIG.dice.max));
           sfx.diceTick();
           await wait(55 + i * 8);
         }

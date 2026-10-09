@@ -13,27 +13,6 @@
       ],
       "mode": "quiz"
     },
-    "library": {
-      "name": "만해 도서관",
-      "short": "도서관",
-      "emoji": "📚",
-      "art": "art/bld-library.webp",
-      "categories": [
-        "people"
-      ],
-      "mode": "quiz"
-    },
-    "police": {
-      "name": "백야 안전지킴이 경찰서",
-      "short": "경찰서",
-      "emoji": "🚓",
-      "art": "art/bld-police.webp",
-      "categories": [
-        "safety",
-        "people"
-      ],
-      "mode": "quiz"
-    },
     "alley": {
       "name": "광천 토굴 새우젓 골목",
       "short": "새우젓",
@@ -44,16 +23,15 @@
       ],
       "mode": "quiz"
     },
-    "stadium": {
-      "name": "홍주 종합경기장",
-      "short": "경기장",
-      "emoji": "🏟️",
-      "art": "art/bld-stadium.webp",
+    "library": {
+      "name": "만해 도서관",
+      "short": "도서관",
+      "emoji": "📚",
+      "art": "art/bld-library.webp",
       "categories": [
-        "specialty"
+        "people"
       ],
-      "mode": "minigame",
-      "minigame": "prawn"
+      "mode": "quiz"
     },
     "port": {
       "name": "남당항 바다 시장",
@@ -65,7 +43,20 @@
         "nature"
       ],
       "mode": "quiz_or_minigame",
-      "minigame": "prawn"
+      "minigames": [
+        "prawn"
+      ]
+    },
+    "police": {
+      "name": "백야 안전지킴이 경찰서",
+      "short": "경찰서",
+      "emoji": "🚓",
+      "art": "art/bld-police.webp",
+      "categories": [
+        "safety",
+        "people"
+      ],
+      "mode": "quiz"
     },
     "mountain": {
       "name": "용봉산 바위길",
@@ -96,7 +87,9 @@
         "people"
       ],
       "mode": "quiz_or_minigame",
-      "minigame": "memory"
+      "minigames": [
+        "memory"
+      ]
     },
     "village": {
       "name": "홍동 유기농 마을",
@@ -105,6 +98,30 @@
       "art": "art/bld-village.webp",
       "categories": [
         "environment"
+      ],
+      "mode": "quiz"
+    },
+    "stadium": {
+      "name": "홍주 종합경기장",
+      "short": "경기장",
+      "emoji": "🏟️",
+      "art": "art/bld-stadium.webp",
+      "categories": [
+        "specialty"
+      ],
+      "mode": "minigame",
+      "minigames": [
+        "prawn",
+        "memory"
+      ]
+    },
+    "market": {
+      "name": "홍성 전통시장 장터",
+      "short": "시장",
+      "emoji": "🧺",
+      "art": "art/bld-market.webp",
+      "categories": [
+        "specialty"
       ],
       "mode": "quiz"
     }
@@ -303,7 +320,7 @@
       "next": [
         0
       ],
-      "place": "museum"
+      "place": "market"
     }
   ],
   "forks": {

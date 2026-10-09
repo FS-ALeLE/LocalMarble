@@ -48,7 +48,7 @@ export function registerScreen(stage: HTMLElement, data: RegionData, event: Even
         const key = affiliationKey(input.value);
         const problem = input.value.trim() ? affiliationProblem(input.value) : null;
         msg.classList.toggle('err', !!problem);
-        msg.textContent = problem ?? (key ? `순위표에는 「${key}」(으)로 보여요` : '학교나 기관 이름을 써 주세요');
+        msg.textContent = problem ?? '';
         next.toggleAttribute('disabled', !key || !!problem);
         clearTimeout(timer);
         timer = window.setTimeout(async () => {
@@ -61,7 +61,7 @@ export function registerScreen(stage: HTMLElement, data: RegionData, event: Even
       input.addEventListener('keydown', (e) => { if (e.key === 'Enter') next.click(); });
       body.replaceChildren(
         h('h2', {}, '어디에서 왔나요?'),
-        h('p', { class: 'reg-help' }, '다니는 학교나 함께 온 기관 이름을 써 주세요.'),
+        h('p', { class: 'reg-help' }, '다니는 학교나 함께 온 기관 이름을 쓰세요.'),
         input, msg, chips,
         h('button', { class: 'btn btn-soft solo-btn', onclick: () => { sfx.click(); profile.affiliation = SOLO; stepNickname(); } }, '🙋 소속 없이 개인으로 할래요'),
         el,

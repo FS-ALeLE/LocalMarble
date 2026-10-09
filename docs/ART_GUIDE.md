@@ -103,6 +103,7 @@ Centered, whole object visible, transparent background.
 | `bld-office.png` | A modern provincial government building with a wide plaza, fountain and trees, clean glass and white walls. |
 | `bld-gallery.png` | A small traditional Korean house turned into an art museum, with a large abstract ink-painting canvas on an easel in the yard. |
 | `bld-village.png` | A small organic farming village: green rice paddy with ducks swimming in it, a little farmhouse, a small school building, vegetable rows. |
+| `bld-market.png` | A cozy traditional Korean five-day market (jang-teo) with a few colorful awning stalls, baskets of vegetables, dried seaweed sheets, jars of salted shrimp, and a small butcher stall sign without text. |
 | `bld-start.png` | A traditional Korean fortress gate with a two-story pavilion roof on top of a stone arch (inspired by Joyangmun gate of Hongju Fortress). Slightly larger than other pieces. |
 | `bld-rest.png` | A small traditional Korean pavilion (jeongja) with a bench under a big zelkova tree. |
 | `bld-chance.png` | A cute wooden treasure chest with a glowing light, on the same round base. |

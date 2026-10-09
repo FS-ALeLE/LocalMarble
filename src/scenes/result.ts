@@ -15,7 +15,10 @@ export function resultScreen(stage: HTMLElement, data: RegionData, profile: Prof
     const grade = gradeOf(result.score);
     const title = { finish: '🎉 완주 성공!', gameover: '하트를 다 썼어요', timeout: '탐험 시간이 끝났어요' }[result.outcome];
     const placeIds = [...new Set(data.board.tiles.filter((t) => t.place).map((t) => t.place!))];
-    const learned = result.learned.slice(-3);
+    // 틀린 문제가 있으면 틀린 문제 해설을 먼저, 남는 자리는 최근에 맞힌 문제로 채운다.
+    const wrong = result.learned.filter((l) => !l.correct);
+    const right = result.learned.filter((l) => l.correct).reverse();
+    const learned = [...wrong, ...right].slice(0, 3);
 
     const scoreEl = h('div', { class: 'result-score' }, '0');
     let auto = 0;
@@ -47,7 +50,9 @@ export function resultScreen(stage: HTMLElement, data: RegionData, profile: Prof
         h('div', { class: 'result-right' },
           h('h3', {}, '📖 오늘 배운 홍성 이야기'),
           learned.length
-            ? h('ul', { class: 'learned' }, ...learned.map((l) => h('li', {}, h('b', {}, l.question), h('p', {}, l.explanation))))
+            ? h('ul', { class: 'learned' }, ...learned.map((l) => h('li', { class: l.correct ? '' : 'wrong' },
+                h('b', {}, l.correct ? '' : h('span', { class: 'learned-tag' }, '다시 알아봐요'), l.question),
+                h('p', {}, l.correct ? l.explanation : `정답은 「${l.answer}」! ${l.explanation}`))))
             : h('p', { class: 'muted' }, '다음엔 퀴즈를 풀며 홍성 이야기를 모아 봐요!'),
           note,
           h('div', { class: 'reg-nav center gap' }, event.active ? rankBtn : null, next)))));
