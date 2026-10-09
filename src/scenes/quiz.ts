@@ -53,7 +53,7 @@ export function runQuiz(layer: HTMLElement, q: Question, opt: QuizOptions): Prom
         guideBox,
         h('div', { class: 'quiz-qbox' },
           h('div', { class: 'bubble' }, q.question),
-          q.image ? h('img', { class: 'quiz-photo', src: REGION_BASE + q.image, alt: '' }) : null)),
+          q.image ? photoFrame(REGION_BASE + q.image) : null)),
       h('div', { class: `answers ${isOx ? 'answers-ox' : ''} ${q.image ? 'answers-compact' : ''}` }, ...choiceBtns),
       h('div', { class: 'quiz-foot' }, hintBtn, h('span', { class: 'key-help' }, isOx ? '키보드 O / X' : '키보드 1 ~ 4')),
     );
@@ -130,4 +130,18 @@ export function runQuiz(layer: HTMLElement, q: Question, opt: QuizOptions): Prom
       cont.addEventListener('click', () => { sfx.click(); finish(); }, { once: true });
     }
   });
+}
+
+/** 비율이 제각각인 사진도 잘리지 않게: 같은 사진을 흐리게 깔고 그 위에 사진 전체를 보여 준다. 누르면 크게 보기. */
+function photoFrame(src: string): HTMLElement {
+  const frame = h('button', { class: 'quiz-photo', 'aria-label': '사진 크게 보기' },
+    h('img', { class: 'quiz-photo-bg', src, alt: '' }),
+    h('img', { class: 'quiz-photo-img', src, alt: '' }),
+    h('span', { class: 'quiz-photo-zoom' }, '🔍'));
+  frame.addEventListener('click', () => {
+    const big = h('div', { class: 'photo-zoom' }, h('img', { src, alt: '' }), h('p', {}, '화면을 누르면 닫혀요'));
+    big.addEventListener('click', () => big.remove());
+    frame.closest('.overlay')?.append(big);
+  });
+  return frame;
 }
