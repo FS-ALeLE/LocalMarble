@@ -14,7 +14,6 @@ export function resultScreen(stage: HTMLElement, data: RegionData, profile: Prof
   return new Promise((resolve) => {
     const grade = gradeOf(result.score);
     const title = { finish: '🎉 완주 성공!', gameover: '하트를 다 썼어요', timeout: '탐험 시간이 끝났어요' }[result.outcome];
-    const placeIds = [...new Set(data.board.tiles.filter((t) => t.place).map((t) => t.place!))];
     // 틀린 문제가 있으면 틀린 문제 해설을 먼저, 남는 자리는 최근에 맞힌 문제로 채운다.
     const wrong = result.learned.filter((l) => !l.correct);
     const right = result.learned.filter((l) => l.correct).reverse();
@@ -44,8 +43,8 @@ export function resultScreen(stage: HTMLElement, data: RegionData, profile: Prof
           scoreEl,
           h('div', { class: 'result-who' }, `${profile.nickname} · ${profile.affiliationKey}`),
           h('div', { class: 'result-stats' },
-            h('span', {}, `도장 ${result.stamps.length}개`), h('span', {}, `하트 ${result.livesLeft}개`), h('span', {}, `${result.turns}턴`)),
-          h('div', { class: 'result-stamps' }, ...placeIds.map((id) =>
+            h('span', {}, `오늘의 도장 ${result.stamps.length}/${result.targets.length}`), h('span', {}, `하트 ${result.livesLeft}개`), h('span', {}, `${result.turns}턴`)),
+          h('div', { class: 'result-stamps' }, ...result.targets.map((id) =>
             h('div', { class: 'stamp-slot', html: result.stamps.includes(id) ? stampSvg(data.board.places[id].short, 58) : emptyStampSvg(58) })))),
         h('div', { class: 'result-right' },
           h('h3', {}, '📖 오늘 배운 홍성 이야기'),

@@ -4,7 +4,10 @@ export const CONFIG = {
   lives: 3,
   turnLimit: 12,
   dice: { min: 1, max: 6 },
-  stampsToFinish: 5,
+  /** 판마다 고르는 '오늘의 도장' 장소 수 (모두 모아 조양문으로 돌아오면 완주) */
+  todayStamps: 4,
+  /** 한 판에 탈 수 있는 홍성 버스 횟수 */
+  busRides: 3,
   quizSeconds: { low: 20, high: 15 } as Record<Level, number>,
   score: {
     correct: 100,

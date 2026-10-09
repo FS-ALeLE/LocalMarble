@@ -1,7 +1,7 @@
 import { sfx } from '../audio/sfx';
 import { CONFIG, REGION_BASE } from '../config';
 import { QuestionDeck } from '../core/deck';
-import { pick, randInt } from '../core/random';
+import { pick, randInt, shuffle } from '../core/random';
 import { CATEGORY_LABEL, type Place, type PlayResult, type Profile, type RegionData, type Setup, type Tile } from '../core/types';
 import { playMemory } from '../minigames/memory';
 import { playPrawn } from '../minigames/prawn';
@@ -17,6 +17,8 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   const { board } = data;
   const deck = new QuestionDeck(data.questions, setup.level);
   const placeIds = [...new Set(board.tiles.filter((t) => t.place).map((t) => t.place!))];
+  /** 오늘의 도장: 판마다 장소 몇 곳을 골라, 그곳 도장을 모두 모아 조양문으로 돌아오면 완주 */
+  const targets = shuffle(placeIds).slice(0, CONFIG.todayStamps);
   const S = CONFIG.score;
 
   const state = {
@@ -27,6 +29,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     turn: 1,
     hintUsed: false,
     extraRoll: false,
+    busRides: CONFIG.busRides,
     learned: [] as PlayResult['learned'],
     answered: [] as PlayResult['answered'],
     started: performance.now(),
@@ -51,6 +54,10 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     if (tile.type === 'place' && tile.place) {
       const p = board.places[tile.place];
       el.append(art(p.art, p.emoji, 'bld'), h('div', { class: 'tile-name' }, p.name));
+      if (targets.includes(tile.place)) {
+        el.classList.add('target');
+        el.append(h('div', { class: 'target-badge' }, '⭐ 오늘의 도장'));
+      }
     } else if (tile.type === 'start') {
       el.append(art(board.startArt, '🏯', 'bld bld-start'), h('div', { class: 'tile-name start-name' }, '조양문 · 출발/골인'));
     } else if (tile.type === 'chance') {
@@ -69,13 +76,17 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   const hearts = h('div', { class: 'hearts' });
   const scoreEl = h('div', { class: 'score' }, '0');
   const turnEl = h('div', { class: 'turn' });
-  const stampSlots = placeIds.map((id) => h('div', { class: 'stamp-slot', title: board.places[id].name, html: emptyStampSvg(54) }));
+  const stampSlots = targets.map((id) => h('div', { class: 'stamp-slot', title: board.places[id].name, html: emptyStampSvg(54) }));
   const stampCount = h('div', { class: 'stamp-count' });
+  const busCount = h('div', { class: 'bus-count' });
   const hud = h('div', { class: 'hud' },
     h('div', { class: 'hud-card hud-player' },
       art(setup.piece.art, setup.piece.emoji, 'hud-piece'),
       h('div', {}, h('div', { class: 'hud-nick' }, profile.nickname), h('div', { class: 'hud-aff' }, `${profile.affiliationKey} · ${setup.level === 'low' ? '저학년' : '고학년'}`))),
-    h('div', { class: 'hud-card hud-stamps' }, stampCount, h('div', { class: 'stamp-row' }, ...stampSlots)),
+    h('div', { class: 'hud-card hud-stamps' },
+      h('div', { class: 'hud-stamps-head' }, stampCount, busCount),
+      h('div', { class: 'stamp-row' }, ...targets.map((id, i) => h('div', { class: 'target-slot' },
+        stampSlots[i], h('div', { class: 'target-slot-name' }, `${board.places[id].emoji} ${board.places[id].short}`))))),
     h('div', { class: 'hud-card hud-status' }, hearts, h('div', { class: 'hud-score' }, h('span', {}, '점수'), scoreEl), turnEl));
 
   const die = h('div', { class: 'die' });
@@ -87,6 +98,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   updateHud();
 
   // ---------- 진행 ----------
+  await todayIntro();
   await banner('READY?', 700, sfx.ready);
   await banner('GO!', 600, sfx.go);
 
@@ -101,7 +113,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
       await hopTo(board.tiles[nextId]);
       state.pos = nextId;
       steps--;
-      if (board.tiles[state.pos].type === 'start' && state.stamps.size >= CONFIG.stampsToFinish) {
+      if (board.tiles[state.pos].type === 'start' && allStamped()) {
         outcome = 'finish';
         break game;
       }
@@ -134,6 +146,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     outcome,
     score: state.score,
     stamps: [...state.stamps],
+    targets,
     livesLeft: state.lives,
     turns: state.turn,
     durationSec: Math.round((performance.now() - state.started) / 1000),
@@ -144,8 +157,8 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   // ---------- 칸 이벤트 ----------
   async function resolveTile(tile: Tile) {
     if (tile.type === 'start') {
-      const left = CONFIG.stampsToFinish - state.stamps.size;
-      await notice('🏯', '조양문', `도장을 ${left}개 더 모아서 돌아오세요!`);
+      const left = targets.filter((id) => !state.stamps.has(id)).map((id) => board.places[id].name);
+      await notice('🏯', '조양문', `오늘의 도장 ${left.length}개를 더 모아서 돌아오세요! (${left.join(', ')})`);
     } else if (tile.type === 'rest') {
       if (state.lives < CONFIG.lives) {
         state.lives++;
@@ -163,9 +176,19 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     }
   }
 
-  async function visitPlace(tile: Tile) {
+  async function visitPlace(tile: Tile, byBus = false) {
     const placeId = tile.place!;
     const place = board.places[placeId];
+    const needed = targets.includes(placeId) && !state.stamps.has(placeId);
+    // 오늘의 도장이 아닌 곳(또는 이미 받은 곳)에 서면 홍성 버스를 탈지 고를 수 있다.
+    const remaining = targets.filter((id) => !state.stamps.has(id));
+    if (!byBus && !needed && state.busRides > 0 && remaining.length) {
+      const dest = await offerBus(tile, remaining);
+      if (dest) {
+        await rideBus(tile, dest);
+        return visitPlace(dest, true);
+      }
+    }
     await focus(tile, 1.6);
     tileEls.get(tile.id)?.classList.add('bump');
     const games = place.minigames ?? [];
@@ -173,13 +196,13 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     let success: boolean;
     if (mode === 'minigame' && games.length) {
       const game = pick(games);
-      await placeIntro(place, '🎮 미니게임');
+      await placeIntro(place, '🎮 미니게임', needed);
       success = game === 'prawn' ? await playPrawn(layer, setup.level) : await playMemory(layer, setup.level);
       if (success) addScore(S.minigame, tile);
       else { loseLife(); await notice('📜', '홍성 상식 한 줄', pick(data.facts)); }
     } else {
       const q = deck.draw(placeId, place.categories);
-      await placeIntro(place, CATEGORY_LABEL[q.category]);
+      await placeIntro(place, CATEGORY_LABEL[q.category], needed);
       const seconds = CONFIG.quizSeconds[setup.level];
       const r = await runQuiz(layer, q, { place, guide: board.guide, seconds, hintAvailable: !state.hintUsed, draft: CONFIG.allowUnverified });
       if (r.usedHint) state.hintUsed = true;
@@ -189,19 +212,20 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
       if (r.correct) addScore((r.usedHint ? S.correctWithHint : S.correct) + (r.fast ? S.fastBonus : 0), tile);
       else loseLife();
     }
-    if (success && !state.stamps.has(placeId)) await giveStamp(placeId, tile);
+    if (success && needed) await giveStamp(placeId, tile);
     tileEls.get(tile.id)?.classList.remove('bump');
     await unfocus();
   }
 
   /** 장소에 도착하면 장소 그림과 이름, 문제 분야를 크게 보여 준다. */
-  function placeIntro(place: Place, label: string): Promise<void> {
+  function placeIntro(place: Place, label: string, stampHere: boolean): Promise<void> {
     return new Promise((resolve) => {
       sfx.chance();
       const card = h('div', { class: 'place-intro' },
         art(place.art, place.emoji, 'place-intro-art'),
         h('div', { class: 'place-intro-name' }, place.name),
-        h('div', { class: 'place-intro-label' }, label));
+        h('div', { class: 'place-intro-label' }, label),
+        h('div', { class: `place-intro-note ${stampHere ? 'on' : ''}` }, stampHere ? '⭐ 맞히면 오늘의 도장!' : '오늘의 도장은 없지만 점수를 받을 수 있어요'));
       const overlay = h('div', { class: 'overlay dim place-intro-overlay' }, card);
       layer.append(overlay);
       const close = () => {
@@ -232,6 +256,76 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     updateHud();
   }
 
+  // ---------- 오늘의 도장 · 홍성 버스 ----------
+  function allStamped() {
+    return targets.every((id) => state.stamps.has(id));
+  }
+
+  function todayIntro(): Promise<void> {
+    return new Promise((resolve) => {
+      sfx.chance();
+      const go = h('button', { class: 'btn btn-primary big' }, '좋아요, 출발!');
+      const card = h('div', { class: 'today-card pop-in' },
+        h('h2', {}, '⭐ 오늘의 도장'),
+        h('p', {}, `이 ${targets.length}곳에서 문제를 맞혀 도장을 모으고, 조양문으로 돌아오세요!`),
+        h('div', { class: 'today-list' }, ...targets.map((id) => {
+          const p = board.places[id];
+          return h('div', { class: 'today-item' }, art(p.art, p.emoji, 'today-art'), h('div', { class: 'today-name' }, p.name));
+        })),
+        h('p', { class: 'today-bus' }, `🚌 홍성 버스 ${CONFIG.busRides}번: 도장이 없는 곳에 서면 버스를 타고 오늘의 도장 장소로 갈 수 있어요.`),
+        go);
+      const overlay = h('div', { class: 'overlay dim' }, card);
+      layer.append(overlay);
+      const close = () => { clearTimeout(timer); overlay.remove(); resolve(); };
+      const timer = window.setTimeout(close, 15000);
+      go.addEventListener('click', () => { sfx.click(); close(); }, { once: true });
+    });
+  }
+
+  /** 버스를 탈지 묻는다. 고른 장소의 칸(가장 가까운 칸)을 돌려주고, 안 타면 null. */
+  function offerBus(here: Tile, remaining: string[]): Promise<Tile | null> {
+    return new Promise((resolve) => {
+      sfx.chance();
+      const nearest = (placeId: string) => board.tiles
+        .filter((t) => t.place === placeId)
+        .sort((a, b) => Math.hypot(a.x - here.x, a.y - here.y) - Math.hypot(b.x - here.x, b.y - here.y))[0];
+      const done = (t: Tile | null) => { overlay.remove(); resolve(t); };
+      const card = h('div', { class: 'bus-card pop-in' },
+        h('div', { class: 'bus-icon' }, '🚌'),
+        h('h2', {}, '홍성 버스를 탈까요?'),
+        h('p', {}, `여기는 오늘의 도장이 없어요. 버스를 타면 도장 장소로 바로 갈 수 있어요. (남은 버스 ${state.busRides}번)`),
+        h('div', { class: 'bus-options' }, ...remaining.map((id) => {
+          const p = board.places[id];
+          return h('button', { class: 'btn btn-gold bus-dest', onclick: () => { sfx.click(); done(nearest(id)); } }, `${p.emoji} ${p.name}`);
+        })),
+        h('button', { class: 'btn btn-soft', onclick: () => { sfx.click(); done(null); } }, '안 탈래요, 여기서 문제 풀기'));
+      const overlay = h('div', { class: 'overlay dim-light' }, card);
+      layer.append(overlay);
+    });
+  }
+
+  async function rideBus(from: Tile, to: Tile) {
+    state.busRides--;
+    updateHud();
+    await unfocus();
+    const bus = h('div', { class: 'bus' }, '🚌');
+    bus.style.left = `${from.x}px`;
+    bus.style.top = `${from.y - PIECE_LIFT}px`;
+    map.append(bus);
+    piece.style.visibility = 'hidden';
+    sfx.go();
+    const dist = Math.hypot(to.x - from.x, to.y - from.y);
+    await animate(bus, [
+      { left: `${from.x}px`, top: `${from.y - PIECE_LIFT}px` },
+      { left: `${to.x}px`, top: `${to.y - PIECE_LIFT}px` },
+    ], { duration: Math.max(700, dist * 1.6), easing: 'ease-in-out' });
+    bus.remove();
+    state.pos = to.id;
+    placePiece(to);
+    piece.style.visibility = '';
+    piece.classList.remove('land'); void piece.offsetWidth; piece.classList.add('land');
+  }
+
   // ---------- 점수·도장·하트 ----------
   function addScore(points: number, tile?: Tile) {
     state.score += points;
@@ -256,7 +350,8 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     sfx.stamp();
     await wait(1100);
     backdrop.remove();
-    const slot = stampSlots[placeIds.indexOf(placeId)];
+    const slot = stampSlots[targets.indexOf(placeId)];
+    tileEls.forEach((el, id) => { if (board.tiles[id].place === placeId) el.classList.add('done'); });
     const from = big.getBoundingClientRect(), to = slot.getBoundingClientRect();
     await animate(big, [
       { transform: 'translate(-50%, -50%) scale(1)' },
@@ -276,8 +371,10 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     hearts.replaceChildren(...Array.from({ length: CONFIG.lives }, (_, i) => h('span', { class: `heart ${i < state.lives ? 'full' : 'empty'}` }, i < state.lives ? '❤️' : '🤍')));
     scoreEl.textContent = state.score.toLocaleString();
     turnEl.textContent = `턴 ${Math.min(state.turn, CONFIG.turnLimit)} / ${CONFIG.turnLimit}`;
-    stampCount.textContent = `도장 ${state.stamps.size} / ${CONFIG.stampsToFinish}`;
-    stampCount.classList.toggle('ready', state.stamps.size >= CONFIG.stampsToFinish);
+    stampCount.textContent = allStamped() ? '도장 완성! 조양문으로!' : `오늘의 도장 ${state.stamps.size} / ${targets.length}`;
+    stampCount.classList.toggle('ready', allStamped());
+    busCount.textContent = `🚌 ×${state.busRides}`;
+    busCount.classList.toggle('empty', state.busRides === 0);
   }
 
   // ---------- 주사위·이동 ----------

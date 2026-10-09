@@ -85,6 +85,8 @@ export interface PlayResult {
   outcome: 'finish' | 'gameover' | 'timeout';
   score: number;
   stamps: string[];
+  /** 이 판의 오늘의 도장 장소 */
+  targets: string[];
   livesLeft: number;
   turns: number;
   durationSec: number;
