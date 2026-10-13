@@ -45,6 +45,14 @@ export interface Piece {
   art?: string;
 }
 
+export type Mood = 'normal' | 'think' | 'happy' | 'sad' | 'surprised';
+
+export interface Guide {
+  name: string;
+  emoji: string;
+  art: Record<Mood, string>;
+}
+
 export interface Board {
   width: number;
   height: number;
@@ -53,7 +61,8 @@ export interface Board {
   tiles: Tile[];
   forks: Record<string, string[]>;
   pieces: Piece[];
-  guide: { name: string; emoji: string; art: Record<'normal' | 'happy' | 'sad' | 'think', string> };
+  /** 안내 캐릭터들 (판마다 한 명이 안내) */
+  guides: Guide[];
   startArt?: string;
   restArt?: string;
   chanceArt?: string;

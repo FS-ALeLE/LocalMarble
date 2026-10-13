@@ -359,14 +359,28 @@
       "art": "art/piece-seagull.webp"
     }
   ],
-  "guide": {
-    "name": "홍이",
-    "emoji": "🧒",
-    "art": {
-      "normal": "art/char-hongi-normal.webp",
-      "happy": "art/char-hongi-happy.webp",
-      "sad": "art/char-hongi-sad.webp",
-      "think": "art/char-hongi-think.webp"
+  "guides": [
+    {
+      "name": "홍이",
+      "emoji": "🧒",
+      "art": {
+        "normal": "art/char-hongi-normal.webp",
+        "think": "art/char-hongi-think.webp",
+        "happy": "art/char-hongi-happy.webp",
+        "sad": "art/char-hongi-sad.webp",
+        "surprised": "art/char-hongi-surprised.webp"
+      }
+    },
+    {
+      "name": "주니",
+      "emoji": "👧",
+      "art": {
+        "normal": "art/char-juni-normal.webp",
+        "think": "art/char-juni-think.webp",
+        "happy": "art/char-juni-happy.webp",
+        "sad": "art/char-juni-sad.webp",
+        "surprised": "art/char-juni-surprised.webp"
+      }
     }
-  }
+  ]
 }

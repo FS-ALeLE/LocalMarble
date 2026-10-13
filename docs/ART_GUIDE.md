@@ -58,7 +58,7 @@ No text, no letters, no signs with writing, no watermark.
 | 2~11 | `bld-*.png` | 장소 건물 10채 | 1024×1024 PNG | 투명 |
 | 12~13 | `bld-start.png`, `bld-rest.png` | 출발(조양문), 쉼터(정자) | 1024×1024 PNG | 투명 |
 | 14 | `bld-chance.png` | 찬스 칸 (보물 상자 받침) | 1024×1024 PNG | 투명 |
-| 15~16 | `char-hongi-*.png`, `char-juni-*.png` | 안내 캐릭터 2명 × 표정 4종 | 1024×1024 PNG | 투명 |
+| 15~16 | `char-hongi-*.png`, `char-juni-*.png` | 안내 캐릭터 2명 × **5장**(기본 1 + 표정 4) | 1024×1024 PNG | 투명 |
 | 17 | `piece-*.png` | 플레이어 말 4종 | 1024×1024 PNG | 투명 |
 | 18 | `mg-*.png` | 미니게임 그림 | 1024×1024 PNG | 투명 |
 
@@ -138,12 +138,21 @@ Centered, transparent background.
 [STYLE]
 ```
 
-표정 4종 — 확정한 캐릭터 이미지를 첨부하고:
+위 프롬프트로 만든 첫 그림이 **기본(normal)** 입니다. 확정한 기본 그림을 첨부하고 표정 4장을 **한 장씩** 만듭니다:
 ```
-Same character, same pose and outfit, only change the expression to: [happy and cheering / surprised / a little sad / thinking with a finger on chin].
+Same character, same pose and outfit, only change the expression to: <아래 표의 영어 표현>.
 Transparent background.
 ```
-파일 이름: `char-hongi-normal.png`, `-happy`, `-sad`, `-think` (주니도 동일)
+
+| 파일 이름 (홍이) | 파일 이름 (주니) | 표정 (프롬프트에 넣을 영어) | 게임에서 쓰는 곳 |
+|---|---|---|---|
+| `char-hongi-normal.png` | `char-juni-normal.png` | (첫 그림, 웃는 기본 얼굴) | 오늘의 도장 안내 |
+| `char-hongi-think.png` | `char-juni-think.png` | thinking with a finger on chin | 문제를 낼 때 |
+| `char-hongi-happy.png` | `char-juni-happy.png` | happy and cheering | 정답일 때 |
+| `char-hongi-sad.png` | `char-juni-sad.png` | a little sad | 오답일 때 |
+| `char-hongi-surprised.png` | `char-juni-surprised.png` | surprised | 시간이 다 됐을 때 |
+
+캐릭터 한 명당 **5장**, 두 명이면 10장입니다. 판마다 홍이와 주니 중 한 명이 무작위로 안내합니다.
 
 ### 4.4 플레이어 말 4종
 
@@ -202,7 +211,7 @@ Centered, whole object visible, transparent background.
 |---|---|
 | **10/9 (금)** | `style-anchor.png` (기준 이미지) → 확인 후 진행 |
 | **10/10 (토)** | 건물 12채 + 찬스, 말 4종 |
-| **10/11 (일)** | 캐릭터 2명 × 4표정, 미니게임 그림 |
+| **10/11 (일)** | 캐릭터 2명 × 5장(기본 + 표정 4), 미니게임 그림 |
 | **10/12 (월)** | 지도 바탕, 사진 + 출처 표 |
 
 - 전달 위치: 저장소의 `public/regions/hongseong/art/` (그림), `public/regions/hongseong/photos/` (사진)에 올리거나, 채팅으로 보내 주시면 제가 넣겠습니다.

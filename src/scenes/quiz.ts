@@ -1,7 +1,7 @@
 import { sfx } from '../audio/sfx';
 import { REGION_BASE } from '../config';
 import { shuffle } from '../core/random';
-import { CATEGORY_LABEL, type Board, type Place, type Question } from '../core/types';
+import { CATEGORY_LABEL, type Guide, type Mood, type Place, type Question } from '../core/types';
 import { art, h } from '../ui/dom';
 
 export interface QuizOutcome {
@@ -12,7 +12,7 @@ export interface QuizOutcome {
 
 interface QuizOptions {
   place: Place;
-  guide: Board['guide'];
+  guide: Guide;
   seconds: number;
   hintAvailable: boolean;
   draft: boolean;
@@ -29,7 +29,7 @@ export function runQuiz(layer: HTMLElement, q: Question, opt: QuizOptions): Prom
     const started = performance.now();
 
     const guideBox = h('div', { class: 'quiz-guide' }, art(opt.guide.art.think, opt.guide.emoji, 'guide-art'));
-    const setGuide = (mood: 'normal' | 'happy' | 'sad' | 'think') => guideBox.replaceChildren(art(opt.guide.art[mood], opt.guide.emoji, `guide-art mood-${mood}`));
+    const setGuide = (mood: Mood) => guideBox.replaceChildren(art(opt.guide.art[mood], opt.guide.emoji, `guide-art mood-${mood}`));
 
     const timerFill = h('div', { class: 'timer-fill' });
     const timerText = h('div', { class: 'timer-text' }, String(opt.seconds));
@@ -98,7 +98,7 @@ export function runQuiz(layer: HTMLElement, q: Question, opt: QuizOptions): Prom
         else if (i === idx) b.classList.add('is-wrong');
       });
       if (correct) { sfx.correct(); setGuide('happy'); card.classList.add('glow'); }
-      else { sfx.wrong(); setGuide('sad'); card.classList.add('shake'); }
+      else { sfx.wrong(); setGuide(idx === -1 ? 'surprised' : 'sad'); card.classList.add('shake'); }
 
       const verdict = correct ? '⭕ 정답이에요!' : idx === -1 ? '⏰ 시간이 다 됐어요' : '❌ 아쉬워요!';
       const cont = h('button', { class: 'btn btn-primary' }, '계속하기 ▶');

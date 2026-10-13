@@ -19,6 +19,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   const placeIds = [...new Set(board.tiles.filter((t) => t.place).map((t) => t.place!))];
   /** 오늘의 도장: 판마다 장소 몇 곳을 골라, 그곳 도장을 모두 모아 조양문으로 돌아오면 완주 */
   const targets = shuffle(placeIds).slice(0, CONFIG.todayStamps);
+  const guide = pick(board.guides);
   const S = CONFIG.score;
 
   const state = {
@@ -204,7 +205,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
       const q = deck.draw(placeId, place.categories);
       await placeIntro(place, CATEGORY_LABEL[q.category], needed);
       const seconds = CONFIG.quizSeconds[setup.level];
-      const r = await runQuiz(layer, q, { place, guide: board.guide, seconds, hintAvailable: !state.hintUsed, draft: CONFIG.allowUnverified });
+      const r = await runQuiz(layer, q, { place, guide, seconds, hintAvailable: !state.hintUsed, draft: CONFIG.allowUnverified });
       if (r.usedHint) state.hintUsed = true;
       state.answered.push({ id: q.id, correct: r.correct });
       state.learned.push({ question: q.question, explanation: q.explanation, correct: r.correct, answer: q.choices[q.answer] });
@@ -266,6 +267,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
       sfx.chance();
       const go = h('button', { class: 'btn btn-primary big' }, '좋아요, 출발!');
       const card = h('div', { class: 'today-card pop-in' },
+        h('div', { class: 'today-guide' }, art(guide.art.normal, guide.emoji, 'today-guide-art'), h('span', {}, `안녕! 나는 ${guide.name}야. 오늘 같이 돌아보자!`)),
         h('h2', {}, '⭐ 오늘의 도장'),
         h('p', {}, `이 ${targets.length}곳에서 문제를 맞혀 도장을 모으고, 조양문으로 돌아오세요!`),
         h('div', { class: 'today-list' }, ...targets.map((id) => {

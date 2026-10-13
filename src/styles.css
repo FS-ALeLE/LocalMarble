@@ -716,3 +716,6 @@ body.portrait #rotate-notice { display: flex; }
 .hud, .dice-btn { z-index: 1; }
 .fx-layer { z-index: 2; }
 .overlay-layer { z-index: 3; }
+.today-guide { display: flex; align-items: center; gap: 14px; font-family: var(--display); font-size: 26px; color: var(--navy-dark); }
+.today-guide-art { width: 90px; height: 90px; font-size: 72px; }
+.guide-art.mood-surprised { animation: pop 0.4s; }
