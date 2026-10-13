@@ -336,27 +336,27 @@
   "pieces": [
     {
       "id": "prawn",
-      "name": "대하",
+      "name": "새우",
       "emoji": "🦐",
       "art": "art/piece-prawn.webp"
-    },
-    {
-      "id": "cow",
-      "name": "한우",
-      "emoji": "🐮",
-      "art": "art/piece-cow.webp"
-    },
-    {
-      "id": "duck",
-      "name": "오리",
-      "emoji": "🦆",
-      "art": "art/piece-duck.webp"
     },
     {
       "id": "octopus",
       "name": "주꾸미",
       "emoji": "🐙",
       "art": "art/piece-octopus.webp"
+    },
+    {
+      "id": "seagull",
+      "name": "갈매기",
+      "emoji": "🐦",
+      "art": "art/piece-seagull.webp"
+    },
+    {
+      "id": "cow",
+      "name": "한우",
+      "emoji": "🐮",
+      "art": "art/piece-cow.webp"
     }
   ],
   "guides": [

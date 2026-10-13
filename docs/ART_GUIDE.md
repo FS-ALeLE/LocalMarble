@@ -154,9 +154,8 @@ Transparent background.
 
 캐릭터 한 명당 **5장**, 두 명이면 10장입니다. 판마다 홍이와 주니 중 한 명이 무작위로 안내합니다.
 
-### 4.4 플레이어 말 4종
+### 4.4 플레이어 말 4종 (새우, 주꾸미, 갈매기, 한우)
 
-말 4개는 **생김새(실루엣)가 서로 확 달라야** 지도 위에서 바로 구분됩니다. 새는 오리 하나만 둡니다.
 공통 앞부분(기준 이미지 첨부):
 ```
 Using the attached image as the style reference, create a board-game player
@@ -167,12 +166,10 @@ pedestal. Centered, whole object visible, transparent background.
 
 | 파일 이름 | 말 | 설명 (공통 앞부분의 < > 자리에 넣기) |
 |---|---|---|
-| `piece-prawn.png` | 대하 | a cute big orange prawn standing upright on its tail, long curly antennae |
-| `piece-cow.png` | 한우 | a cute chubby Korean brown cow (hanwoo) standing on four legs, small horns |
-| `piece-duck.png` | 오리 | a cute WHITE farm duck with a big FLAT YELLOW-ORANGE BILL, webbed orange feet, wearing a tiny straw farmer hat, standing in a little patch of green rice seedlings (organic rice-paddy duck of Hongdong). It must clearly look like a duck, not a pigeon or a seagull |
+| `piece-prawn.png` | 새우 | a cute big orange prawn standing upright on its tail, long curly antennae |
 | `piece-octopus.png` | 주꾸미 | a cute small reddish-brown baby octopus (jjukkumi) with eight curly legs and big round eyes, standing on its legs |
-
-- 오리가 그래도 비둘기처럼 나오면 "**flat wide duck bill, white feathers, orange webbed feet**"를 한 번 더 강조하고, "**no pigeon, no seagull**"를 붙여 보세요.
+| `piece-seagull.png` | 갈매기 | a cute white seagull with grey wings and a yellow beak, standing with wings slightly open |
+| `piece-cow.png` | 한우 | a cute chubby Korean brown cow (hanwoo) standing on four legs, small horns |
 
 ### 4.5 미니게임 그림
 
