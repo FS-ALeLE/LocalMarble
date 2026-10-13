@@ -156,14 +156,23 @@ Transparent background.
 
 ### 4.4 플레이어 말 4종
 
+말 4개는 **생김새(실루엣)가 서로 확 달라야** 지도 위에서 바로 구분됩니다. 새는 오리 하나만 둡니다.
+공통 앞부분(기준 이미지 첨부):
 ```
 Using the attached image as the style reference, create a board-game player
-piece: a cute [big prawn / Korean brown cow (hanwoo) / white duck / seagull]
-toy figure standing on a small round vermilion (#E8553D) pedestal.
-Centered, whole object visible, transparent background.
+piece: <아래 표의 설명> toy figure standing on a small round vermilion (#E8553D)
+pedestal. Centered, whole object visible, transparent background.
 [STYLE]
 ```
-파일 이름: `piece-prawn.png`, `piece-cow.png`, `piece-duck.png`, `piece-seagull.png`
+
+| 파일 이름 | 말 | 설명 (공통 앞부분의 < > 자리에 넣기) |
+|---|---|---|
+| `piece-prawn.png` | 대하 | a cute big orange prawn standing upright on its tail, long curly antennae |
+| `piece-cow.png` | 한우 | a cute chubby Korean brown cow (hanwoo) standing on four legs, small horns |
+| `piece-duck.png` | 오리 | a cute WHITE farm duck with a big FLAT YELLOW-ORANGE BILL, webbed orange feet, wearing a tiny straw farmer hat, standing in a little patch of green rice seedlings (organic rice-paddy duck of Hongdong). It must clearly look like a duck, not a pigeon or a seagull |
+| `piece-octopus.png` | 주꾸미 | a cute small reddish-brown baby octopus (jjukkumi) with eight curly legs and big round eyes, standing on its legs |
+
+- 오리가 그래도 비둘기처럼 나오면 "**flat wide duck bill, white feathers, orange webbed feet**"를 한 번 더 강조하고, "**no pigeon, no seagull**"를 붙여 보세요.
 
 ### 4.5 미니게임 그림
 

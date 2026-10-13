@@ -353,10 +353,10 @@
       "art": "art/piece-duck.webp"
     },
     {
-      "id": "seagull",
-      "name": "갈매기",
-      "emoji": "🐦",
-      "art": "art/piece-seagull.webp"
+      "id": "octopus",
+      "name": "주꾸미",
+      "emoji": "🐙",
+      "art": "art/piece-octopus.webp"
     }
   ],
   "guides": [
