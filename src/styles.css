@@ -801,5 +801,5 @@ body.portrait #rotate-notice { display: flex; }
 @keyframes tag-bob { 50% { transform: translate(-50%, -8px); } }
 .piece:not(:has(.piece-art.loaded)) .piece-tag { top: -130px; }
 /* 이름표를 건물 옆에 (아래 건물을 가릴 때) */
-.board-screen .tile.label-left .tile-name { left: -62px; top: -64px; transform: translateX(-100%); }
+.board-screen .tile.label-left .tile-name { left: -40px; top: -6px; transform: translateX(-100%); }
 .board-screen .tile.label-right .tile-name { left: 62px; top: -64px; transform: none; }
