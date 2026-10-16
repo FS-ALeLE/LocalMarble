@@ -777,3 +777,26 @@ body.portrait #rotate-notice { display: flex; }
 .tile.target.done .name-stamp::after { content: '✔'; }
 
 .place-intro-overlay.overlay.dim { background: radial-gradient(circle at 50% 46%, rgba(255, 253, 248, 0.96) 0, rgba(255, 253, 248, 0.9) 380px, rgba(20, 40, 60, 0.5) 640px); }
+
+/* ---------- 내 말 잘 보이게 ---------- */
+.piece { z-index: 6; }
+.piece .piece-art { filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff) drop-shadow(0 0 3px #fff) drop-shadow(0 8px 5px rgba(0, 0, 0, 0.45)); }
+.piece .piece-art.loaded { left: -52px; top: -150px; width: 104px; height: 144px; }
+.piece-shadow { left: -34px; top: -8px; width: 68px; height: 20px; background: rgba(0, 0, 0, 0.35); }
+.piece-ring {
+  position: absolute; left: -54px; top: -20px; width: 108px; height: 40px; border-radius: 50%;
+  border: 5px solid var(--red); background: rgba(232, 85, 61, 0.18);
+  box-shadow: 0 0 0 3px #fff, 0 0 18px 4px rgba(232, 85, 61, 0.7);
+  animation: ring-pulse 1.2s ease-in-out infinite;
+}
+@keyframes ring-pulse { 50% { transform: scale(1.18); opacity: 0.75; } }
+.piece-tag {
+  position: absolute; left: 0; top: -200px; transform: translateX(-50%);
+  background: var(--red); color: #fff; font-family: var(--display); font-size: 26px; line-height: 1;
+  padding: 6px 14px 8px; border-radius: 14px; border: 3px solid #fff;
+  box-shadow: 0 4px 0 var(--red-dark), 0 6px 10px rgba(0, 0, 0, 0.3);
+  animation: tag-bob 1s ease-in-out infinite;
+}
+.piece-tag::after { content: ''; position: absolute; left: 50%; bottom: -13px; margin-left: -9px; border: 9px solid transparent; border-top-color: #fff; border-bottom: 0; }
+@keyframes tag-bob { 50% { transform: translate(-50%, -8px); } }
+.piece:not(:has(.piece-art.loaded)) .piece-tag { top: -130px; }

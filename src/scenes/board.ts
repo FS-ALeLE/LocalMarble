@@ -72,7 +72,11 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     tileEls.set(tile.id, el);
     map.append(el);
   }
-  const piece = h('div', { class: 'piece' }, h('div', { class: 'piece-shadow' }), art(setup.piece.art, setup.piece.emoji, 'piece-art'));
+  // 내 말: 크게, 흰 테두리, 발밑 빛나는 고리, 머리 위 '나' 표시로 지도 위에서 잘 보이게
+  const piece = h('div', { class: 'piece' },
+    h('div', { class: 'piece-ring' }), h('div', { class: 'piece-shadow' }),
+    art(setup.piece.art, setup.piece.emoji, 'piece-art'),
+    h('div', { class: 'piece-tag' }, '나'));
   map.append(piece);
   placePiece(board.tiles[state.pos]);
 
