@@ -173,7 +173,8 @@
       "next": [
         5
       ],
-      "place": "library"
+      "place": "library",
+      "label": "left"
     },
     {
       "id": 5,

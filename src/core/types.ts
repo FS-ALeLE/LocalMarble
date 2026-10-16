@@ -38,6 +38,8 @@ export interface Tile {
   y: number;
   next: number[];
   place?: string;
+  /** 이름표 위치 (기본: 아래) */
+  label?: 'left' | 'right';
 }
 
 export interface Piece {

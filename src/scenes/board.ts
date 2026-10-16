@@ -54,7 +54,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
 
   const tileEls = new Map<number, HTMLElement>();
   for (const tile of board.tiles) {
-    const el = h('div', { class: `tile tile-${tile.type}` }, h('div', { class: 'tile-base' }));
+    const el = h('div', { class: `tile tile-${tile.type}${tile.label ? ` label-${tile.label}` : ''}` }, h('div', { class: 'tile-base' }));
     el.style.left = `${tile.x}px`;
     el.style.top = `${tile.y}px`;
     if (tile.type === 'place' && tile.place) {
