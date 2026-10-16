@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>홍보 포스터 · 다 같이 돌자, 홍성 한 바퀴</title>
+<link rel="stylesheet" href="print.css" />
+<style>
+  @page { size: A4 portrait; }
+  .p { padding: 16mm 12mm 0; display: flex; flex-direction: column; align-items: center; }
+  .top-tag { font-size: 15pt; padding: 2.2mm 6mm; margin-bottom: 4mm; }
+  .p .logo { font-size: 62pt; }
+  .sub { margin-top: 4mm; font-family: var(--display); font-size: 19pt; color: #fff; text-shadow: 0 2px 0 var(--navy-dark); }
+
+  .stage { position: relative; width: 186mm; height: 128mm; margin-top: 2mm; }
+  .stage .map { position: absolute; left: 6mm; top: 2mm; width: 174mm; }
+  .stage .bld { position: absolute; width: 34mm; filter: drop-shadow(0 2mm 1.5mm rgba(0,0,0,.25)); }
+  .stage .char { position: absolute; bottom: -2mm; height: 66mm; filter: drop-shadow(0 2mm 2mm rgba(0,0,0,.3)); }
+  .bubble { position: absolute; background: #fff; border-radius: 6mm; padding: 2.5mm 4mm; font-family: var(--display); font-size: 13pt; color: var(--navy-dark); box-shadow: 0 1mm 0 rgba(31,66,102,.3); white-space: nowrap; }
+
+  .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5mm; width: 186mm; margin-top: 5mm; }
+  .feat { padding: 4mm 2mm 3.5mm; text-align: center; }
+  .feat .ico { font-size: 26pt; line-height: 1; }
+  .feat b { display: block; margin-top: 2mm; font-family: var(--display); font-weight: normal; font-size: 15pt; color: var(--navy-dark); }
+  .feat span { display: block; margin-top: 1mm; font-size: 9pt; color: var(--muted); line-height: 1.35; word-break: keep-all; }
+
+  .pieces { display: flex; gap: 5mm; margin-top: 5mm; align-items: flex-end; }
+  .pieces img { height: 24mm; filter: drop-shadow(0 1.5mm 1mm rgba(0,0,0,.25)); }
+  .pieces .say { font-family: var(--display); font-size: 15pt; color: #fff; text-shadow: 0 2px 0 var(--navy-dark); margin: 0 2mm 6mm; }
+
+  .bottom { position: absolute; left: 0; right: 0; bottom: 0; height: 42mm; background: var(--navy-dark); display: flex; align-items: center; gap: 7mm; padding: 0 12mm; color: #fff; }
+  .when { flex: 1; }
+  .when .date { font-family: var(--display); font-size: 26pt; color: var(--gold); }
+  .when .who { font-family: var(--display); font-size: 15pt; margin-top: 1mm; }
+  .when .rank { font-size: 10pt; margin-top: 2mm; opacity: .85; }
+  .qr { background: #fff; border-radius: 4mm; padding: 2.5mm; display: flex; gap: 3mm; align-items: center; }
+  .qr img { width: 27mm; height: 27mm; }
+  .qr div { color: var(--navy-dark); font-family: var(--display); font-size: 12pt; line-height: 1.35; width: 36mm; }
+  .qr small { display: block; font-family: var(--body); font-size: 7.5pt; color: var(--muted); margin-top: 1mm; word-break: break-all; }
+</style>
+</head>
+<body>
+<div class="page portrait">
+  <div class="cloud" style="width:42mm;height:12mm;left:10mm;top:40mm"></div>
+  <div class="cloud" style="width:34mm;height:10mm;right:12mm;top:20mm"></div>
+  <div class="cloud" style="width:26mm;height:8mm;right:8mm;top:96mm;opacity:.7"></div>
+  <div class="p">
+    <div class="badge top-tag">🎲 홍성 탐험 디지털 보드게임</div>
+    <h1 class="logo"><span class="l1">다 같이 돌자,</span>홍성 <span class="gold">한 바퀴</span></h1>
+    <div class="sub">주사위 굴리고, 퀴즈 풀고, 홍성 도장 모으기!</div>
+
+    <div class="stage">
+      <img class="map" src="../public/regions/hongseong/art/map-base.webp" alt="" />
+      <img class="bld" style="left:73mm;top:38mm;width:42mm" src="../public/regions/hongseong/art/bld-start.webp" alt="" />
+      <img class="bld" style="left:22mm;top:22mm" src="../public/regions/hongseong/art/bld-port.webp" alt="" />
+      <img class="bld" style="left:58mm;top:6mm" src="../public/regions/hongseong/art/bld-mountain.webp" alt="" />
+      <img class="bld" style="left:108mm;top:10mm" src="../public/regions/hongseong/art/bld-gallery.webp" alt="" />
+      <img class="bld" style="left:128mm;top:52mm" src="../public/regions/hongseong/art/bld-village.webp" alt="" />
+      <img class="bld" style="left:34mm;top:66mm" src="../public/regions/hongseong/art/bld-alley.webp" alt="" />
+      <img class="bld" style="left:96mm;top:76mm" src="../public/regions/hongseong/art/bld-stadium.webp" alt="" />
+      <img class="char" style="left:-4mm" src="../public/regions/hongseong/art/char-hongi-happy.webp" alt="" />
+      <img class="char" style="right:-4mm" src="../public/regions/hongseong/art/char-juni-happy.webp" alt="" />
+      <div class="bubble" style="left:14mm;top:58mm">같이 가자!</div>
+      <div class="bubble" style="right:12mm;top:56mm">도장 모으자!</div>
+    </div>
+
+    <div class="features">
+      <div class="panel feat"><div class="ico">🎲</div><b>주사위 탐험</b><span>홍성 지도를 한 바퀴<br>빙글빙글 돌아요</span></div>
+      <div class="panel feat"><div class="ico">💡</div><b>홍성 퀴즈</b><span>역사·인물·특산물<br>우리 고장 문제</span></div>
+      <div class="panel feat"><div class="ico">🦐</div><b>미니게임</b><span>대하 잡기,<br>같은 그림 찾기</span></div>
+      <div class="panel feat"><div class="ico">⭐</div><b>오늘의 도장</b><span>4곳 도장 모아<br>조양문으로 완주!</span></div>
+    </div>
+
+  </div>
+
+  <div class="bottom">
+    <div class="when">
+      <div class="date">2026. 10. 17. (토)</div>
+      <div class="who">초등학생 누구나 · 한 판 5분</div>
+      <div class="rank">🏆 오늘의 탐험왕 · 🏫 소속 대항전 순위에 도전하세요!</div>
+    </div>
+    <div class="qr">
+      <img src="qr.svg" alt="게임 주소 QR" />
+      <div>QR을 찍으면<br>게임으로 가요!<small>cne-localmarble.vercel.app</small></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>놀이 안내 · 다 같이 돌자, 홍성 한 바퀴</title>
+<link rel="stylesheet" href="print.css" />
+<style>
+  @page { size: A4 landscape; }
+  .p { position: absolute; inset: 0; padding: 9mm 11mm 9mm; display: flex; flex-direction: column; gap: 5mm; }
+
+  header { display: flex; align-items: center; gap: 6mm; height: 34mm; }
+  header .logo { font-size: 34pt; text-align: left; }
+  header .title { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 2mm; }
+  header .how { font-size: 22pt; padding: 1.5mm 6mm; }
+  header .meta { font-family: var(--display); color: #fff; font-size: 13pt; text-shadow: 0 2px 0 var(--navy-dark); }
+  header .chars { display: flex; align-items: flex-end; height: 40mm; margin-top: -4mm; }
+  header .chars img { height: 40mm; filter: drop-shadow(0 1.5mm 1.5mm rgba(0,0,0,.25)); }
+
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; height: 96mm; }
+  .step { position: relative; padding: 9mm 4mm 4mm; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .num { position: absolute; top: -4mm; left: 50%; transform: translateX(-50%); width: 12mm; height: 12mm; border-radius: 50%; background: var(--red); color: #fff; font-family: var(--display); font-size: 18pt; display: grid; place-items: center; box-shadow: 0 1mm 0 var(--red-dark); }
+  .step h2 { margin: 0; font-family: var(--display); font-weight: normal; font-size: 18pt; color: var(--navy-dark); }
+  .step .pic { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; gap: 2mm; margin: 2mm 0; }
+  .step p { margin: 0; font-size: 10.6pt; line-height: 1.45; word-break: keep-all; font-weight: 500; }
+  .step p b { color: var(--red); }
+  .arrow { position: absolute; right: -4.6mm; top: 44mm; z-index: 2; font-size: 16pt; color: #fff; text-shadow: 0 1px 0 var(--navy-dark); }
+
+  .namecard { border: 0.6mm dashed var(--gold); border-radius: 4mm; padding: 2.5mm 4mm; background: #fff8e6; }
+  .namecard .n { font-family: var(--display); font-size: 17pt; color: var(--red); }
+  .namecard .a { font-family: var(--display); font-size: 11pt; color: var(--navy-dark); }
+  .pcs { display: flex; gap: 1mm; margin-top: 2mm; justify-content: center; }
+  .pcs img { height: 17mm; }
+  .die { width: 30mm; height: 30mm; border-radius: 6mm; background: linear-gradient(145deg, #ff7a62, var(--red)); box-shadow: inset 0 -2mm 0 var(--red-dark), 0 2mm 3mm rgba(0,0,0,.25); display: grid; grid-template: repeat(3, 1fr) / repeat(3, 1fr); padding: 4mm; transform: rotate(-8deg); }
+  .die i { width: 4mm; height: 4mm; border-radius: 50%; background: #fff; place-self: center; }
+  .die i:nth-child(1) { grid-area: 1/1; } .die i:nth-child(2) { grid-area: 1/3; } .die i:nth-child(3) { grid-area: 2/2; } .die i:nth-child(4) { grid-area: 3/1; } .die i:nth-child(5) { grid-area: 3/3; }
+  .bld { width: 34mm; filter: drop-shadow(0 1mm 1mm rgba(0,0,0,.2)); }
+  .stamp { width: 17mm; height: 17mm; border-radius: 50%; border: 1.1mm solid var(--red); outline: 0.5mm solid var(--red); outline-offset: -2.8mm; color: var(--red); font-family: var(--display); font-size: 9.5pt; display: grid; place-items: center; transform: rotate(-10deg); background: #fff; }
+  .bus { font-size: 20pt; }
+  .gate { width: 46mm; filter: drop-shadow(0 1mm 1mm rgba(0,0,0,.2)); }
+
+  .tips { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; flex: 1; }
+  .tip { padding: 3.5mm 5mm; }
+  .tip h3 { margin: 0 0 2mm; font-family: var(--display); font-weight: normal; font-size: 16pt; color: var(--navy-dark); }
+  .tip ul { margin: 0; padding: 0; list-style: none; font-size: 11pt; line-height: 1.65; font-weight: 500; }
+  .tip li { word-break: keep-all; }
+  .grade { display: flex; gap: 2mm; align-items: baseline; }
+  .grade b { font-family: var(--display); font-weight: normal; color: var(--red); }
+</style>
+</head>
+<body>
+<div class="page landscape">
+  <div class="cloud" style="width:30mm;height:9mm;left:150mm;top:8mm;opacity:.8"></div>
+  <div class="p">
+    <header>
+      <h1 class="logo"><span class="l1">다 같이 돌자,</span>홍성 <span class="gold">한 바퀴</span></h1>
+      <div class="title">
+        <div class="badge how">🎲 이렇게 놀아요!</div>
+        <div class="meta">초등학생 누구나 · 한 판 약 5분 · 1인 플레이</div>
+      </div>
+      <div class="chars">
+        <img src="../public/regions/hongseong/art/char-hongi-normal.webp" alt="" />
+        <img src="../public/regions/hongseong/art/char-juni-normal.webp" alt="" />
+      </div>
+    </header>
+
+    <section class="steps">
+      <div class="panel step">
+        <div class="num">1</div>
+        <h2>이름표 만들기</h2>
+        <div class="pic" style="flex-direction:column">
+          <div class="namecard"><div class="n">날쌘대하</div><div class="a">홍성초 · 4학년</div></div>
+          <div class="pcs">
+            <img src="../public/regions/hongseong/art/piece-prawn.webp" alt="" />
+            <img src="../public/regions/hongseong/art/piece-octopus.webp" alt="" />
+            <img src="../public/regions/hongseong/art/piece-seagull.webp" alt="" />
+            <img src="../public/regions/hongseong/art/piece-cow.webp" alt="" />
+          </div>
+        </div>
+        <p>학교(기관) 이름과 <b>별명</b>을 쓰고, 학년과 내 말을 골라요.<br><b>진짜 이름은 쓰지 마세요!</b></p>
+        <div class="arrow">▶</div>
+      </div>
+
+      <div class="panel step">
+        <div class="num">2</div>
+        <h2>주사위 굴리기</h2>
+        <div class="pic"><div class="die"><i></i><i></i><i></i><i></i><i></i></div></div>
+        <p>주사위(<b>1~6</b>)를 눌러 홍성 지도를 돌아요.<br>갈림길에서는 가고 싶은 길을 골라요.</p>
+        <div class="arrow">▶</div>
+      </div>
+
+      <div class="panel step">
+        <div class="num">3</div>
+        <h2>오늘의 도장 모으기</h2>
+        <div class="pic">
+          <img class="bld" src="../public/regions/hongseong/art/bld-alley.webp" alt="" />
+          <div style="display:flex;flex-direction:column;align-items:center;gap:1mm"><div class="stamp">새우젓</div><div class="bus">🚌</div></div>
+        </div>
+        <p><b>⭐ 표시된 4곳</b>에서 퀴즈를 맞히거나 미니게임에 성공하면 도장!<br><b>🚌 홍성 버스</b>(3번)를 타면 도장 장소로 바로 가요.</p>
+        <div class="arrow">▶</div>
+      </div>
+
+      <div class="panel step">
+        <div class="num">4</div>
+        <h2>조양문으로 완주!</h2>
+        <div class="pic"><img class="gate" src="../public/regions/hongseong/art/bld-start.webp" alt="" /></div>
+        <p>도장 4개를 모두 모아 <b>조양문</b>으로 돌아오면 완주! 🎉<br>점수가 <b>순위표</b>에 올라가요.</p>
+      </div>
+    </section>
+
+    <section class="tips">
+      <div class="panel tip">
+        <h3>❤️ 알아 두세요</h3>
+        <ul>
+          <li>하트는 3개! 틀리면 하나씩 줄어요.</li>
+          <li>주사위는 12번까지 굴릴 수 있어요.</li>
+          <li>💡 힌트는 한 판에 1번 (틀린 보기 하나 지우기)</li>
+          <li>🌳 쉼터에서는 하트가 다시 채워져요.</li>
+        </ul>
+      </div>
+      <div class="panel tip">
+        <h3>🦐 미니게임 꿀팁</h3>
+        <ul>
+          <li><b style="color:var(--red)">대하 잡기</b>: 튀어 오르는 대하만 콕!</li>
+          <li>꽃게·물고기·해파리·쓰레기를 누르면 잠깐 멈춰요.</li>
+          <li><b style="color:var(--red)">같은 그림 찾기</b>: 카드를 뒤집어 짝 4쌍을 찾아요.</li>
+        </ul>
+      </div>
+      <div class="panel tip">
+        <h3>🏆 등급과 순위</h3>
+        <ul>
+          <li class="grade">🥇 <b>홍성 박사</b> 1,500점 이상</li>
+          <li class="grade">🥈 <b>홍성 탐험가</b> 800점 이상</li>
+          <li class="grade">🥉 <b>홍성 새내기</b></li>
+          <li>전광판에서 <b style="color:var(--red)">오늘의 탐험왕</b>과 <b style="color:var(--red)">소속 대항전</b>을 확인해요!</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+</body>
+</html>
