@@ -239,16 +239,17 @@ body.portrait #rotate-notice { display: flex; }
 .choice-icon { font-size: 54px; }
 .choice-title { font-family: var(--display); font-size: 32px; }
 .choice-sub { font-size: 20px; color: var(--muted); }
-.piece-art { width: 96px; height: 96px; font-size: 78px; }
-.choice-card.on .piece-art { animation: hop 0.6s ease-in-out infinite; }
+.setup-piece-art { width: 110px; height: 130px; font-size: 78px; }
+.choice-card.on .setup-piece-art { animation: hop 0.6s ease-in-out infinite; }
 
 /* ---------- 보드 ---------- */
 .board-screen { background: #4a8fc0; }
 .board-screen.thud { animation: thud 0.3s; }
 .camera { position: absolute; left: 0; top: 0; width: 1600px; height: 1000px; transform-origin: 0 0; transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1); }
 .map { position: absolute; left: 0; top: 0; }
-.map-svg, .map-art { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
-.map-art { object-fit: cover; }
+.map-layer, .map-svg, .map-art { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.map-art { object-fit: contain; }
+.map.has-art .map-land { display: none; }
 .wave { animation: wave 4s ease-in-out infinite; }
 
 .tile { position: absolute; width: 0; height: 0; }
@@ -273,9 +274,9 @@ body.portrait #rotate-notice { display: flex; }
 .bld-small { left: -32px; top: -70px; width: 64px; height: 64px; font-size: 48px; }
 /* AI 그림이 있으면: 그림 속 둥근 받침이 칸 역할을 한다 */
 .tile:has(.bld.loaded) .tile-base { display: none; }
-.bld.loaded { top: auto; bottom: -26px; left: -88px; width: 176px; height: auto; filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.25)); }
+.bld.loaded { top: auto; bottom: -24px; left: -75px; width: 150px; height: auto; filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.25)); }
 .bld.loaded img { width: 100%; height: auto; margin: 0; }
-.bld-start.loaded { left: -105px; width: 210px; }
+.bld-start.loaded { left: -90px; width: 180px; }
 .bld-small.loaded { left: -55px; width: 110px; bottom: -18px; }
 .tile:has(.bld.loaded) .tile-name { top: 32px; }
 .tile.bump .bld { animation: bump 0.6s ease-in-out infinite; }
@@ -294,7 +295,7 @@ body.portrait #rotate-notice { display: flex; }
 .start-name { background: var(--red); color: #fff; font-size: 19px; }
 
 .piece { position: absolute; width: 0; height: 0; z-index: 5; }
-.piece-art { position: absolute; left: -36px; top: -78px; width: 72px; height: 72px; font-size: 62px; filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.3)); transform-origin: 50% 100%; }
+.piece .piece-art { position: absolute; left: -36px; top: -78px; width: 72px; height: 72px; font-size: 62px; filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.3)); transform-origin: 50% 100%; }
 .piece .piece-art { animation: idle-bob 1.6s ease-in-out infinite; }
 .piece.land .piece-art { animation: land 0.25s ease-out; }
 .piece-shadow { position: absolute; left: -26px; top: -6px; width: 52px; height: 16px; border-radius: 50%; background: rgba(0, 0, 0, 0.28); }
@@ -719,3 +720,12 @@ body.portrait #rotate-notice { display: flex; }
 .today-guide { display: flex; align-items: center; gap: 14px; font-family: var(--display); font-size: 26px; color: var(--navy-dark); }
 .today-guide-art { width: 90px; height: 90px; font-size: 72px; }
 .guide-art.mood-surprised { animation: pop 0.4s; }
+
+/* AI 말 그림(세로형)이 있으면 조금 크게 */
+.piece .piece-art.loaded { left: -40px; top: -112px; width: 80px; height: 110px; }
+.hud-piece.loaded { width: 44px; height: 58px; }
+/* 카드 뒷면 그림이 있으면 그림이 카드 전체가 되게 */
+.mem-back:has(.mem-art.loaded) { background: none; border: none; box-shadow: none; }
+.mem-back .mem-art.loaded { width: 100%; height: 100%; }
+.mem-front .mem-art.loaded { width: 150px; height: 150px; }
+.prawn-field:has(.mg-bg.loaded)::after { display: none; }

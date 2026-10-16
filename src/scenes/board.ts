@@ -37,13 +37,16 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   };
 
   // ---------- 화면 구성 ----------
-  const map = h('div', { class: 'map', html: mapSvg(board) });
+  const svg = mapSvg(board);
+  const roads = h('div', { class: 'map-layer', html: svg.roads });
+  const map = h('div', { class: 'map' }, h('div', { class: 'map-layer', html: svg.base }), roads);
   map.style.width = `${board.width}px`;
   map.style.height = `${board.height}px`;
   if (board.mapArt) {
+    // AI 지도 그림이 있으면 임시 섬을 숨기고 그림을 바다 위, 길 아래에 깐다.
     const img = new Image();
     img.className = 'map-art';
-    img.onload = () => map.prepend(img);
+    img.onload = () => { roads.before(img); map.classList.add('has-art'); };
     img.src = REGION_BASE + board.mapArt;
   }
 

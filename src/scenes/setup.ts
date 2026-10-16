@@ -14,7 +14,7 @@ export function setupScreen(stage: HTMLElement, data: RegionData, profile: Profi
         h('div', { class: 'choice-sub' }, lv === 'low' ? '1~3학년 · 쉬운 문제' : '4~6학년 · 도전 문제')));
     const pieceBtns = data.board.pieces.map((p) =>
       h('button', { class: 'choice-card piece-card', onclick: () => { sfx.hop(); piece = p; render(); } },
-        art(p.art, p.emoji, 'piece-art'), h('div', { class: 'choice-title' }, p.name)));
+        art(p.art, p.emoji, 'setup-piece-art'), h('div', { class: 'choice-title' }, p.name)));
 
     const render = () => {
       levelBtns.forEach((b, i) => b.classList.toggle('on', (i === 0 ? 'low' : 'high') === level));
