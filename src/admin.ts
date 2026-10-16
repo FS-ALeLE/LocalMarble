@@ -1,5 +1,6 @@
 // 진행자 화면: 행사 만들기, 부적절한 별명 숨기기, 순위 CSV 받기, 기록 바로 지우기
 import './admin.css';
+import { gradeLabel } from '../api/_lib/grades';
 import { h } from './ui/dom';
 
 interface EventRow { id: number; name: string; starts_at: string; ends_at: string; delete_after: string; plays: number }
@@ -100,9 +101,9 @@ async function players(e: EventRow) {
     h('h2', {}, `참가자 (최근 ${list.length}명) · ${e.name}`),
     h('p', { class: 'help' }, '부적절한 별명은 "숨기기"를 누르면 순위표와 전광판에서 바로 빠집니다.'),
     h('table', {},
-      h('thead', {}, h('tr', {}, ...['시각', '별명', '소속', '학년', '점수', ''].map((t) => h('th', {}, t)))),
+      h('thead', {}, h('tr', {}, ...['시각', '별명', '소속', '구분', '점수', ''].map((t) => h('th', {}, t)))),
       h('tbody', {}, ...list.map((p) => h('tr', { class: p.hidden ? 'hidden-row' : '' },
-        h('td', {}, kst(p.created_at)), h('td', {}, p.nickname), h('td', {}, p.affiliation), h('td', {}, p.grade ? `${p.grade}학년` : ''),
+        h('td', {}, kst(p.created_at)), h('td', {}, p.nickname), h('td', {}, p.affiliation), h('td', {}, gradeLabel(p.grade)),
         h('td', {}, p.score === null ? '플레이 중' : String(p.score)),
         h('td', {}, h('button', { class: p.hidden ? '' : 'danger', onclick: () => toggle(p) }, p.hidden ? '다시 보이기' : '숨기기'))))))));
   box.scrollIntoView({ behavior: 'smooth' });

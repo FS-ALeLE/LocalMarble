@@ -1,17 +1,18 @@
 import { sfx } from '../audio/sfx';
-import type { Level, Profile, RegionData, Setup } from '../core/types';
+import { LEVEL_LABEL, type Level, type Profile, type RegionData, type Setup } from '../core/types';
+import { isEasyByDefault } from '../../api/_lib/grades';
 import { art, h } from '../ui/dom';
 
 export function setupScreen(stage: HTMLElement, data: RegionData, profile: Profile): Promise<Setup> {
   return new Promise((resolve) => {
-    let level: Level = profile.grade && profile.grade >= 4 ? 'high' : 'low';
+    let level: Level = isEasyByDefault(profile.grade) ? 'low' : 'high';
     let piece = data.board.pieces[0];
 
     const levelBtns = (['low', 'high'] as Level[]).map((lv) =>
       h('button', { class: 'choice-card', onclick: () => { sfx.click(); level = lv; render(); } },
         h('div', { class: 'choice-icon' }, lv === 'low' ? '🌱' : '🌳'),
-        h('div', { class: 'choice-title' }, lv === 'low' ? '저학년' : '고학년'),
-        h('div', { class: 'choice-sub' }, lv === 'low' ? '1~3학년 · 쉬운 문제' : '4~6학년 · 도전 문제')));
+        h('div', { class: 'choice-title' }, LEVEL_LABEL[lv]),
+        h('div', { class: 'choice-sub' }, lv === 'low' ? '처음 해 보는 친구 · 쉬운 문제' : '도전하고 싶은 친구 · 조금 어려운 문제')));
     const pieceBtns = data.board.pieces.map((p) =>
       h('button', { class: 'choice-card piece-card', onclick: () => { sfx.hop(); piece = p; render(); } },
         art(p.art, p.emoji, 'setup-piece-art'), h('div', { class: 'choice-title' }, p.name)));

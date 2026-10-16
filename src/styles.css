@@ -729,3 +729,51 @@ body.portrait #rotate-notice { display: flex; }
 .mem-back .mem-art.loaded { width: 100%; height: 100%; }
 .mem-front .mem-art.loaded { width: 150px; height: 150px; }
 .prawn-field:has(.mg-bg.loaded)::after { display: none; }
+.grade-grid-4 { grid-template-columns: repeat(4, 1fr); margin-top: 0; }
+.grade-grid .grade-btn { font-size: 34px; min-height: 88px; }
+
+/* ---------- 10/16 수정: 버스 버튼, 갈림길, 오늘의 도장 표시, 장소 안내 ---------- */
+.bus-btn {
+  position: absolute; left: 28px; bottom: 30px; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  width: 170px; padding: 14px 10px 12px; border: 0; border-radius: 30px;
+  background: var(--paper); box-shadow: 0 7px 0 rgba(31, 66, 102, 0.35), 0 12px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s, opacity 0.2s;
+}
+.bus-btn:disabled { cursor: default; }
+.bus-btn.empty { opacity: 0.45; filter: grayscale(0.7); }
+.bus-btn-icon { font-size: 72px; line-height: 1; }
+.bus-btn-label { font-family: var(--display); font-size: 24px; color: var(--navy-dark); }
+.bus-btn .bus-count { position: absolute; right: -8px; top: -8px; background: var(--red); color: #fff; font-family: var(--display); font-size: 24px; padding: 2px 12px; border-radius: 999px; box-shadow: 0 3px 0 var(--red-dark); }
+.bus-btn.glow { animation: bus-glow 1s ease-in-out infinite; }
+.bus-btn.glow .bus-btn-icon { animation: hop 0.8s ease-in-out infinite; }
+@keyframes bus-glow {
+  0%, 100% { box-shadow: 0 7px 0 rgba(31, 66, 102, 0.35), 0 0 0 0 rgba(232, 196, 106, 0.9); transform: scale(1); }
+  50% { box-shadow: 0 7px 0 rgba(31, 66, 102, 0.35), 0 0 0 16px rgba(232, 196, 106, 0); transform: scale(1.07); }
+}
+
+.fork-overlay { z-index: 1; }
+.fork-box {
+  position: static; transform: none; left: auto; bottom: auto;
+  flex-direction: column; gap: 22px; padding: 40px 56px; border-radius: 40px; min-width: 760px;
+}
+.fork-title { align-items: center; font-size: 30px; }
+.fork-title b { font-size: 64px; }
+.fork-btn { width: 100%; font-size: 40px; min-height: 110px; display: flex; align-items: center; gap: 20px; justify-content: center; }
+.fork-num { width: 64px; height: 64px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; font-size: 36px; flex: none; }
+
+.target-badge { display: none; }
+.tile.target .bld { animation: none; }
+.tile-name { display: flex; align-items: center; gap: 6px; }
+.name-stamp {
+  flex: none; width: 24px; height: 24px; border-radius: 50%;
+  border: 2.5px solid var(--red); box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 3.5px var(--red);
+  background: #fff;
+  display: grid; place-items: center; color: var(--red); font-size: 12px; line-height: 1;
+  transform: rotate(-12deg);
+}
+.name-stamp::after { content: '★'; }
+.tile.target.done .name-stamp { background: var(--red); box-shadow: inset 0 0 0 2px var(--red); color: #fff; }
+.tile.target.done .name-stamp::after { content: '✔'; }
+
+.place-intro-overlay.overlay.dim { background: radial-gradient(circle at 50% 46%, rgba(255, 253, 248, 0.96) 0, rgba(255, 253, 248, 0.9) 380px, rgba(20, 40, 60, 0.5) 640px); }

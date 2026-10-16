@@ -2,7 +2,7 @@ import { sfx } from '../audio/sfx';
 import { CONFIG, REGION_BASE } from '../config';
 import { QuestionDeck } from '../core/deck';
 import { pick, randInt, shuffle } from '../core/random';
-import { CATEGORY_LABEL, type Place, type PlayResult, type Profile, type RegionData, type Setup, type Tile } from '../core/types';
+import { CATEGORY_LABEL, LEVEL_LABEL, type Place, type PlayResult, type Profile, type RegionData, type Setup, type Tile } from '../core/types';
 import { playMemory } from '../minigames/memory';
 import { playPrawn } from '../minigames/prawn';
 import { animate, art, h, wait } from '../ui/dom';
@@ -31,6 +31,8 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     hintUsed: false,
     extraRoll: false,
     busRides: CONFIG.busRides,
+    /** 조양문을 지나간 횟수 (한 바퀴 돌았는지) */
+    laps: 0,
     learned: [] as PlayResult['learned'],
     answered: [] as PlayResult['answered'],
     started: performance.now(),
@@ -57,11 +59,9 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     el.style.top = `${tile.y}px`;
     if (tile.type === 'place' && tile.place) {
       const p = board.places[tile.place];
-      el.append(art(p.art, p.emoji, 'bld'), h('div', { class: 'tile-name' }, p.name));
-      if (targets.includes(tile.place)) {
-        el.classList.add('target');
-        el.append(h('div', { class: 'target-badge' }, '⭐ 오늘의 도장'));
-      }
+      const isTarget = targets.includes(tile.place);
+      el.append(art(p.art, p.emoji, 'bld'), h('div', { class: 'tile-name' }, isTarget ? h('span', { class: 'name-stamp', title: '오늘의 도장' }) : null, p.name));
+      if (isTarget) el.classList.add('target');
     } else if (tile.type === 'start') {
       el.append(art(board.startArt, '🏯', 'bld bld-start'), h('div', { class: 'tile-name start-name' }, '조양문 · 출발/골인'));
     } else if (tile.type === 'chance') {
@@ -82,13 +82,14 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   const turnEl = h('div', { class: 'turn' });
   const stampSlots = targets.map((id) => h('div', { class: 'stamp-slot', title: board.places[id].name, html: emptyStampSvg(54) }));
   const stampCount = h('div', { class: 'stamp-count' });
-  const busCount = h('div', { class: 'bus-count' });
+  const busCount = h('span', { class: 'bus-count' });
+  const busBtn = h('button', { class: 'bus-btn', disabled: true }, h('span', { class: 'bus-btn-icon' }, '🚌'), h('span', { class: 'bus-btn-label' }, '홍성 버스'), busCount);
   const hud = h('div', { class: 'hud' },
     h('div', { class: 'hud-card hud-player' },
       art(setup.piece.art, setup.piece.emoji, 'hud-piece'),
-      h('div', {}, h('div', { class: 'hud-nick' }, profile.nickname), h('div', { class: 'hud-aff' }, `${profile.affiliationKey} · ${setup.level === 'low' ? '저학년' : '고학년'}`))),
+      h('div', {}, h('div', { class: 'hud-nick' }, profile.nickname), h('div', { class: 'hud-aff' }, `${profile.affiliationKey} · ${LEVEL_LABEL[setup.level]}`))),
     h('div', { class: 'hud-card hud-stamps' },
-      h('div', { class: 'hud-stamps-head' }, stampCount, busCount),
+      h('div', { class: 'hud-stamps-head' }, stampCount),
       h('div', { class: 'stamp-row' }, ...targets.map((id, i) => h('div', { class: 'target-slot' },
         stampSlots[i], h('div', { class: 'target-slot-name' }, `${board.places[id].emoji} ${board.places[id].short}`))))),
     h('div', { class: 'hud-card hud-status' }, hearts, h('div', { class: 'hud-score' }, h('span', {}, '점수'), scoreEl), turnEl));
@@ -97,7 +98,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   const diceBtn = h('button', { class: 'dice-btn' }, die, h('div', { class: 'dice-label' }, '주사위 굴리기'));
   const fx = h('div', { class: 'fx-layer' });
   const layer = h('div', { class: 'overlay-layer' });
-  stage.replaceChildren(h('div', { class: 'screen board-screen' }, camera, hud, diceBtn, fx, layer));
+  stage.replaceChildren(h('div', { class: 'screen board-screen' }, camera, hud, diceBtn, busBtn, fx, layer));
   setDie(1);
   updateHud();
 
@@ -109,14 +110,25 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   let outcome: PlayResult['outcome'] = 'timeout';
   game: for (;;) {
     updateHud();
-    const roll = await rollDice();
-    let steps = roll;
+    const action = await nextAction();
+    if (typeof action !== 'number') {
+      // 홍성 버스를 타고 오늘의 도장 장소로 (이번 턴은 주사위 대신 버스)
+      await rideBus(board.tiles[state.pos], action);
+      await visitPlace(action);
+      updateHud();
+      if (state.lives <= 0) { outcome = 'gameover'; break; }
+      if (state.turn >= CONFIG.turnLimit) { outcome = 'timeout'; break; }
+      state.turn++;
+      continue;
+    }
+    let steps = action;
     while (steps > 0) {
       const here = board.tiles[state.pos];
       const nextId = here.next.length > 1 ? await chooseFork(here, steps) : here.next[0];
       await hopTo(board.tiles[nextId]);
       state.pos = nextId;
       steps--;
+      if (board.tiles[state.pos].type === 'start') state.laps++;
       if (board.tiles[state.pos].type === 'start' && allStamped()) {
         outcome = 'finish';
         break game;
@@ -180,19 +192,10 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     }
   }
 
-  async function visitPlace(tile: Tile, byBus = false) {
+  async function visitPlace(tile: Tile) {
     const placeId = tile.place!;
     const place = board.places[placeId];
     const needed = targets.includes(placeId) && !state.stamps.has(placeId);
-    // 오늘의 도장이 아닌 곳(또는 이미 받은 곳)에 서면 홍성 버스를 탈지 고를 수 있다.
-    const remaining = targets.filter((id) => !state.stamps.has(id));
-    if (!byBus && !needed && state.busRides > 0 && remaining.length) {
-      const dest = await offerBus(tile, remaining);
-      if (dest) {
-        await rideBus(tile, dest);
-        return visitPlace(dest, true);
-      }
-    }
     await focus(tile, 1.6);
     tileEls.get(tile.id)?.classList.add('bump');
     const games = place.minigames ?? [];
@@ -277,7 +280,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
           const p = board.places[id];
           return h('div', { class: 'today-item' }, art(p.art, p.emoji, 'today-art'), h('div', { class: 'today-name' }, p.name));
         })),
-        h('p', { class: 'today-bus' }, `🚌 홍성 버스 ${CONFIG.busRides}번: 도장이 없는 곳에 서면 버스를 타고 오늘의 도장 장소로 갈 수 있어요.`),
+        h('p', { class: 'today-bus' }, `🚌 홍성 버스 ${CONFIG.busRides}번: 왼쪽 아래 버스를 누르면 오늘의 도장 장소로 바로 갈 수 있어요.`),
         go);
       const overlay = h('div', { class: 'overlay dim' }, card);
       layer.append(overlay);
@@ -287,23 +290,37 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     });
   }
 
-  /** 버스를 탈지 묻는다. 고른 장소의 칸(가장 가까운 칸)을 돌려주고, 안 타면 null. */
-  function offerBus(here: Tile, remaining: string[]): Promise<Tile | null> {
+  function remainingTargets() {
+    return targets.filter((id) => !state.stamps.has(id));
+  }
+
+  function canRideBus() {
+    return state.busRides > 0 && remainingTargets().length > 0;
+  }
+
+  /** 지금 서 있는 칸이 아직 도장을 받지 않은 오늘의 도장 장소인가 */
+  function neededHere() {
+    const place = board.tiles[state.pos].place;
+    return !!place && targets.includes(place) && !state.stamps.has(place);
+  }
+
+  /** 버스 목적지 고르기. 고른 장소의 가장 가까운 칸, 안 타면 null. */
+  function chooseBusDest(): Promise<Tile | null> {
     return new Promise((resolve) => {
-      sfx.chance();
+      const here = board.tiles[state.pos];
       const nearest = (placeId: string) => board.tiles
         .filter((t) => t.place === placeId)
         .sort((a, b) => Math.hypot(a.x - here.x, a.y - here.y) - Math.hypot(b.x - here.x, b.y - here.y))[0];
       const done = (t: Tile | null) => { overlay.remove(); resolve(t); };
       const card = h('div', { class: 'bus-card pop-in' },
         h('div', { class: 'bus-icon' }, '🚌'),
-        h('h2', {}, '홍성 버스를 탈까요?'),
-        h('p', {}, `여기는 오늘의 도장이 없어요. 버스를 타면 도장 장소로 바로 갈 수 있어요. (남은 버스 ${state.busRides}번)`),
-        h('div', { class: 'bus-options' }, ...remaining.map((id) => {
+        h('h2', {}, '홍성 버스를 타고 어디로 갈까요?'),
+        h('p', {}, `오늘의 도장 장소로 바로 가요. 이번 턴은 주사위 대신 버스를 타요. (남은 버스 ${state.busRides}번)`),
+        h('div', { class: 'bus-options' }, ...remainingTargets().map((id) => {
           const p = board.places[id];
           return h('button', { class: 'btn btn-gold bus-dest', onclick: () => { sfx.click(); done(nearest(id)); } }, `${p.emoji} ${p.name}`);
         })),
-        h('button', { class: 'btn btn-soft', onclick: () => { sfx.click(); done(null); } }, '안 탈래요, 여기서 문제 풀기'));
+        h('button', { class: 'btn btn-soft', onclick: () => { sfx.click(); done(null); } }, '안 탈래요'));
       const overlay = h('div', { class: 'overlay dim-light' }, card);
       layer.append(overlay);
     });
@@ -378,8 +395,8 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     turnEl.textContent = `턴 ${Math.min(state.turn, CONFIG.turnLimit)} / ${CONFIG.turnLimit}`;
     stampCount.textContent = allStamped() ? '도장 완성! 조양문으로!' : `오늘의 도장 ${state.stamps.size} / ${targets.length}`;
     stampCount.classList.toggle('ready', allStamped());
-    busCount.textContent = `🚌 ×${state.busRides}`;
-    busCount.classList.toggle('empty', state.busRides === 0);
+    busCount.textContent = `×${state.busRides}`;
+    busBtn.classList.toggle('empty', !canRideBus());
   }
 
   // ---------- 주사위·이동 ----------
@@ -388,34 +405,54 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     die.dataset.n = String(n);
   }
 
-  function rollDice(): Promise<number> {
-    return new Promise((resolve) => {
-      diceBtn.disabled = false;
-      diceBtn.classList.add('ready');
-      const go = async () => {
-        window.removeEventListener('keydown', onKey);
-        diceBtn.removeEventListener('click', go);
-        diceBtn.disabled = true;
-        diceBtn.classList.remove('ready');
-        diceBtn.classList.add('rolling');
-        const result = randInt(CONFIG.dice.min, CONFIG.dice.max);
-        for (let i = 0; i < 10; i++) {
-          setDie(randInt(CONFIG.dice.min, CONFIG.dice.max));
-          sfx.diceTick();
-          await wait(55 + i * 8);
-        }
-        setDie(result);
-        diceBtn.classList.remove('rolling');
-        sfx.diceLand();
-        stage.querySelector('.board-screen')?.classList.add('thud');
-        setTimeout(() => stage.querySelector('.board-screen')?.classList.remove('thud'), 300);
-        await wait(450);
-        resolve(result);
-      };
-      const onKey = (e: KeyboardEvent) => { if (e.code === 'Space' || e.key === 'Enter') { e.preventDefault(); void go(); } };
-      diceBtn.addEventListener('click', go);
-      window.addEventListener('keydown', onKey);
-    });
+  /** 이번 턴에 할 일: 주사위(눈 수) 또는 버스(목적지 칸) */
+  async function nextAction(): Promise<number | Tile> {
+    for (;;) {
+      const choice = await new Promise<'dice' | 'bus'>((resolve) => {
+        const busOk = canRideBus();
+        diceBtn.disabled = false;
+        diceBtn.classList.add('ready');
+        busBtn.disabled = !busOk;
+        // 한 바퀴 돈 뒤 도장 칸이 아닌 곳에 서 있으면 버스가 반짝인다.
+        busBtn.classList.toggle('glow', busOk && state.laps >= 1 && !neededHere());
+        const done = (c: 'dice' | 'bus') => {
+          diceBtn.removeEventListener('click', onDice);
+          busBtn.removeEventListener('click', onBus);
+          window.removeEventListener('keydown', onKey);
+          diceBtn.disabled = true;
+          busBtn.disabled = true;
+          diceBtn.classList.remove('ready');
+          busBtn.classList.remove('glow');
+          resolve(c);
+        };
+        const onDice = () => done('dice');
+        const onBus = () => { sfx.click(); done('bus'); };
+        const onKey = (e: KeyboardEvent) => { if (e.code === 'Space' || e.key === 'Enter') { e.preventDefault(); done('dice'); } };
+        diceBtn.addEventListener('click', onDice);
+        busBtn.addEventListener('click', onBus);
+        window.addEventListener('keydown', onKey);
+      });
+      if (choice === 'dice') return doRoll();
+      const dest = await chooseBusDest();
+      if (dest) return dest;
+    }
+  }
+
+  async function doRoll(): Promise<number> {
+    diceBtn.classList.add('rolling');
+    const result = randInt(CONFIG.dice.min, CONFIG.dice.max);
+    for (let i = 0; i < 10; i++) {
+      setDie(randInt(CONFIG.dice.min, CONFIG.dice.max));
+      sfx.diceTick();
+      await wait(55 + i * 8);
+    }
+    setDie(result);
+    diceBtn.classList.remove('rolling');
+    sfx.diceLand();
+    stage.querySelector('.board-screen')?.classList.add('thud');
+    setTimeout(() => stage.querySelector('.board-screen')?.classList.remove('thud'), 300);
+    await wait(450);
+    return result;
   }
 
   function chooseFork(tile: Tile, steps: number): Promise<number> {
@@ -423,8 +460,8 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
       const labels = board.forks[String(tile.id)] ?? tile.next.map((_, i) => `길 ${i + 1}`);
       const box = h('div', { class: 'fork-box pop-in' },
         h('div', { class: 'fork-title' }, h('b', {}, '갈림길!'), h('span', {}, `어느 쪽으로 갈까요? (남은 칸 ${steps})`)),
-        ...tile.next.map((id, i) => h('button', { class: 'btn fork-btn', onclick: () => { sfx.click(); box.remove(); markers.forEach((m) => m.remove()); resolve(id); } },
-          `${i === 0 ? '➡️' : '⬇️'} ${labels[i]}`)));
+        ...tile.next.map((id, i) => h('button', { class: 'btn fork-btn', onclick: () => { sfx.click(); forkOverlay.remove(); markers.forEach((m) => m.remove()); resolve(id); } },
+          h('span', { class: 'fork-num' }, String(i + 1)), labels[i])));
       const markers = tile.next.map((id, i) => {
         const t = board.tiles[id];
         const m = h('div', { class: 'fork-marker' }, String(i + 1));
@@ -433,7 +470,8 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
         map.append(m);
         return m;
       });
-      layer.append(box);
+      const forkOverlay = h('div', { class: 'overlay dim-light fork-overlay' }, box);
+      layer.append(forkOverlay);
     });
   }
 

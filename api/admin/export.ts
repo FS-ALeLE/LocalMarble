@@ -1,5 +1,6 @@
 import { isAdmin } from '../_lib/admin.js';
 import { getDb } from '../_lib/db.js';
+import { gradeLabel } from '../_lib/grades.js';
 import { fail, handler } from '../_lib/http.js';
 
 const cell = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
@@ -17,8 +18,8 @@ export const GET = handler(async (req) => {
      WHERE pl.event_id = $1 ORDER BY rank`,
     [eventId],
   );
-  const header = ['순위', '별명', '소속', '학년', '점수', '도장', '결과', '시각', '숨김'];
-  const lines = rows.map((r) => [r.rank, r.nickname, r.affiliation_key, r.grade, r.score, r.stamps, r.outcome, r.time, r.hidden ? '숨김' : ''].map(cell).join(','));
+  const header = ['순위', '별명', '소속', '구분', '점수', '도장', '결과', '시각', '숨김'];
+  const lines = rows.map((r) => [r.rank, r.nickname, r.affiliation_key, gradeLabel(r.grade as number | null), r.score, r.stamps, r.outcome, r.time, r.hidden ? '숨김' : ''].map(cell).join(','));
   return new Response('﻿' + [header.map(cell).join(','), ...lines].join('\r\n'), {
     headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="ranking-${eventId}.csv"` },
   });

@@ -3,6 +3,7 @@ import { pick } from '../core/random';
 import type { Profile, RegionData } from '../core/types';
 import { registerPlayer, suggestAffiliations, type EventInfo } from '../services/api';
 import { affiliationKey, affiliationProblem, nicknameProblem } from '../../api/_lib/filter';
+import { gradeLabel } from '../../api/_lib/grades';
 import { h } from '../ui/dom';
 
 const SOLO = '개인';
@@ -103,10 +104,12 @@ export function registerScreen(stage: HTMLElement, data: RegionData, event: Even
       setStep(2);
       const pickGrade = (g?: number) => { sfx.click(); profile.grade = g; stepConfirm(); };
       body.replaceChildren(
-        h('h2', {}, '몇 학년인가요?'),
-        h('p', { class: 'reg-help' }, '학년에 맞는 문제가 나와요.'),
+        h('h2', {}, '누구인가요?'),
+        h('p', { class: 'reg-help' }, '초등학생은 학년을, 그 밖에는 해당하는 것을 골라 주세요.'),
         h('div', { class: 'grade-grid' }, ...[1, 2, 3, 4, 5, 6].map((g) =>
-          h('button', { class: `btn grade-btn ${profile.grade === g ? 'on' : ''}`, onclick: () => pickGrade(g) }, `${g}학년`))),
+          h('button', { class: `btn grade-btn ${profile.grade === g ? 'on' : ''}`, onclick: () => pickGrade(g) }, `초등 ${g}학년`))),
+        h('div', { class: 'grade-grid grade-grid-4' }, ...[0, 7, 8, 9].map((g) =>
+          h('button', { class: `btn grade-btn ${profile.grade === g ? 'on' : ''}`, onclick: () => pickGrade(g) }, gradeLabel(g)))),
         h('div', { class: 'reg-nav' },
           h('button', { class: 'btn btn-ghost', onclick: () => { sfx.click(); stepNickname(); } }, '← 이전'),
           h('button', { class: 'btn btn-soft', onclick: () => pickGrade(undefined) }, '말하지 않을래요')),
@@ -145,7 +148,7 @@ export function registerScreen(stage: HTMLElement, data: RegionData, event: Even
         h('h2', {}, '이렇게 맞나요?'),
         h('div', { class: 'name-card' },
           h('div', { class: 'name-card-nick' }, profile.nickname),
-          h('div', { class: 'name-card-aff' }, `${key}${profile.grade ? ` · ${profile.grade}학년` : ''}`)),
+          h('div', { class: 'name-card-aff' }, `${key}${profile.grade !== undefined ? ` · ${gradeLabel(profile.grade)}` : ''}`)),
         h('p', { class: 'reg-help small' }, event.active
           ? '별명과 소속이 오늘의 순위표에 보여요. 기록은 내일 지워져요.'
           : '지금은 연습 모드라 순위표에 기록되지 않아요.'),

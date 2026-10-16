@@ -1,4 +1,6 @@
 export type Level = 'low' | 'high';
+
+export const LEVEL_LABEL: Record<Level, string> = { low: '쉬움', high: '보통' };
 export type Category = 'history' | 'people' | 'safety' | 'specialty' | 'nature' | 'society' | 'environment';
 
 export interface Question {

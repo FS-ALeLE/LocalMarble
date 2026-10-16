@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { getDb } from './_lib/db.js';
 import { activeEvent } from './_lib/event.js';
 import { affiliationKey, affiliationProblem, nicknameProblem } from './_lib/filter.js';
+import { GRADE_MAX, GRADE_MIN } from './_lib/grades.js';
 import { body, fail, handler, json } from './_lib/http.js';
 
 interface Input {
@@ -15,7 +16,7 @@ export const POST = handler(async (req) => {
   const input = await body<Input>(req);
   const affiliation = String(input?.affiliation ?? '').trim();
   const nickname = String(input?.nickname ?? '').trim();
-  const grade = Number.isInteger(input?.grade) && input!.grade! >= 1 && input!.grade! <= 6 ? input!.grade! : null;
+  const grade = Number.isInteger(input?.grade) && input!.grade! >= GRADE_MIN && input!.grade! <= GRADE_MAX ? input!.grade! : null;
   const problem = affiliationProblem(affiliation) ?? nicknameProblem(nickname);
   if (problem) return fail(problem);
 
