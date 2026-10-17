@@ -28,10 +28,16 @@ async function main() {
 
   for (;;) {
     idle.pause();
-    await titleScreen(stage, event);
+    const choice = await titleScreen(stage, event);
     idle.resume();
+    if (choice === 'board') {
+      await leaderboardScreen(stage, undefined, '🏠 처음으로');
+      continue;
+    }
     const profile = await registerScreen(stage, data, event);
+    if (!profile) continue;
     const setup = await setupScreen(stage, data, profile);
+    if (!setup) continue;
     const result = await playBoard(stage, data, profile, setup);
     const rank = event.active ? submitPlay(profile, setup, result) : Promise.resolve(null);
     const next = await resultScreen(stage, data, profile, result, event, rank);

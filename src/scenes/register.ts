@@ -5,6 +5,7 @@ import { registerPlayer, suggestAffiliations, type EventInfo } from '../services
 import { affiliationKey, affiliationProblem, nicknameProblem } from '../../api/_lib/filter';
 import { gradeLabel } from '../../api/_lib/grades';
 import { h } from '../ui/dom';
+import { homeButton } from '../ui/home';
 
 const SOLO = '개인';
 
@@ -17,13 +18,14 @@ function recommendNickname(data: RegionData): string {
 }
 
 /** 소속 → 별명 → 학년 → 확인 */
-export function registerScreen(stage: HTMLElement, data: RegionData, event: EventInfo): Promise<Profile> {
+/** 등록. '처음으로'를 누르면 null */
+export function registerScreen(stage: HTMLElement, data: RegionData, event: EventInfo): Promise<Profile | null> {
   return new Promise((resolve) => {
     const profile = { affiliation: '', nickname: '', grade: undefined as number | undefined };
     const body = h('div', { class: 'reg-body' });
     const dots = [1, 2, 3, 4].map((n) => h('span', { class: 'reg-dot' }, String(n)));
     const panel = h('div', { class: 'panel reg-panel' }, h('div', { class: 'reg-steps' }, ...dots), body);
-    stage.replaceChildren(h('div', { class: 'screen reg-screen' }, panel));
+    stage.replaceChildren(h('div', { class: 'screen reg-screen' }, panel, homeButton(() => resolve(null))));
 
     const setStep = (n: number) => dots.forEach((d, i) => d.classList.toggle('on', i <= n));
 

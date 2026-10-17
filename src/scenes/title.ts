@@ -3,7 +3,8 @@ import type { EventInfo } from '../services/api';
 import { h } from '../ui/dom';
 import { toggleFullscreen } from '../ui/stage';
 
-export function titleScreen(stage: HTMLElement, event: EventInfo): Promise<void> {
+/** 'start' = 게임 시작, 'board' = 오늘의 순위 보기 */
+export function titleScreen(stage: HTMLElement, event: EventInfo): Promise<'start' | 'board'> {
   return new Promise((resolve) => {
     const spots = [[8, 22], [20, 68], [30, 12], [70, 14], [82, 66], [90, 26], [12, 82], [86, 84]];
     const floaters = ['🦐', '🏯', '⛰️', '🏺', '🦆', '⛵', '🎨', '📚']
@@ -19,12 +20,13 @@ export function titleScreen(stage: HTMLElement, event: EventInfo): Promise<void>
       ),
       h('div', { class: 'title-event' }, event.active ? `🏆 ${event.name ?? '오늘의 행사'} · 순위에 도전!` : '연습 모드 · 기록은 저장되지 않아요'),
       h('div', { class: 'press-start' }, '화면을 눌러 시작!'),
+      event.active ? h('button', { class: 'btn btn-gold rank-entry', onclick: (e: Event) => { e.stopPropagation(); unlockAudio(); sfx.click(); resolve('board'); } }, '🏆 오늘의 순위 보기') : null,
       fullBtn,
     );
     screen.addEventListener('click', () => {
       unlockAudio();
       sfx.go();
-      resolve();
+      resolve('start');
     }, { once: true });
     stage.replaceChildren(screen);
   });

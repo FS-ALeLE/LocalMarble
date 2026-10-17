@@ -3,9 +3,9 @@ import { fetchLeaderboard } from '../services/api';
 import { h } from '../ui/dom';
 import { leaderboardView } from '../ui/leaderboardView';
 
-export async function leaderboardScreen(stage: HTMLElement, myPlayId?: number): Promise<void> {
+export async function leaderboardScreen(stage: HTMLElement, myPlayId?: number, nextLabel = '다음 친구 차례! 👋'): Promise<void> {
   const box = h('div', { class: 'lb-box' }, h('p', { class: 'lb-empty' }, '순위표를 불러오는 중…'));
-  const next = h('button', { class: 'btn btn-primary big' }, '다음 친구 차례! 👋');
+  const next = h('button', { class: 'btn btn-primary big' }, nextLabel);
   stage.replaceChildren(h('div', { class: 'screen result-screen' },
     h('div', { class: 'panel lb-panel pop-in' }, box, h('div', { class: 'reg-nav center' }, next))));
   const data = await fetchLeaderboard(10);

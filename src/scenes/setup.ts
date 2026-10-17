@@ -2,8 +2,10 @@ import { sfx } from '../audio/sfx';
 import { LEVEL_LABEL, type Level, type Profile, type RegionData, type Setup } from '../core/types';
 import { isEasyByDefault } from '../../api/_lib/grades';
 import { art, h } from '../ui/dom';
+import { homeButton } from '../ui/home';
 
-export function setupScreen(stage: HTMLElement, data: RegionData, profile: Profile): Promise<Setup> {
+/** 난이도·말 고르기. '처음으로'를 누르면 null */
+export function setupScreen(stage: HTMLElement, data: RegionData, profile: Profile): Promise<Setup | null> {
   return new Promise((resolve) => {
     let level: Level = isEasyByDefault(profile.grade) ? 'low' : 'high';
     let piece = data.board.pieces[0];
@@ -22,7 +24,7 @@ export function setupScreen(stage: HTMLElement, data: RegionData, profile: Profi
       pieceBtns.forEach((b, i) => b.classList.toggle('on', data.board.pieces[i] === piece));
     };
 
-    stage.replaceChildren(h('div', { class: 'screen setup-screen' },
+    stage.replaceChildren(h('div', { class: 'screen setup-screen' }, homeButton(() => resolve(null)),
       h('div', { class: 'panel setup-panel' },
         h('h2', {}, `${profile.nickname}, 준비됐나요?`),
         h('h3', {}, '난이도'), h('div', { class: 'choice-row' }, ...levelBtns),

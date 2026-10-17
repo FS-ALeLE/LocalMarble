@@ -803,3 +803,12 @@ body.portrait #rotate-notice { display: flex; }
 /* 이름표를 건물 옆에 (아래 건물을 가릴 때) */
 .board-screen .tile.label-left .tile-name { left: -40px; top: -6px; transform: translateX(-100%); }
 .board-screen .tile.label-right .tile-name { left: 62px; top: -64px; transform: none; }
+.home-btn {
+  position: absolute; left: 28px; top: 24px; z-index: 5;
+  border: 0; border-radius: 999px; padding: 12px 26px;
+  background: rgba(255, 253, 248, 0.95); color: var(--navy-dark);
+  font-family: var(--display); font-size: 26px;
+  box-shadow: 0 5px 0 rgba(31, 66, 102, 0.35);
+}
+.home-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(31, 66, 102, 0.35); }
+.rank-entry { z-index: 1; font-size: 30px; }
