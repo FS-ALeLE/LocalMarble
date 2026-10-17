@@ -812,3 +812,5 @@ body.portrait #rotate-notice { display: flex; }
 }
 .home-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(31, 66, 102, 0.35); }
 .rank-entry { z-index: 1; font-size: 30px; }
+.lb-title { text-align: center; font-family: var(--display); font-size: 46px; color: var(--navy-dark); line-height: 1.1; }
+.lb-panel .lb-box { min-height: 0; }
