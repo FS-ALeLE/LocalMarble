@@ -19,3 +19,7 @@ td.actions { display: flex; gap: 6px; }
 .hidden-row { opacity: 0.45; text-decoration: line-through; }
 .help { color: #7b7468; font-size: 14px; }
 .err { color: #b83a26; }
+.x-btn { width: 32px; height: 32px; padding: 0; border-radius: 50%; color: #b83a26; border-color: #f0c3b9; font-weight: 700; }
+.x-btn:hover { background: #b83a26; color: #fff; }
+.card h2 .refresh { margin-left: 12px; font-size: 14px; padding: 4px 10px; vertical-align: middle; }
+.rank-table td:first-child { font-weight: 700; }

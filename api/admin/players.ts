@@ -19,9 +19,14 @@ export const GET = handler(async (req) => {
 /** 별명 숨기기 / 다시 보이기 / 기록 지우기 */
 export const POST = handler(async (req) => {
   if (!isAdmin(req)) return fail('비밀번호가 틀렸어요.', 401);
-  const input = await body<{ id?: number; hidden?: boolean; action?: 'delete' }>(req);
-  if (!Number.isInteger(input?.id)) return fail('대상을 골라 주세요.');
+  const input = await body<{ id?: number; playId?: number; hidden?: boolean; action?: 'delete' }>(req);
   const db = await getDb();
+  if (input?.action === 'delete' && Number.isInteger(input.playId)) {
+    // 순위표의 기록(play)으로 지우기: 그 기록의 참가자와 점수를 지운다
+    await db.query(`DELETE FROM players WHERE id = (SELECT player_id FROM plays WHERE id = $1)`, [input.playId]);
+    return json({ ok: true });
+  }
+  if (!Number.isInteger(input?.id)) return fail('대상을 골라 주세요.');
   if (input!.action === 'delete') {
     // 참가자와 그 점수 기록을 지운다 (plays는 ON DELETE CASCADE)
     await db.query(`DELETE FROM players WHERE id = $1`, [input!.id]);

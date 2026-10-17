@@ -64,8 +64,36 @@ async function render() {
             h('button', { onclick: () => exportCsv(e) }, 'CSV'),
             h('button', { class: 'danger', onclick: () => purge(e) }, '기록 지우기'))))))
         : h('p', {}, '아직 행사가 없어요. 위에서 만들어 주세요.')),
+    h('div', { id: 'ranking' }),
     h('div', { id: 'players' }),
   );
+  void ranking();
+}
+
+interface RankRow { id: number; nickname: string; affiliation: string; score: number; stamps: number; created_at: string }
+
+/** 진행자 순위표: 기록 옆 ✕로 바로 지우기 */
+async function ranking() {
+  const box = document.getElementById('ranking');
+  if (!box) return;
+  const res = await fetch('/api/leaderboard?limit=50');
+  const data = (await res.json().catch(() => null)) as { event: { name: string } | null; players: RankRow[]; total: number } | null;
+  if (!data?.event) { box.replaceChildren(h('section', { class: 'card' }, h('h2', {}, '순위표'), h('p', {}, '진행 중인 행사가 없어요.'))); return; }
+  const remove = async (r: RankRow) => {
+    if (!confirm(`「${r.nickname} · ${r.affiliation} · ${r.score}점」 기록을 지울까요? 되돌릴 수 없어요.`)) return;
+    await api('/api/admin/players', { method: 'POST', body: JSON.stringify({ playId: r.id, action: 'delete' }) });
+    void ranking();
+  };
+  box.replaceChildren(h('section', { class: 'card' },
+    h('h2', {}, `순위표 · ${data.event.name} (${data.total}명)`, h('button', { class: 'refresh', onclick: () => void ranking() }, '↻ 새로고침')),
+    h('p', { class: 'help' }, '✕를 누르면 그 기록이 순위표와 전광판에서 바로 지워집니다. 상위 50개까지 보여요.'),
+    data.players.length ? h('table', { class: 'rank-table' },
+      h('thead', {}, h('tr', {}, ...['순위', '별명', '소속', '점수', '도장', '시각', ''].map((t) => h('th', {}, t)))),
+      h('tbody', {}, ...data.players.map((r, i) => h('tr', {},
+        h('td', {}, String(i + 1)), h('td', {}, r.nickname), h('td', {}, r.affiliation), h('td', {}, r.score.toLocaleString()),
+        h('td', {}, String(r.stamps)), h('td', {}, kst(r.created_at)),
+        h('td', {}, h('button', { class: 'x-btn', title: '기록 지우기', onclick: () => remove(r) }, '✕'))))))
+      : h('p', {}, '아직 기록이 없어요.')));
 }
 
 function eventForm(edit?: EventRow): HTMLElement {
