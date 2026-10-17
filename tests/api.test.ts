@@ -132,6 +132,16 @@ await step('진행자: 별명 숨기기 → 순위에서 빠짐, CSV', async () 
   assert.match(csv, /날쌘대하#2/);
 });
 
+await step('진행자: 참가자 기록 지우기', async () => {
+  const list = (await (await get(adminPlayers.GET, `/api/admin/players?event=${eventId}`, admin)).json()) as { id: number; nickname: string }[];
+  const target = list.find((p) => p.nickname === '반짝새우젓')!;
+  assert.equal((await post(adminPlayers.POST, '/api/admin/players', { id: target.id, action: 'delete' })).status, 401);
+  await post(adminPlayers.POST, '/api/admin/players', { id: target.id, action: 'delete' }, admin);
+  const lb = (await (await get(leaderboard.GET, '/api/leaderboard')).json()) as { players: { nickname: string }[]; total: number };
+  assert.equal(lb.total, 4);
+  assert.ok(!lb.players.some((p) => p.nickname === '반짝새우젓'));
+});
+
 await step('Cron 삭제: 비밀값 확인, 삭제 시각 전에는 안 지움, 지난 뒤에는 지움', async () => {
   assert.equal((await get(cleanup.GET, '/api/cron/cleanup')).status, 401);
   let r = (await (await get(cleanup.GET, '/api/cron/cleanup', { authorization: 'Bearer cron-test' })).json()) as { deleted: unknown[] };

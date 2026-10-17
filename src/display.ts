@@ -4,9 +4,11 @@ import { fetchLeaderboard } from './services/api';
 import { h } from './ui/dom';
 import { leaderboardView } from './ui/leaderboardView';
 import { fitStage, toggleFullscreen } from './ui/stage';
+import { keepScreenOn } from './ui/wakeLock';
 
 const stage = document.getElementById('stage')!;
 fitStage(stage);
+keepScreenOn();
 document.body.classList.add('display-page');
 
 const title = h('div', { class: 'display-event' }, '');

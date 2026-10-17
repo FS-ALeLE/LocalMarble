@@ -93,19 +93,26 @@ function eventForm(edit?: EventRow): HTMLElement {
 async function players(e: EventRow) {
   const box = document.getElementById('players')!;
   const list = await api<PlayerRow[]>(`/api/admin/players?event=${e.id}`);
+  const remove = async (p: PlayerRow) => {
+    if (!confirm(`「${p.nickname} · ${p.affiliation}」의 기록을 지울까요? 되돌릴 수 없어요.`)) return;
+    await api('/api/admin/players', { method: 'POST', body: JSON.stringify({ id: p.id, action: 'delete' }) });
+    void players(e);
+  };
   const toggle = async (p: PlayerRow) => {
     await api('/api/admin/players', { method: 'POST', body: JSON.stringify({ id: p.id, hidden: !p.hidden }) });
     void players(e);
   };
   box.replaceChildren(h('section', { class: 'card' },
     h('h2', {}, `참가자 (최근 ${list.length}명) · ${e.name}`),
-    h('p', { class: 'help' }, '부적절한 별명은 "숨기기"를 누르면 순위표와 전광판에서 바로 빠집니다.'),
+    h('p', { class: 'help' }, '부적절한 별명은 "숨기기"를 누르면 순위표와 전광판에서 바로 빠집니다. "지우기"는 그 참가자의 기록을 완전히 지웁니다.'),
     h('table', {},
       h('thead', {}, h('tr', {}, ...['시각', '별명', '소속', '구분', '점수', ''].map((t) => h('th', {}, t)))),
       h('tbody', {}, ...list.map((p) => h('tr', { class: p.hidden ? 'hidden-row' : '' },
         h('td', {}, kst(p.created_at)), h('td', {}, p.nickname), h('td', {}, p.affiliation), h('td', {}, gradeLabel(p.grade)),
         h('td', {}, p.score === null ? '플레이 중' : String(p.score)),
-        h('td', {}, h('button', { class: p.hidden ? '' : 'danger', onclick: () => toggle(p) }, p.hidden ? '다시 보이기' : '숨기기'))))))));
+        h('td', { class: 'actions' },
+          h('button', { class: p.hidden ? '' : 'danger', onclick: () => toggle(p) }, p.hidden ? '다시 보이기' : '숨기기'),
+          h('button', { class: 'danger', onclick: () => remove(p) }, '지우기'))))))));
   box.scrollIntoView({ behavior: 'smooth' });
 }
 
