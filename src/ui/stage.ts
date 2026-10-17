@@ -13,7 +13,7 @@ export function fitStage(stage: HTMLElement): void {
   // 화면 밖 요소에 포커스가 가도 무대가 스크롤되어 밀리지 않게 한다.
   document.addEventListener('scroll', (e) => {
     const el = e.target as HTMLElement;
-    if (el instanceof HTMLElement && (el.scrollLeft || el.scrollTop)) { el.scrollLeft = 0; el.scrollTop = 0; }
+    if (el instanceof HTMLElement && !el.closest('.scrollable') && (el.scrollLeft || el.scrollTop)) { el.scrollLeft = 0; el.scrollTop = 0; }
   }, true);
 }
 

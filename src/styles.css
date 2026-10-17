@@ -818,3 +818,10 @@ body.portrait #rotate-notice { display: flex; }
 .lb-screen .display-body .lb li { padding: 5px 14px; }
 .lb-foot { display: flex; justify-content: center; }
 .lb-foot .btn.big { font-size: 30px; padding: 14px 40px; min-height: 64px; }
+/* 게임 안 순위 화면: 순위가 많으면 칸 안에서 스크롤 */
+.lb-screen .display-body { min-height: 0; }
+.lb-screen .lb { min-height: 0; }
+.lb-screen .lb-col { display: flex; flex-direction: column; min-height: 0; }
+.lb-screen .lb-col ol { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; padding-right: 8px; }
+.lb-screen .lb-col ol::-webkit-scrollbar { width: 12px; }
+.lb-screen .lb-col ol::-webkit-scrollbar-thumb { background: #d8ccb6; border-radius: 999px; }
