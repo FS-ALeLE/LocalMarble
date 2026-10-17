@@ -814,3 +814,7 @@ body.portrait #rotate-notice { display: flex; }
 .rank-entry { z-index: 1; font-size: 30px; }
 .lb-title { text-align: center; font-family: var(--display); font-size: 46px; color: var(--navy-dark); line-height: 1.1; }
 .lb-panel .lb-box { min-height: 0; }
+.lb-screen { gap: 16px; padding-bottom: 24px; }
+.lb-screen .display-body .lb li { padding: 5px 14px; }
+.lb-foot { display: flex; justify-content: center; }
+.lb-foot .btn.big { font-size: 30px; padding: 14px 40px; min-height: 64px; }
