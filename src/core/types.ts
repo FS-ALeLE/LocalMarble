@@ -71,6 +71,8 @@ export interface Board {
   restArt?: string;
   chanceArt?: string;
   mapArt?: string;
+  /** 바다가 없는 지역(임시 지도를 들판·하천으로) */
+  inland?: boolean;
 }
 
 export interface RegionData {

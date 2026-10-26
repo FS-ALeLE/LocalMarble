@@ -1,3 +1,5 @@
+import { REGION } from '../region';
+
 /** 장소 도장 SVG. 잉크 번짐은 index.html의 #ink 필터. */
 export function stampSvg(label: string, size = 64, color = '#E8553D'): string {
   const fontSize = label.length >= 3 ? 19 : 23;
@@ -7,7 +9,7 @@ export function stampSvg(label: string, size = 64, color = '#E8553D'): string {
       <circle cx="50" cy="50" r="35" stroke-width="2.5"/>
     </g>
     <text x="50" y="44" text-anchor="middle" font-family="Jua, sans-serif" font-size="${fontSize}" fill="${color}" filter="url(#ink)">${label}</text>
-    <text x="50" y="68" text-anchor="middle" font-family="Jua, sans-serif" font-size="11" fill="${color}" filter="url(#ink)">홍성 한 바퀴</text>
+    <text x="50" y="68" text-anchor="middle" font-family="Jua, sans-serif" font-size="11" fill="${color}" filter="url(#ink)">${REGION.name} 한 바퀴</text>
   </svg>`;
 }
 

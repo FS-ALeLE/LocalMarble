@@ -5,6 +5,7 @@ import { h } from './ui/dom';
 import { leaderboardView } from './ui/leaderboardView';
 import { fitStage, toggleFullscreen } from './ui/stage';
 import { keepScreenOn } from './ui/wakeLock';
+import { REGION } from './region';
 
 const stage = document.getElementById('stage')!;
 fitStage(stage);
@@ -16,7 +17,7 @@ const body = h('div', { class: 'display-body' }, h('p', { class: 'lb-empty' }, '
 const clock = h('div', { class: 'display-clock' });
 stage.replaceChildren(h('div', { class: 'screen display-screen', ondblclick: () => toggleFullscreen() },
   h('header', { class: 'display-head' },
-    h('h1', { class: 'logo display-logo' }, h('span', { class: 'logo-line1' }, '다 같이 돌자,'), h('span', { class: 'logo-line2' }, '홍성 ', h('span', { class: 'logo-go' }, '한 바퀴'))),
+    h('h1', { class: 'logo display-logo' }, h('span', { class: 'logo-line1' }, REGION.slogan), h('span', { class: 'logo-line2' }, `${REGION.name} `, h('span', { class: 'logo-go' }, '한 바퀴'))),
     title, clock),
   body));
 

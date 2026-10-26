@@ -1,0 +1,237 @@
+[
+ {
+  "id": "C01",
+  "category": "history",
+  "level": "both",
+  "type": "choice",
+  "question": "천안 목천에 있는, 우리 겨레의 독립운동 역사를 전시한 곳은?",
+  "choices": [
+   "독립기념관",
+   "국립중앙박물관",
+   "경복궁",
+   "첨성대"
+  ],
+  "answer": 0,
+  "explanation": "독립기념관은 천안 목천에 있어요. 나라를 되찾기 위한 독립운동 이야기를 볼 수 있어요.",
+  "verified": true
+ },
+ {
+  "id": "C02",
+  "category": "people",
+  "level": "both",
+  "type": "choice",
+  "question": "1919년 아우내 장터에서 만세 운동을 이끈 천안 출신 독립운동가는?",
+  "choices": [
+   "유관순",
+   "신사임당",
+   "장영실",
+   "허준"
+  ],
+  "answer": 0,
+  "explanation": "유관순 열사는 천안 병천 아우내 장터에서 독립 만세 운동을 이끌었어요.",
+  "verified": true
+ },
+ {
+  "id": "C03",
+  "category": "specialty",
+  "level": "both",
+  "type": "choice",
+  "question": "천안의 대표 간식으로, 호두를 넣어 구운 과자는?",
+  "choices": [
+   "호두과자",
+   "붕어빵",
+   "약과",
+   "강정"
+  ],
+  "answer": 0,
+  "explanation": "천안 호두과자는 우리나라 사람 누구나 아는 천안의 명물이에요.",
+  "verified": true
+ },
+ {
+  "id": "C04",
+  "category": "history",
+  "level": "low",
+  "type": "ox",
+  "question": "천안삼거리는 옛날 여러 지방으로 가는 길이 갈라지던 곳이다.",
+  "choices": [
+   "O",
+   "X"
+  ],
+  "answer": 0,
+  "explanation": "천안삼거리는 서울, 경상도, 전라도로 가는 길이 갈라지던 교통의 중심지였어요.",
+  "verified": true
+ },
+ {
+  "id": "C05",
+  "category": "history",
+  "level": "high",
+  "type": "choice",
+  "question": "\"천안삼거리 흥~ 능수야 버들은\" 노래에 나오는 나무는?",
+  "choices": [
+   "능수버들",
+   "소나무",
+   "은행나무",
+   "벚나무"
+  ],
+  "answer": 0,
+  "explanation": "천안 흥타령에는 천안삼거리의 능수버들이 나와요.",
+  "verified": true
+ },
+ {
+  "id": "C06",
+  "category": "nature",
+  "level": "both",
+  "type": "choice",
+  "question": "우리나라에서 호두나무를 처음 심었다고 전해지는 천안의 산은?",
+  "choices": [
+   "광덕산",
+   "한라산",
+   "설악산",
+   "지리산"
+  ],
+  "answer": 0,
+  "explanation": "광덕산 광덕사에는 우리나라 첫 호두나무로 전해지는 나무가 있어요.",
+  "verified": true
+ },
+ {
+  "id": "C07",
+  "category": "specialty",
+  "level": "low",
+  "type": "choice",
+  "question": "천안 성환에서 많이 나는 달콤한 과일은?",
+  "choices": [
+   "배",
+   "바나나",
+   "귤",
+   "파인애플"
+  ],
+  "answer": 0,
+  "explanation": "성환은 크고 단 배로 유명해요.",
+  "verified": true
+ },
+ {
+  "id": "C08",
+  "category": "specialty",
+  "level": "high",
+  "type": "choice",
+  "question": "유관순 열사가 만세 운동을 벌인 아우내 장터가 있는 곳은?",
+  "choices": [
+   "병천",
+   "성환",
+   "목천",
+   "직산"
+  ],
+  "answer": 0,
+  "explanation": "아우내는 병천의 옛 이름이에요. 병천순대도 유명해요.",
+  "verified": true,
+  "places": [
+   "port"
+  ]
+ },
+ {
+  "id": "C09",
+  "category": "safety",
+  "level": "low",
+  "type": "ox",
+  "question": "횡단보도 초록불이 깜빡일 때 뛰어서 건너도 된다.",
+  "choices": [
+   "O",
+   "X"
+  ],
+  "answer": 1,
+  "explanation": "초록불이 깜빡이면 멈추고 다음 신호를 기다려요.",
+  "verified": true
+ },
+ {
+  "id": "C10",
+  "category": "safety",
+  "level": "both",
+  "type": "choice",
+  "question": "불이 났을 때 신고하는 전화번호는?",
+  "choices": [
+   "119",
+   "112",
+   "114",
+   "1004"
+  ],
+  "answer": 0,
+  "explanation": "불이 나거나 다쳤을 때는 119, 나쁜 일을 신고할 때는 112예요.",
+  "verified": true
+ },
+ {
+  "id": "C11",
+  "category": "society",
+  "level": "both",
+  "type": "choice",
+  "question": "천안시의 대표로 시의 일을 이끄는 사람은?",
+  "choices": [
+   "시장",
+   "군수",
+   "도지사",
+   "대통령"
+  ],
+  "answer": 0,
+  "explanation": "시의 대표는 시장, 군의 대표는 군수예요.",
+  "verified": true
+ },
+ {
+  "id": "C12",
+  "category": "environment",
+  "level": "both",
+  "type": "ox",
+  "question": "우리 지역에서 기른 먹거리를 사 먹으면 환경에도 좋다.",
+  "choices": [
+   "O",
+   "X"
+  ],
+  "answer": 0,
+  "explanation": "가까운 곳에서 기른 먹거리는 멀리 옮기지 않아 환경에 좋아요(로컬푸드).",
+  "verified": true
+ },
+ {
+  "id": "C13",
+  "category": "people",
+  "level": "high",
+  "type": "choice",
+  "question": "임진왜란 때 진주성을 지켜 낸 천안 출신 장군은?",
+  "choices": [
+   "김시민",
+   "이순신",
+   "권율",
+   "곽재우"
+  ],
+  "answer": 0,
+  "explanation": "김시민 장군은 진주대첩에서 큰 승리를 거두었어요.",
+  "verified": true
+ },
+ {
+  "id": "C14",
+  "category": "nature",
+  "level": "low",
+  "type": "ox",
+  "question": "천안에는 바다가 있다.",
+  "choices": [
+   "O",
+   "X"
+  ],
+  "answer": 1,
+  "explanation": "천안은 바다와 닿지 않은 내륙 도시예요.",
+  "verified": true
+ },
+ {
+  "id": "C15",
+  "category": "history",
+  "level": "both",
+  "type": "choice",
+  "question": "독립기념관에서 배울 수 있는 것은?",
+  "choices": [
+   "나라를 되찾기 위한 독립운동",
+   "우주 탐사",
+   "공룡 화석",
+   "바다 생물"
+  ],
+  "answer": 0,
+  "explanation": "독립기념관에서는 독립운동의 역사를 배울 수 있어요.",
+  "verified": true
+ }
+]

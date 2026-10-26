@@ -1,0 +1,382 @@
+{
+  "width": 1600,
+  "height": 1000,
+  "start": 0,
+  "places": {
+    "museum": {
+      "name": "독립기념관",
+      "short": "독립관",
+      "emoji": "🏛️",
+      "art": "../hongseong/art/bld-museum.webp",
+      "categories": [
+        "history"
+      ],
+      "mode": "quiz"
+    },
+    "library": {
+      "name": "유관순 열사 기념관",
+      "short": "유관순",
+      "emoji": "📚",
+      "art": "../hongseong/art/bld-library.webp",
+      "categories": [
+        "people"
+      ],
+      "mode": "quiz"
+    },
+    "police": {
+      "name": "천안 안전지킴이 경찰서",
+      "short": "경찰서",
+      "emoji": "🚓",
+      "art": "../hongseong/art/bld-police.webp",
+      "categories": [
+        "safety"
+      ],
+      "mode": "quiz"
+    },
+    "alley": {
+      "name": "천안 호두과자 거리",
+      "short": "호두과자",
+      "emoji": "🌰",
+      "categories": [
+        "specialty"
+      ],
+      "mode": "quiz"
+    },
+    "port": {
+      "name": "병천 아우내 장터",
+      "short": "아우내",
+      "emoji": "🧺",
+      "art": "../hongseong/art/bld-market.webp",
+      "categories": [
+        "history",
+        "specialty"
+      ],
+      "mode": "quiz"
+    },
+    "mountain": {
+      "name": "광덕산 호두나무길",
+      "short": "광덕산",
+      "emoji": "⛰️",
+      "art": "../hongseong/art/bld-mountain.webp",
+      "categories": [
+        "nature"
+      ],
+      "mode": "quiz"
+    },
+    "office": {
+      "name": "천안시청 광장",
+      "short": "시청",
+      "emoji": "🏢",
+      "art": "../hongseong/art/bld-office.webp",
+      "categories": [
+        "society"
+      ],
+      "mode": "quiz"
+    },
+    "gallery": {
+      "name": "천안 예술의 거리",
+      "short": "예술",
+      "emoji": "🎨",
+      "art": "../hongseong/art/bld-gallery.webp",
+      "categories": [
+        "people"
+      ],
+      "mode": "quiz_or_minigame",
+      "minigames": [
+        "memory"
+      ]
+    },
+    "village": {
+      "name": "성환 배 과수원",
+      "short": "성환배",
+      "emoji": "🍐",
+      "art": "../hongseong/art/bld-village.webp",
+      "categories": [
+        "environment",
+        "specialty"
+      ],
+      "mode": "quiz"
+    },
+    "stadium": {
+      "name": "천안 종합운동장",
+      "short": "운동장",
+      "emoji": "🏟️",
+      "art": "../hongseong/art/bld-stadium.webp",
+      "categories": [
+        "specialty"
+      ],
+      "mode": "minigame",
+      "minigames": [
+        "memory"
+      ]
+    },
+    "market": {
+      "name": "천안삼거리 공원",
+      "short": "삼거리",
+      "emoji": "🌳",
+      "art": "../hongseong/art/bld-rest.webp",
+      "categories": [
+        "history"
+      ],
+      "mode": "quiz"
+    }
+  },
+  "tiles": [
+    {
+      "id": 0,
+      "type": "start",
+      "x": 800,
+      "y": 610,
+      "next": [
+        1
+      ]
+    },
+    {
+      "id": 1,
+      "type": "place",
+      "x": 660,
+      "y": 705,
+      "next": [
+        2
+      ],
+      "place": "museum"
+    },
+    {
+      "id": 2,
+      "type": "chance",
+      "x": 690,
+      "y": 850,
+      "next": [
+        3
+      ]
+    },
+    {
+      "id": 3,
+      "type": "place",
+      "x": 515,
+      "y": 835,
+      "next": [
+        4
+      ],
+      "place": "alley"
+    },
+    {
+      "id": 4,
+      "type": "place",
+      "x": 440,
+      "y": 740,
+      "next": [
+        5
+      ],
+      "place": "library",
+      "label": "left"
+    },
+    {
+      "id": 5,
+      "type": "rest",
+      "x": 370,
+      "y": 590,
+      "next": [
+        6
+      ]
+    },
+    {
+      "id": 6,
+      "type": "place",
+      "x": 240,
+      "y": 500,
+      "next": [
+        7
+      ],
+      "place": "port"
+    },
+    {
+      "id": 7,
+      "type": "place",
+      "x": 300,
+      "y": 375,
+      "next": [
+        8
+      ],
+      "place": "port"
+    },
+    {
+      "id": 8,
+      "type": "chance",
+      "x": 420,
+      "y": 300,
+      "next": [
+        9
+      ]
+    },
+    {
+      "id": 9,
+      "type": "place",
+      "x": 560,
+      "y": 268,
+      "next": [
+        10
+      ],
+      "place": "police"
+    },
+    {
+      "id": 10,
+      "type": "place",
+      "x": 720,
+      "y": 245,
+      "next": [
+        11,
+        18
+      ],
+      "place": "mountain"
+    },
+    {
+      "id": 11,
+      "type": "place",
+      "x": 880,
+      "y": 268,
+      "next": [
+        12
+      ],
+      "place": "office"
+    },
+    {
+      "id": 12,
+      "type": "chance",
+      "x": 1020,
+      "y": 302,
+      "next": [
+        13
+      ]
+    },
+    {
+      "id": 13,
+      "type": "place",
+      "x": 1150,
+      "y": 372,
+      "next": [
+        14
+      ],
+      "place": "gallery"
+    },
+    {
+      "id": 14,
+      "type": "rest",
+      "x": 1262,
+      "y": 482,
+      "next": [
+        15
+      ]
+    },
+    {
+      "id": 15,
+      "type": "place",
+      "x": 1272,
+      "y": 622,
+      "next": [
+        16
+      ],
+      "place": "village"
+    },
+    {
+      "id": 16,
+      "type": "place",
+      "x": 1170,
+      "y": 745,
+      "next": [
+        17
+      ],
+      "place": "village"
+    },
+    {
+      "id": 17,
+      "type": "place",
+      "x": 980,
+      "y": 765,
+      "next": [
+        0
+      ],
+      "place": "stadium"
+    },
+    {
+      "id": 18,
+      "type": "place",
+      "x": 790,
+      "y": 410,
+      "next": [
+        19
+      ],
+      "place": "stadium"
+    },
+    {
+      "id": 19,
+      "type": "place",
+      "x": 630,
+      "y": 548,
+      "next": [
+        0
+      ],
+      "place": "market"
+    }
+  ],
+  "forks": {
+    "10": [
+      "내포·홍동 쪽 (먼 길)",
+      "홍성읍 쪽 (지름길)"
+    ]
+  },
+  "startArt": "../hongseong/art/bld-start.webp",
+  "restArt": "../hongseong/art/bld-rest.webp",
+  "chanceArt": "../hongseong/art/bld-chance.webp",
+  "pieces": [
+    {
+      "id": "prawn",
+      "name": "새우",
+      "emoji": "🦐",
+      "art": "../hongseong/art/piece-prawn.webp"
+    },
+    {
+      "id": "octopus",
+      "name": "주꾸미",
+      "emoji": "🐙",
+      "art": "../hongseong/art/piece-octopus.webp"
+    },
+    {
+      "id": "seagull",
+      "name": "갈매기",
+      "emoji": "🐦",
+      "art": "../hongseong/art/piece-seagull.webp"
+    },
+    {
+      "id": "cow",
+      "name": "한우",
+      "emoji": "🐮",
+      "art": "../hongseong/art/piece-cow.webp"
+    }
+  ],
+  "guides": [
+    {
+      "name": "홍이",
+      "emoji": "🧒",
+      "art": {
+        "normal": "../hongseong/art/char-hongi-normal.webp",
+        "think": "../hongseong/art/char-hongi-think.webp",
+        "happy": "../hongseong/art/char-hongi-happy.webp",
+        "sad": "../hongseong/art/char-hongi-sad.webp",
+        "surprised": "../hongseong/art/char-hongi-surprised.webp"
+      }
+    },
+    {
+      "name": "주니",
+      "emoji": "👧",
+      "art": {
+        "normal": "../hongseong/art/char-juni-normal.webp",
+        "think": "../hongseong/art/char-juni-think.webp",
+        "happy": "../hongseong/art/char-juni-happy.webp",
+        "sad": "../hongseong/art/char-juni-sad.webp",
+        "surprised": "../hongseong/art/char-juni-surprised.webp"
+      }
+    }
+  ],
+  "inland": true
+}

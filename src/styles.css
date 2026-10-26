@@ -825,3 +825,6 @@ body.portrait #rotate-notice { display: flex; }
 .lb-screen .lb-col ol { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; padding-right: 8px; }
 .lb-screen .lb-col ol::-webkit-scrollbar { width: 12px; }
 .lb-screen .lb-col ol::-webkit-scrollbar-thumb { background: #d8ccb6; border-radius: 999px; }
+/* 순위 화면 스크롤 칸 안에서 내 줄이 잘리지 않게 (크기 대신 깜빡임) */
+.lb-screen .lb li.me { animation: me-flash 0.7s 3; }
+@keyframes me-flash { 50% { background: var(--gold); color: var(--ink); } }

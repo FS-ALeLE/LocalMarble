@@ -4,6 +4,7 @@ import type { PlayResult, Profile, RegionData } from '../core/types';
 import type { EventInfo, Rank } from '../services/api';
 import { h } from '../ui/dom';
 import { emptyStampSvg, stampSvg } from '../ui/stamp';
+import { REGION } from '../region';
 
 export function gradeOf(score: number) {
   return CONFIG.grades.find((g) => score >= g.min) ?? CONFIG.grades[CONFIG.grades.length - 1];
@@ -47,12 +48,12 @@ export function resultScreen(stage: HTMLElement, data: RegionData, profile: Prof
           h('div', { class: 'result-stamps' }, ...result.targets.map((id) =>
             h('div', { class: 'stamp-slot', html: result.stamps.includes(id) ? stampSvg(data.board.places[id].short, 58) : emptyStampSvg(58) })))),
         h('div', { class: 'result-right' },
-          h('h3', {}, '📖 오늘 배운 홍성 이야기'),
+          h('h3', {}, `📖 오늘 배운 ${REGION.name} 이야기`),
           learned.length
             ? h('ul', { class: 'learned' }, ...learned.map((l) => h('li', { class: l.correct ? '' : 'wrong' },
                 h('b', {}, l.correct ? '' : h('span', { class: 'learned-tag' }, '다시 알아봐요'), l.question),
                 h('p', {}, l.correct ? l.explanation : `정답은 「${l.answer}」! ${l.explanation}`))))
-            : h('p', { class: 'muted' }, '다음엔 퀴즈를 풀며 홍성 이야기를 모아 봐요!'),
+            : h('p', { class: 'muted' }, `다음엔 퀴즈를 풀며 ${REGION.name} 이야기를 모아 봐요!`),
           note,
           h('div', { class: 'reg-nav center gap' }, event.active ? rankBtn : null, next)))));
 

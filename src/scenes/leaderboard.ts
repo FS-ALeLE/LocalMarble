@@ -2,6 +2,7 @@ import { sfx } from '../audio/sfx';
 import { fetchLeaderboard } from '../services/api';
 import { h } from '../ui/dom';
 import { leaderboardView } from '../ui/leaderboardView';
+import { REGION } from '../region';
 
 /** 게임 안 순위 화면: 전광판(/board)과 같은 모양 + 아래 버튼 */
 export async function leaderboardScreen(stage: HTMLElement, myPlayId?: number, nextLabel = '다음 친구 차례! 👋'): Promise<void> {
@@ -11,7 +12,7 @@ export async function leaderboardScreen(stage: HTMLElement, myPlayId?: number, n
   const next = h('button', { class: 'btn btn-primary big' }, nextLabel);
   stage.replaceChildren(h('div', { class: 'screen display-screen lb-screen' },
     h('header', { class: 'display-head' },
-      h('h1', { class: 'logo display-logo' }, h('span', { class: 'logo-line1' }, '다 같이 돌자,'), h('span', { class: 'logo-line2' }, '홍성 ', h('span', { class: 'logo-go' }, '한 바퀴'))),
+      h('h1', { class: 'logo display-logo' }, h('span', { class: 'logo-line1' }, REGION.slogan), h('span', { class: 'logo-line2' }, `${REGION.name} `, h('span', { class: 'logo-go' }, '한 바퀴'))),
       title, clock),
     body,
     h('div', { class: 'lb-foot' }, next)));

@@ -11,12 +11,13 @@ import { h } from './ui/dom';
 import { startIdleWatch } from './ui/idle';
 import { fitStage } from './ui/stage';
 import { keepScreenOn } from './ui/wakeLock';
+import { REGION } from './region';
 
 async function main() {
   const stage = document.getElementById('stage')!;
   fitStage(stage);
   keepScreenOn();
-  stage.replaceChildren(h('div', { class: 'screen loading' }, h('div', { class: 'loading-dice' }, '🎲'), h('p', {}, '홍성 지도를 펼치는 중…')));
+  stage.replaceChildren(h('div', { class: 'screen loading' }, h('div', { class: 'loading-dice' }, '🎲'), h('p', {}, `${REGION.name} 지도를 펼치는 중…`)));
 
   const [data, event] = await Promise.all([loadRegion(), fetchEvent()]);
 

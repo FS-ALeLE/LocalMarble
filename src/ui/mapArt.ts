@@ -52,6 +52,7 @@ export function roadSegments(board: Board): [Pt, Pt][] {
 
 /** 지도 SVG: base(바다 + 임시 섬), roads(길). AI 지도 그림이 있으면 둘 사이에 끼운다. */
 export function mapSvg(board: Board): { base: string; roads: string } {
+  const inland = !!board.inland;
   const rand = seeded(7);
   const segs = roadSegments(board);
   const roadD = segs.map(([a, b]) => `M ${a[0]} ${a[1]} L ${b[0]} ${b[1]}`).join(' ');
@@ -102,14 +103,14 @@ export function mapSvg(board: Board): { base: string; roads: string } {
   const head = `<svg class="map-svg" viewBox="0 0 ${board.width} ${board.height}" width="${board.width}" height="${board.height}">`;
   const base = `${head}
   <defs>
-    <radialGradient id="sea" cx="45%" cy="50%" r="75%"><stop offset="0" stop-color="#8fd0ea"/><stop offset="1" stop-color="#4a8fc0"/></radialGradient>
+    <radialGradient id="sea" cx="45%" cy="50%" r="75%">${inland ? '<stop offset="0" stop-color="#cfe8a8"/><stop offset="1" stop-color="#8fbf6a"/>' : '<stop offset="0" stop-color="#8fd0ea"/><stop offset="1" stop-color="#4a8fc0"/>'}</radialGradient>
     <linearGradient id="land" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe08e"/><stop offset="1" stop-color="#a3cf76"/></linearGradient>
   </defs>
   <rect width="100%" height="100%" fill="url(#sea)"/>
-  ${waves.join('')}
+  ${inland ? '' : waves.join('')}
   <g class="map-land">
-  <path d="${smooth(MUDFLAT)}" fill="#b8936b" transform="translate(0 10)" opacity="0.55"/>
-  <path d="${smooth(MUDFLAT)}" fill="#c7a37a"/>
+  ${inland ? `<path d="M -20 620 C 180 560, 260 760, 520 700 S 900 840, 1240 780 S 1520 860, 1640 820" stroke="#7cc3e6" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.9"/>` : `<path d="${smooth(MUDFLAT)}" fill="#b8936b" transform="translate(0 10)" opacity="0.55"/>
+  <path d="${smooth(MUDFLAT)}" fill="#c7a37a"/>`}
   <path d="${smooth(LAND)}" fill="#7a5a3c" transform="translate(0 26)"/>
   <path d="${smooth(LAND)}" fill="#8f6a46" transform="translate(0 14)"/>
   <path d="${smooth(LAND)}" fill="url(#land)" stroke="#f5efc8" stroke-width="5"/>
@@ -117,8 +118,8 @@ export function mapSvg(board: Board): { base: string; roads: string } {
   ${grass}
   ${rocks}
   ${trees.join('')}
-  <g transform="translate(110 580)"><path d="M -26 0 L 26 0 L 18 14 L -18 14 Z" fill="#E8553D"/><rect x="-2" y="-34" width="4" height="34" fill="#7a5a3c"/><path d="M 2 -32 L 24 -6 L 2 -6 Z" fill="#fff"/></g>
-  <g transform="translate(70 300)"><path d="M -22 0 L 22 0 L 15 12 L -15 12 Z" fill="#2E5E8C"/><rect x="-2" y="-28" width="4" height="28" fill="#7a5a3c"/><path d="M 2 -26 L 20 -6 L 2 -6 Z" fill="#fff"/></g>
+  ${inland ? '' : `<g transform="translate(110 580)"><path d="M -26 0 L 26 0 L 18 14 L -18 14 Z" fill="#E8553D"/><rect x="-2" y="-34" width="4" height="34" fill="#7a5a3c"/><path d="M 2 -32 L 24 -6 L 2 -6 Z" fill="#fff"/></g>
+  <g transform="translate(70 300)"><path d="M -22 0 L 22 0 L 15 12 L -15 12 Z" fill="#2E5E8C"/><rect x="-2" y="-28" width="4" height="28" fill="#7a5a3c"/><path d="M 2 -26 L 20 -6 L 2 -6 Z" fill="#fff"/></g>`}
   </g>
 </svg>`;
   const roads = `${head}

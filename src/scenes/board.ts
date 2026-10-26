@@ -10,6 +10,7 @@ import { mapSvg } from '../ui/mapArt';
 import { emptyStampSvg, stampSvg } from '../ui/stamp';
 import { STAGE_H, STAGE_W } from '../ui/stage';
 import { runQuiz } from './quiz';
+import { REGION } from '../region';
 
 const PIECE_LIFT = 34; // 말이 칸 위에 서 있는 높이
 
@@ -63,7 +64,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
       el.append(art(p.art, p.emoji, 'bld'), h('div', { class: 'tile-name' }, isTarget ? h('span', { class: 'name-stamp', title: '오늘의 도장' }) : null, p.name));
       if (isTarget) el.classList.add('target');
     } else if (tile.type === 'start') {
-      el.append(art(board.startArt, '🏯', 'bld bld-start'), h('div', { class: 'tile-name start-name' }, '조양문 · 출발/골인'));
+      el.append(art(board.startArt, '🏯', 'bld bld-start'), h('div', { class: 'tile-name start-name' }, `${REGION.start} · 출발/골인`));
     } else if (tile.type === 'chance') {
       el.append(art(board.chanceArt, '🎁', 'bld bld-small'), h('div', { class: 'tile-name small' }, '찬스'));
     } else {
@@ -87,7 +88,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   const stampSlots = targets.map((id) => h('div', { class: 'stamp-slot', title: board.places[id].name, html: emptyStampSvg(54) }));
   const stampCount = h('div', { class: 'stamp-count' });
   const busCount = h('span', { class: 'bus-count' });
-  const busBtn = h('button', { class: 'bus-btn', disabled: true }, h('span', { class: 'bus-btn-icon' }, '🚌'), h('span', { class: 'bus-btn-label' }, '홍성 버스'), busCount);
+  const busBtn = h('button', { class: 'bus-btn', disabled: true }, h('span', { class: 'bus-btn-icon' }, '🚌'), h('span', { class: 'bus-btn-label' }, `${REGION.name} 버스`), busCount);
   const hud = h('div', { class: 'hud' },
     h('div', { class: 'hud-card hud-player' },
       art(setup.piece.art, setup.piece.emoji, 'hud-piece'),
@@ -178,7 +179,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
   async function resolveTile(tile: Tile) {
     if (tile.type === 'start') {
       const left = targets.filter((id) => !state.stamps.has(id)).map((id) => board.places[id].name);
-      await notice('🏯', '조양문', `오늘의 도장 ${left.length}개를 더 모아서 돌아오세요! (${left.join(', ')})`);
+      await notice('🏯', REGION.start, `오늘의 도장 ${left.length}개를 더 모아서 돌아오세요! (${left.join(', ')})`);
     } else if (tile.type === 'rest') {
       if (state.lives < CONFIG.lives) {
         state.lives++;
@@ -210,7 +211,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
       await placeIntro(place, '🎮 미니게임', needed);
       success = game === 'prawn' ? await playPrawn(layer, setup.level) : await playMemory(layer, setup.level);
       if (success) addScore(S.minigame, tile);
-      else { loseLife(); await notice('📜', '홍성 상식 한 줄', pick(data.facts)); }
+      else { loseLife(); await notice('📜', `${REGION.name} 상식 한 줄`, pick(data.facts)); }
     } else {
       const q = deck.draw(placeId, place.categories);
       await placeIntro(place, CATEGORY_LABEL[q.category], needed);
@@ -259,7 +260,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
         text: state.lives < CONFIG.lives ? '하트 +1' : `하트가 가득해서 점수 +${S.chance}`,
         apply: () => { if (state.lives < CONFIG.lives) state.lives++; else addScore(S.chance, tile); },
       },
-      { icon: '📜', title: '홍성 상식 쪽지', text: `${pick(data.facts)} (점수 +${S.fact})`, apply: () => addScore(S.fact, tile) },
+      { icon: '📜', title: `${REGION.name} 상식 쪽지`, text: `${pick(data.facts)} (점수 +${S.fact})`, apply: () => addScore(S.fact, tile) },
     ];
     const card = pick(cards);
     await notice(card.icon, card.title, card.text, true);
@@ -279,12 +280,12 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
       const card = h('div', { class: 'today-card pop-in' },
         h('div', { class: 'today-guide' }, art(guide.art.normal, guide.emoji, 'today-guide-art'), h('span', {}, `안녕! 나는 ${guide.name}야. 오늘 같이 돌아보자!`)),
         h('h2', {}, '⭐ 오늘의 도장'),
-        h('p', {}, `이 ${targets.length}곳에서 문제를 맞혀 도장을 모으고, 조양문으로 돌아오세요!`),
+        h('p', {}, `이 ${targets.length}곳에서 문제를 맞혀 도장을 모으고, ${REGION.startTo} 돌아오세요!`),
         h('div', { class: 'today-list' }, ...targets.map((id) => {
           const p = board.places[id];
           return h('div', { class: 'today-item' }, art(p.art, p.emoji, 'today-art'), h('div', { class: 'today-name' }, p.name));
         })),
-        h('p', { class: 'today-bus' }, `🚌 홍성 버스 ${CONFIG.busRides}번: 왼쪽 아래 버스를 누르면 오늘의 도장 장소로 바로 갈 수 있어요.`),
+        h('p', { class: 'today-bus' }, `🚌 ${REGION.name} 버스 ${CONFIG.busRides}번: 왼쪽 아래 버스를 누르면 오늘의 도장 장소로 바로 갈 수 있어요.`),
         go);
       const overlay = h('div', { class: 'overlay dim' }, card);
       layer.append(overlay);
@@ -318,7 +319,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
       const done = (t: Tile | null) => { overlay.remove(); resolve(t); };
       const card = h('div', { class: 'bus-card pop-in' },
         h('div', { class: 'bus-icon' }, '🚌'),
-        h('h2', {}, '홍성 버스를 타고 어디로 갈까요?'),
+        h('h2', {}, `${REGION.name} 버스를 타고 어디로 갈까요?`),
         h('p', {}, `오늘의 도장 장소로 바로 가요. 이번 턴은 주사위 대신 버스를 타요. (남은 버스 ${state.busRides}번)`),
         h('div', { class: 'bus-options' }, ...remainingTargets().map((id) => {
           const p = board.places[id];
@@ -397,7 +398,7 @@ export async function playBoard(stage: HTMLElement, data: RegionData, profile: P
     hearts.replaceChildren(...Array.from({ length: CONFIG.lives }, (_, i) => h('span', { class: `heart ${i < state.lives ? 'full' : 'empty'}` }, i < state.lives ? '❤️' : '🤍')));
     scoreEl.textContent = state.score.toLocaleString();
     turnEl.textContent = `턴 ${Math.min(state.turn, CONFIG.turnLimit)} / ${CONFIG.turnLimit}`;
-    stampCount.textContent = allStamped() ? '도장 완성! 조양문으로!' : `오늘의 도장 ${state.stamps.size} / ${targets.length}`;
+    stampCount.textContent = allStamped() ? `도장 완성! ${REGION.startTo}!` : `오늘의 도장 ${state.stamps.size} / ${targets.length}`;
     stampCount.classList.toggle('ready', allStamped());
     busCount.textContent = `×${state.busRides}`;
     busBtn.classList.toggle('empty', !canRideBus());

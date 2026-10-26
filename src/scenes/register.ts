@@ -6,6 +6,7 @@ import { affiliationKey, affiliationProblem, nicknameProblem } from '../../api/_
 import { gradeLabel } from '../../api/_lib/grades';
 import { h } from '../ui/dom';
 import { homeButton } from '../ui/home';
+import { REGION } from '../region';
 
 const SOLO = '개인';
 
@@ -37,7 +38,7 @@ export function registerScreen(stage: HTMLElement, data: RegionData, event: Even
 
     const stepAffiliation = () => {
       setStep(0);
-      const input = h('input', { class: 'text-input', maxlength: 20, placeholder: '예: 홍성초등학교', value: profile.affiliation === SOLO ? '' : profile.affiliation, autocomplete: 'off' });
+      const input = h('input', { class: 'text-input', maxlength: 20, placeholder: `예: ${REGION.schoolExample}`, value: profile.affiliation === SOLO ? '' : profile.affiliation, autocomplete: 'off' });
       const msg = h('div', { class: 'reg-msg' });
       const chips = h('div', { class: 'chips' });
       const { el, next } = nav(() => {
